@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: '14'
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
@@ -24,8 +24,5 @@ jobs:
         run: |
           npm i
           NODE_ENV=production npm run build
-          cd dist
-          git init
-          git add -A
           git commit -m "🚀 Deploy id ${GITHUB_RUN_ID}"
           git push -f "https://github.com/${GITHUB_REPOSITORY}.git" master:gh-pages
