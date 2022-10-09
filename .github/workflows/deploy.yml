@@ -24,5 +24,6 @@ jobs:
         run: |
           npm i
           NODE_ENV=production npm run build
+          git add --force dist/
           git commit -m "🚀 Deploy id ${GITHUB_RUN_ID}"
-          git push -f "https://github.com/${GITHUB_REPOSITORY}.git" master:gh-pages
+          git push origin gh-pages
