@@ -272,5 +272,10 @@ export const updateGame = ({ state, getters, commit }) => {
 
     });
 
+    if (!state.gameState.currentEnemy.label) {
+        state.gameState.player.health = getters.getEquippedPlayer.maxHealth
+        state.gameState.player.mana = state.gameState.player.maxMana
+    }
+
     commit('updateGame')
 }
