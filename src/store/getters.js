@@ -1,3 +1,5 @@
+export const getTimeElapsed = (state) => state.gameState.timeElapsed
+
 export const getPlayer = (state) => state.gameState.player
 
 export const getEnemies = (state) => state.gameState.enemies

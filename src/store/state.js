@@ -1,5 +1,7 @@
 export default () => ({
     gameState: {
+        timeElapsed: 0,
+
         player: {
             label: 'Hero',
             coins: 0,
@@ -29,94 +31,7 @@ export default () => ({
                 fishing: 333000,
             },
 
-            inventory: [
-                {
-                    label: 'Pack Shield',
-                    name: 'packShield',
-                    specialEffect: 'ignoresEnemyDefense',
-                    effectLore: "Ignores the enemy's defense",
-                    type: 'accessory',
-                    miningSpeedBonus: 0,
-                    miningLuckBonus: 0,
-                    fishingLuckBonus: 0,
-                    healthBonus: 0,
-                    defenseBonus: 0,
-                    strengthBonus: 0,
-                    manaCost: 0,
-                    healing: 0,
-                    regeneration: 0,
-                },
-                {
-                    label: 'Pixie Armor',
-                    name: 'pixieArmor',
-                    type: 'armor',
-                    miningSpeedBonus: 0,
-                    miningLuckBonus: 0,
-                    fishingLuckBonus: 0,
-                    healthBonus: 0,
-                    defenseBonus: 7,
-                    strengthBonus: 0,
-                    manaCost: 0,
-                    healing: 0,
-                    regeneration: 2,
-                },
-                {
-                    label: 'Omega Pickaxe ⭐⭐⭐⭐⭐',
-                    name: 'omegaPickaxe',
-                    type: 'tool',
-                    miningSpeedBonus: 8,
-                    miningLuckBonus: 8,
-                    fishingLuckBonus: 0,
-                    healthBonus: 0,
-                    defenseBonus: 0,
-                    strengthBonus: 0,
-                    manaCost: 0,
-                    healing: 0,
-                    regeneration: 0,
-                },
-                {
-                    label: 'Fir Rod',
-                    name: 'firRod',
-                    type: 'rod',
-                    miningSpeedBonus: 0,
-                    miningLuckBonus: 0,
-                    fishingLuckBonus: 5,
-                    healthBonus: 0,
-                    defenseBonus: 0,
-                    strengthBonus: 0,
-                    manaCost: 0,
-                    healing: 0,
-                    regeneration: 5,
-                },
-
-                {
-                    label: 'Wrath Weight',
-                    name: 'wrathWeight',
-                    type: 'weapon',
-                    miningSpeedBonus: 0,
-                    miningLuckBonus: 0,
-                    fishingLuckBonus: 0,
-                    healthBonus: 0,
-                    defenseBonus: 0,
-                    strengthBonus: 900000,
-                    manaCost: 0,
-                    healing: 0,
-                    regeneration: 0,
-                },
-                {
-                    label: 'Wand Of Healing',
-                    name: 'wandOfHealing',
-                    type: 'wand',
-                    miningSpeedBonus: 0,
-                    miningLuckBonus: 0,
-                    fishingLuckBonus: 0,
-                    healthBonus: 0,
-                    defenseBonus: 0,
-                    strengthBonus: 0,
-                    manaCost: 1,
-                    healing: 3,
-                    regeneration: 0,
-                },],
+            inventory: [],
 
             equippedItems: [],
 
@@ -161,7 +76,7 @@ export default () => ({
                     categoryType: 'enemies',
                     subcategoryType: 'worm'
                 },
-                requiredMilestoneAmount: 5,
+                requiredMilestoneAmount: 50,
             },
 
             {
@@ -181,7 +96,7 @@ export default () => ({
                     categoryType: 'enemies',
                     subcategoryType: 'bat'
                 },
-                requiredMilestoneAmount: 5,
+                requiredMilestoneAmount: 50,
             },
 
             {
@@ -202,7 +117,7 @@ export default () => ({
                     categoryType: 'enemies',
                     subcategoryType: 'rat'
                 },
-                requiredMilestoneAmount: 5,
+                requiredMilestoneAmount: 50,
             },
 
             {
@@ -223,7 +138,7 @@ export default () => ({
                     categoryType: 'enemies',
                     subcategoryType: 'spider'
                 },
-                requiredMilestoneAmount: 5,
+                requiredMilestoneAmount: 50,
             },
 
             {
@@ -244,7 +159,7 @@ export default () => ({
                     categoryType: 'enemies',
                     subcategoryType: 'wolf'
                 },
-                requiredMilestoneAmount: 5,
+                requiredMilestoneAmount: 50,
             },
 
             {
@@ -261,7 +176,7 @@ export default () => ({
                     categoryType: 'enemies',
                     subcategoryType: 'giantWolf'
                 },
-                requiredMilestoneAmount: 5,
+                requiredMilestoneAmount: 50,
             },
 
             {
@@ -282,7 +197,7 @@ export default () => ({
                     categoryType: 'enemies',
                     subcategoryType: 'bear'
                 },
-                requiredMilestoneAmount: 5,
+                requiredMilestoneAmount: 50,
             },
 
             {
@@ -299,7 +214,7 @@ export default () => ({
                     categoryType: 'enemies',
                     subcategoryType: 'giantSpider'
                 },
-                requiredMilestoneAmount: 5,
+                requiredMilestoneAmount: 50,
             },
 
             {
@@ -320,7 +235,7 @@ export default () => ({
                     categoryType: 'enemies',
                     subcategoryType: 'giantBear'
                 },
-                requiredMilestoneAmount: 5,
+                requiredMilestoneAmount: 50,
             },
         ],
 
@@ -397,29 +312,6 @@ export default () => ({
         fishingLootTable: [
 
             // Tier I
-
-            /* 
- T3
-1 = bass x 25 + FL
-2 = carp x 25 + FL
-3 = rare treasure x 1
-4 = epic treasure x 1
-5 = great white shark tooth x 1
-6 = T4
- T4
-1 = carp x 30 + FL
-2 = rare treasure x 2
-3 = carp x 40 + FL
-4 = epic treasure x 1
-5 = megalodon tooth
-6 = T5
- T5
-1 = carp x 50 + FL
-2 = epic treasure x 2
-3 = legendary treasure x1
-4 = carp x 75 + FL
-5 = carp x 100 + FL
-6 = legendary treasure x 2*/
 
             [{
                 drop: 'cod',
@@ -1620,42 +1512,6 @@ export default () => ({
                     amount: 1,
                 }],
             },
-
-            // Debug
-
-            {
-                unlocked: false,
-                label: 'Lucky Rod',
-                name: 'luckyRod',
-                goldPrice: 200,
-                materialPrices: [
-                    { material: { name: 'stone', type: 'mining' }, amount: 20 },
-                ],
-                equipmentPrices: [{
-                    label: 'Pixie Armor',
-                    name: 'pixieArmor',
-                    amount: 1,
-                }],
-                requiredMilestoneType: {
-                    categoryType: 'altogether',
-                    subcategoryType: 'mining'
-                },
-                requiredMilestoneAmount: 5,
-            },
-
-            {
-                unlocked: false,
-                label: 'Super POW',
-                name: 'luckyRod',
-                goldPrice: 666,
-                materialPrices: [
-                    { material: { name: 'diamond', type: 'mining' }, amount: 111 },
-                ],
-                requiredSkill: {
-                    skill: 'combat',
-                    level: 2,
-                }
-            }
         ],
 
         combatLog: [],

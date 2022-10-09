@@ -242,4 +242,8 @@ export const updateGame = (state) => {
         state.gameState.player.currentFishingCooldown--
     }
 
+    // Raise timeElapsed by 1
+
+    state.gameState.timeElapsed++
+
 }

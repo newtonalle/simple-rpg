@@ -16,6 +16,26 @@ import Materials from "./components/Materials.vue";
 import Shop from "./components/Shop.vue";
 
 export default {
+  data: () => ({
+    setIntervalId: 0,
+  }),
+
   components: { Crafting, Materials, Shop },
+
+  methods: {
+    updateGame() {
+      this.$store.dispatch("updateGame");
+    },
+  },
+
+  created() {
+    this.setIntervalId = setInterval(() => {
+      this.updateGame();
+    }, 1000);
+  },
+
+  destroyed() {
+    clearInterval(this.setIntervalId);
+  },
 };
 </script>
