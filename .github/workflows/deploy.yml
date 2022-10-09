@@ -7,8 +7,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PERSONAL_TOKEN }}
         with:
           node-version: '12'
       - name: setup git auth
@@ -16,8 +18,6 @@ jobs:
           email: 'newtonalle@gmail.com'
           username: 'newtonalle'
         run: |
-          git config --global credential.helper store
-          echo "https://${{secrets.GITHUB_TOKEN}}:x-oauth-basic@github.com" > ~/.git-credentials
           git config --global user.email $email
           git config --global user.name $username
       - name: deploy to gh-pages
