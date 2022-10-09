@@ -17,7 +17,7 @@ jobs:
           username: 'newtonalle'
         run: |
           git config --global credential.helper store
-          echo "https://${secrets.GITHUB_TOKEN }:x-oauth-basic@github.com" > ~/.git-credentials
+          echo "https://${secrets.GITHUB_TOKEN}:x-oauth-basic@github.com" > ~/.git-credentials
           git config --global user.email $email
           git config --global user.name $username
       - name: deploy to gh-pages
