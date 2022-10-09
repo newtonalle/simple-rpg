@@ -701,7 +701,7 @@ export default () => ({
                     name: 'commonTreasure',
                     symbol: '📦',
                     amount: 0,
-                    prize: 100,
+                    prize: 2000,
                     prizeNumbers: [1, 2, 3, 4, 5], // In an actual dice -> 2, 3, 4, 5 and 6
                     experience: 0,
                 },
@@ -711,7 +711,7 @@ export default () => ({
                     name: 'rareTreasure',
                     symbol: '📦',
                     amount: 0,
-                    prize: 500,
+                    prize: 4000,
                     prizeNumbers: [2, 3, 4, 5], // In an actual dice -> 3, 4, 5 and 6
                     experience: 0,
                 },
@@ -721,7 +721,7 @@ export default () => ({
                     name: 'epicTreasure',
                     symbol: '📦',
                     amount: 0,
-                    prize: 1000,
+                    prize: 8000,
                     prizeNumbers: [3, 4, 5], // In an actual dice -> 4, 5 and 6
                     experience: 0,
                 },
@@ -731,7 +731,7 @@ export default () => ({
                     name: 'legendaryTreasure',
                     symbol: '📦',
                     amount: 0,
-                    prize: 5000,
+                    prize: 15000,
                     prizeNumbers: [5], // In an actual dice -> 6
                     experience: 0,
                 },
