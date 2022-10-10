@@ -104,15 +104,18 @@ export const getPlayerSkillLevel = (state) => {
     playerSkillLevel.mining = 0
     playerSkillLevel.fishing = 0
 
-    for (let power = 0; state.gameState.player.skills.combat >= 100 * 1.5 ** power; power++) {
+    for (let power = 0; state.gameState.player.skills.combat >= Math.floor(100 * 1.5 ** power); power++) {
+        console.log(power)
         playerSkillLevel.combat = (power + 1)
     }
 
-    for (let power = 0; state.gameState.player.skills.mining >= 100 * 1.5 ** power; power++) {
+    for (let power = 0; state.gameState.player.skills.mining >= Math.floor(100 * 1.5 ** power); power++) {
+        console.log(power)
         playerSkillLevel.mining = (power + 1)
     }
 
-    for (let power = 0; state.gameState.player.skills.fishing >= 100 * 1.5 ** power; power++) {
+    for (let power = 0; state.gameState.player.skills.fishing >= Math.floor(100 * 1.5 ** power); power++) {
+        console.log(power)
         playerSkillLevel.fishing = (power + 1)
     }
 

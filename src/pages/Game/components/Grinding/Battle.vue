@@ -119,11 +119,6 @@ export default {
 
     heal() {
       this.$store.dispatch("healPlayer");
-
-      this.$store.dispatch("attack", {
-        user: "currentEnemy",
-        target: "player",
-      });
     },
 
     clearCombatLog() {

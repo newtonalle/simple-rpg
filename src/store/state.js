@@ -3,7 +3,7 @@ export default () => ({
         timeElapsed: 0,
 
         player: {
-            label: 'Weldenvarden',
+            label: 'Hero',
             coins: 0,
             health: 10,
             maxHealth: 10,
@@ -35,7 +35,7 @@ export default () => ({
 
             equippedItems: [],
 
-            baseAttackCooldown: 0,
+            baseAttackCooldown: 1,
             baseMiningCooldown: 10,
             baseFishingCooldown: 10,
             currentAttackCooldown: 0,
@@ -1519,7 +1519,7 @@ export default () => ({
         fishingLog: [],
 
         skillBonuses: {
-            combat: [{ strengthBonus: 0 }, { strengthBonus: 1 }, { strengthBonus: 1 }, { strengthBonus: 1 }, { strengthBonus: 1 }, { strengthBonus: 4 }, { strengthBonus: 4 }, { strengthBonus: 4 }, { strengthBonus: 4 }, { strengthBonus: 4 }, { strengthBonus: 5 }, { strengthBonus: 5 }, { strengthBonus: 5 }, { strengthBonus: 5 }, { strengthBonus: 5 }, { strengthBonus: 10 }, { strengthBonus: 10 }, { strengthBonus: 10 }, { strengthBonus: 10 }, { strengthBonus: 10 }, { strengthBonus: 10 }],
+            combat: [{ strengthBonus: 0 }, { strengthBonus: 1 }, { strengthBonus: 1 }, { strengthBonus: 1 }, { strengthBonus: 1 }, { strengthBonus: 5 }, { strengthBonus: 5 }, { strengthBonus: 5 }, { strengthBonus: 5 }, { strengthBonus: 5 }, { strengthBonus: 10 }, { strengthBonus: 10 }, { strengthBonus: 10 }, { strengthBonus: 10 }, { strengthBonus: 10 }, { strengthBonus: 20 }, { strengthBonus: 20 }, { strengthBonus: 20 }, { strengthBonus: 20 }, { strengthBonus: 20 }, { strengthBonus: 20 }],
             mining: [{
                 miningSpeedBonus: 0,
                 miningLuckBonus: 0,
