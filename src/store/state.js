@@ -795,14 +795,14 @@ export default () => ({
                 unlocked: false,
                 result: { name: 'wandOfMending', label: 'Wand of Mending', type: 'equipment' },
                 materialCosts: [
-                    { material: { name: 'wormHeart', type: 'enemies' }, amount: 1000 },
+                    { material: { name: 'wormHeart', type: 'enemies' }, amount: 500 },
                 ],
                 equipmentCosts: [{
                     label: 'Wand of Healing',
                     name: 'wandOfHealing',
                     amount: 1,
                 }],
-                goldCost: 10000,
+                goldCost: 2500,
                 requiredMilestoneType: {
                     categoryType: 'enemies',
                     subcategoryType: 'worm'
@@ -818,7 +818,7 @@ export default () => ({
                     name: 'wandOfHealing',
                     amount: 2,
                 }],
-                goldCost: 25000,
+                goldCost: 10000,
                 requiredMilestoneType: {
                     categoryType: 'enemies',
                     subcategoryType: 'worm'
@@ -848,7 +848,7 @@ export default () => ({
                 materialCosts: [
                     { material: { name: 'enchantedString', type: 'specialCrafting' }, amount: 100 },
                 ],
-                goldCost: 25000,
+                goldCost: 5000,
                 requiredMilestoneType: {
                     categoryType: 'enemies',
                     subcategoryType: 'spider'
@@ -860,14 +860,14 @@ export default () => ({
                 unlocked: false,
                 result: { name: 'voraciousHelmet', label: 'Voracious Helmet', type: 'equipment' },
                 materialCosts: [
-                    { material: { name: 'enchantedString', type: 'specialCrafting' }, amount: 250 },
+                    { material: { name: 'enchantedString', type: 'specialCrafting' }, amount: 150 },
                 ],
                 equipmentCosts: [{
                     label: 'Venomous Helmet',
                     name: 'venomousHelmet',
                     amount: 1,
                 }],
-                goldCost: 75000,
+                goldCost: 25000,
                 requiredMilestoneType: {
                     categoryType: 'enemies',
                     subcategoryType: 'spider'
@@ -888,21 +888,21 @@ export default () => ({
                     categoryType: 'enemies',
                     subcategoryType: 'wolf'
                 },
-                requiredMilestoneAmount: 500,
+                requiredMilestoneAmount: 250,
             },
 
             {
                 unlocked: false,
                 result: { name: 'packShield', label: 'Pack Shield', type: 'equipment' },
                 materialCosts: [
-                    { material: { name: 'werewolfTooth', type: 'specialCrafting' }, amount: 100 },
+                    { material: { name: 'werewolfTooth', type: 'specialCrafting' }, amount: 25 },
                 ],
-                goldCost: 10000,
+                goldCost: 5000,
                 requiredMilestoneType: {
                     categoryType: 'enemies',
                     subcategoryType: 'wolf'
                 },
-                requiredMilestoneAmount: 750,
+                requiredMilestoneAmount: 500,
             },
 
             // Werewolf Armor
@@ -913,12 +913,12 @@ export default () => ({
                 materialCosts: [
                     { material: { name: 'werewolfTooth', type: 'specialCrafting' }, amount: 50 },
                 ],
-                goldCost: 50000,
+                goldCost: 10000,
                 requiredMilestoneType: {
                     categoryType: 'enemies',
                     subcategoryType: 'wolf'
                 },
-                requiredMilestoneAmount: 1500,
+                requiredMilestoneAmount: 1000,
             },
 
             {
@@ -927,12 +927,12 @@ export default () => ({
                 materialCosts: [
                     { material: { name: 'werewolfTooth', type: 'specialCrafting' }, amount: 50 },
                 ],
-                goldCost: 50000,
+                goldCost: 10000,
                 requiredMilestoneType: {
                     categoryType: 'enemies',
                     subcategoryType: 'wolf'
                 },
-                requiredMilestoneAmount: 1500,
+                requiredMilestoneAmount: 1000,
             },
 
             {
@@ -941,12 +941,12 @@ export default () => ({
                 materialCosts: [
                     { material: { name: 'werewolfTooth', type: 'specialCrafting' }, amount: 50 },
                 ],
-                goldCost: 50000,
+                goldCost: 10000,
                 requiredMilestoneType: {
                     categoryType: 'enemies',
                     subcategoryType: 'wolf'
                 },
-                requiredMilestoneAmount: 1500,
+                requiredMilestoneAmount: 1000,
             },
 
             {
@@ -955,12 +955,12 @@ export default () => ({
                 materialCosts: [
                     { material: { name: 'werewolfTooth', type: 'specialCrafting' }, amount: 50 },
                 ],
-                goldCost: 50000,
+                goldCost: 10000,
                 requiredMilestoneType: {
                     categoryType: 'enemies',
                     subcategoryType: 'wolf'
                 },
-                requiredMilestoneAmount: 1500,
+                requiredMilestoneAmount: 1000,
             },
 
             // Fishing Armors
