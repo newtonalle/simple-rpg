@@ -1225,28 +1225,28 @@ export default () => ({
                 unlocked: true,
                 label: 'Leather Helmet',
                 name: 'leatherHelmet',
-                goldPrice: 500,
+                goldPrice: 250,
             },
 
             {
                 unlocked: true,
                 label: 'Leather Chestplate',
                 name: 'leatherChestplate',
-                goldPrice: 500,
+                goldPrice: 250,
             },
 
             {
                 unlocked: true,
                 label: 'Leather Leggings',
                 name: 'leatherLeggings',
-                goldPrice: 500,
+                goldPrice: 250,
             },
 
             {
                 unlocked: true,
                 label: 'Leather Boots',
                 name: 'leatherBoots',
-                goldPrice: 500,
+                goldPrice: 250,
             },
 
             // Chainmail Set
@@ -1255,28 +1255,28 @@ export default () => ({
                 unlocked: true,
                 label: 'Chainmail Helmet',
                 name: 'chainmailHelmet',
-                goldPrice: 1750,
+                goldPrice: 1250,
             },
 
             {
                 unlocked: true,
                 label: 'Chainmail Chestplate',
                 name: 'chainmailChestplate',
-                goldPrice: 1750,
+                goldPrice: 1250,
             },
 
             {
                 unlocked: true,
                 label: 'Chainmail Leggings',
                 name: 'chainmailLeggings',
-                goldPrice: 1750,
+                goldPrice: 1250,
             },
 
             {
                 unlocked: true,
                 label: 'Chainmail Boots',
                 name: 'chainmailBoots',
-                goldPrice: 1750,
+                goldPrice: 1250,
             },
 
             // Iron Set
@@ -1285,28 +1285,28 @@ export default () => ({
                 unlocked: true,
                 label: 'Iron Helmet',
                 name: 'ironHelmet',
-                goldPrice: 3000,
+                goldPrice: 2500,
             },
 
             {
                 unlocked: true,
                 label: 'Iron Chestplate',
                 name: 'ironChestplate',
-                goldPrice: 3000,
+                goldPrice: 2500,
             },
 
             {
                 unlocked: true,
                 label: 'Iron Leggings',
                 name: 'ironLeggings',
-                goldPrice: 3000,
+                goldPrice: 2500,
             },
 
             {
                 unlocked: true,
                 label: 'Iron Boots',
                 name: 'ironBoots',
-                goldPrice: 3000,
+                goldPrice: 2500,
             },
 
             // Diamond Set
@@ -1345,28 +1345,28 @@ export default () => ({
                 unlocked: true,
                 label: 'Reinforced Diamond Helmet',
                 name: 'reinforcedDiamondHelmet',
-                goldPrice: 18750,
+                goldPrice: 12500,
             },
 
             {
                 unlocked: true,
                 label: 'Reinforced Diamond Chestplate',
                 name: 'reinforcedDiamondChestplate',
-                goldPrice: 18750,
+                goldPrice: 12500,
             },
 
             {
                 unlocked: true,
                 label: 'Reinforced Diamond Leggings',
                 name: 'reinforcedDiamondLeggings',
-                goldPrice: 18750,
+                goldPrice: 12500,
             },
 
             {
                 unlocked: true,
                 label: 'Reinforced Diamond Boots',
                 name: 'reinforcedDiamondBoots',
-                goldPrice: 18750,
+                goldPrice: 12500,
             },
 
             // Pickaxes
@@ -1382,7 +1382,7 @@ export default () => ({
                 unlocked: false,
                 label: 'Gold Pickaxe',
                 name: 'goldPickaxe',
-                goldPrice: 5000,
+                goldPrice: 2500,
                 requiredSkill: {
                     skill: 'mining',
                     level: 1,
@@ -1393,7 +1393,7 @@ export default () => ({
                 unlocked: false,
                 label: 'Diamond Pickaxe',
                 name: 'diamondPickaxe',
-                goldPrice: 20000,
+                goldPrice: 10000,
                 requiredSkill: {
                     skill: 'mining',
                     level: 3,
@@ -1404,7 +1404,7 @@ export default () => ({
                 unlocked: false,
                 label: 'Reinforced Diamond Pickaxe',
                 name: 'reinforcedDiamondPickaxe',
-                goldPrice: 50000,
+                goldPrice: 25000,
                 requiredSkill: {
                     skill: 'mining',
                     level: 5,
@@ -1415,7 +1415,7 @@ export default () => ({
                 unlocked: false,
                 label: 'Mithril Pickaxe',
                 name: 'mithrilPickaxe',
-                goldPrice: 200000,
+                goldPrice: 100000,
                 requiredSkill: {
                     skill: 'mining',
                     level: 8,
@@ -1435,7 +1435,7 @@ export default () => ({
                 unlocked: true,
                 label: 'Iron Sword',
                 name: 'ironSword',
-                goldPrice: 750,
+                goldPrice: 500,
             },
 
             {
@@ -1465,7 +1465,7 @@ export default () => ({
                 unlocked: true,
                 label: 'Fishing Rod',
                 name: 'fishingRod',
-                goldPrice: 50000,
+                goldPrice: 20000,
             },
 
             {
