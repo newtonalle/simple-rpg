@@ -9,6 +9,25 @@
       game!
     </h3>
     <h3>And thank you for playing a for total of {{ timeElapsed }} seconds!</h3>
+    <h3>Import Save</h3>
+    <input placeholder="Input Save" type="text" v-model="importedSave" />
+    <button
+      style="margin-left: 20px"
+      class="btn btn-success"
+      @click="importGame"
+    >
+      Import Save
+    </button>
+    <br />
+    <br />
+    <input v-model="currentSave" />
+    <button
+      style="margin-left: 20px"
+      class="btn btn-success"
+      @click="exportGame"
+    >
+      Export Save
+    </button>
   </div>
 </template>
 
@@ -16,9 +35,15 @@
 export default {
   data: () => ({
     setIntervalId: 0,
+    importedSave: "",
+    currentSave: "",
   }),
 
   computed: {
+    gameState() {
+      return this.$store.getters.getGameState;
+    },
+
     timeElapsed() {
       return this.$store.getters.getTimeElapsed;
     },
@@ -27,6 +52,14 @@ export default {
   methods: {
     updateGame() {
       this.$store.dispatch("updateGame");
+    },
+
+    importGame() {
+      this.$store.dispatch("importGame", JSON.parse(this.importedSave));
+    },
+
+    exportGame() {
+      this.currentSave = JSON.stringify(this.gameState);
     },
   },
 

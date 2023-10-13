@@ -3,6 +3,8 @@ const clonedeep = require('lodash.clonedeep')
 
 export const setState = (prevState, newState) => Object.assign(prevState, newState)
 
+export const setGameState = (state, newGameState) => Object.assign(state.gameState, newGameState)
+
 export const newEnemy = (state, index) => {
 
     // Generates new enemy for the player to battle

@@ -2,6 +2,8 @@ import defaultState from './state'
 
 export const resetState = (context) => context.commit('setState', defaultState())
 
+export const importGame = (context, gameState) => context.commit('setGameState', gameState)
+
 export const newEnemy = (context, index) => context.commit('newEnemy', index)
 
 export const mineOre = (context, index) => {
