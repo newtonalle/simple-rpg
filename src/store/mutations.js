@@ -146,14 +146,6 @@ export const inflictDamage = (state, { inflictedDamage, target, wasCrit }) => {
                 state.gameState.combatLog.push(`Received ${recievedDrop.amount}x 🪙!`)
             }
         }
-        if (state.gameState.currentEnemy.coins.min) {
-            const earnedCoins = Math.floor(Math.random() * (state.gameState.currentEnemy.coins.max - state.gameState.currentEnemy.coins.min + 1)) + state.gameState.currentEnemy.coins.min
-            state.gameState.player.coins += earnedCoins
-            state.gameState.combatLog.push(`Received ${earnedCoins} coins!`)
-        } else {
-            state.gameState.player.coins += state.gameState.currentEnemy.coins
-            state.gameState.combatLog.push(`Received ${state.gameState.currentEnemy.coins} coins!`)
-        }
 
         if (state.gameState.player.skills.combat < state.gameState.player.skillLimits.combat) {
             state.gameState.player.skills.combat += state.gameState.currentEnemy.experience
