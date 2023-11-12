@@ -1953,6 +1953,7 @@ export const MATERIALS = [
         label: 'Yellow Cheese',
         type: 'enemyDrop',
         symbol: '🧀',
+        price: 50,
     },
 
     {
@@ -1960,6 +1961,7 @@ export const MATERIALS = [
         label: 'Green Cheese',
         type: 'enemyDrop',
         symbol: '🟩',
+        price: 100,
     },
 ]
 
@@ -2097,6 +2099,7 @@ export const MILESTONES = {
 
 export const ORE_VEINS = [
     {
+        id: 0,
         label: 'Stone',
         name: 'stone',
         dropId: 3,
@@ -2104,6 +2107,7 @@ export const ORE_VEINS = [
     },
 
     {
+        id: 1,
         label: 'Coal',
         name: 'coal',
         dropId: 4,
@@ -2115,6 +2119,7 @@ export const ORE_VEINS = [
     },
 
     {
+        id: 2,
         label: 'Iron',
         name: 'iron',
         dropId: 5,
@@ -2126,6 +2131,7 @@ export const ORE_VEINS = [
     },
 
     {
+        id: 3,
         label: 'Gold',
         name: 'gold',
         dropId: 6,
@@ -2137,6 +2143,7 @@ export const ORE_VEINS = [
     },
 
     {
+        id: 4,
         label: 'Diamond',
         name: 'diamond',
         dropId: 7,
@@ -2148,6 +2155,7 @@ export const ORE_VEINS = [
     },
 
     {
+        id: 5,
         label: 'Mithril',
         name: 'mithril',
         dropId: 8,
@@ -2859,3 +2867,199 @@ export const SHOP = [
         }],
     },
 ]
+
+export const SKILL_BONUSES = {
+    combat: [
+        { strengthBonus: 0 },
+        { strengthBonus: 1 },
+        { strengthBonus: 1 },
+        { strengthBonus: 1 },
+        { strengthBonus: 1 },
+        { strengthBonus: 5 },
+        { strengthBonus: 5 },
+        { strengthBonus: 5 },
+        { strengthBonus: 5 },
+        { strengthBonus: 5 },
+        { strengthBonus: 10 },
+        { strengthBonus: 10 },
+        { strengthBonus: 10 },
+        { strengthBonus: 10 },
+        { strengthBonus: 10 },
+        { strengthBonus: 20 },
+        { strengthBonus: 20 },
+        { strengthBonus: 20 },
+        { strengthBonus: 20 },
+        { strengthBonus: 20 },
+        { strengthBonus: 20 }],
+
+    mining: [{
+        miningSpeedBonus: 0,
+        miningLuckBonus: 0,
+    },
+
+    {
+        miningSpeedBonus: 0,
+        miningLuckBonus: 0,
+    },
+
+    {
+        miningSpeedBonus: 0,
+        miningLuckBonus: 0,
+    },
+
+    {
+        miningSpeedBonus: 1,
+        miningLuckBonus: 1,
+    },
+
+    {
+        miningSpeedBonus: 1,
+        miningLuckBonus: 1,
+    },
+
+    {
+        miningSpeedBonus: 2,
+        miningLuckBonus: 2,
+    },
+
+    {
+        miningSpeedBonus: 2,
+        miningLuckBonus: 2,
+    },
+
+    {
+        miningSpeedBonus: 2,
+        miningLuckBonus: 2,
+    },
+
+    {
+        miningSpeedBonus: 3,
+        miningLuckBonus: 5,
+    },
+
+    {
+        miningSpeedBonus: 3,
+        miningLuckBonus: 5,
+    },
+
+    {
+        miningSpeedBonus: 3,
+        miningLuckBonus: 5,
+    },
+
+    {
+        miningSpeedBonus: 3,
+        miningLuckBonus: 5,
+    },
+
+    {
+        miningSpeedBonus: 4,
+        miningLuckBonus: 8,
+    },
+
+    {
+        miningSpeedBonus: 4,
+        miningLuckBonus: 8,
+    },
+
+    {
+        miningSpeedBonus: 4,
+        miningLuckBonus: 8,
+    },
+
+    {
+        miningSpeedBonus: 6,
+        miningLuckBonus: 10,
+    },
+
+    {
+        miningSpeedBonus: 6,
+        miningLuckBonus: 10,
+    },
+
+    {
+        miningSpeedBonus: 6,
+        miningLuckBonus: 10,
+    },
+
+    {
+        miningSpeedBonus: 6,
+        miningLuckBonus: 10,
+    },
+
+    {
+        miningSpeedBonus: 6,
+        miningLuckBonus: 10,
+    },
+
+    {
+        miningSpeedBonus: 6,
+        miningLuckBonus: 10,
+    },
+
+    ],
+    fishing: [{
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    {
+        fishingLuckBonus: 0,
+    },
+    ],
+}

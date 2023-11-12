@@ -13,7 +13,7 @@
     <br />
     <br />
 
-    <h3>Import Save</h3>
+    <h3>Saving</h3>
     <input placeholder="Input Save" type="text" v-model="importedSave" />
     <button
       style="margin-left: 20px"

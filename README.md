@@ -31,3 +31,19 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     - Added a Mini Game System to some skills
     - Added a Tool/Weapon Swap Mechanic
 
+
+* Minigames
+    - Barra de ataque/crítico (Atacar bosses e minerar ores)
+    - Desviar dos ataques (grid)
+
+* Farming:
+    - Plantar
+    - Colher
+
+* Foraging:
+    - Mesmo que mining
+
+* Escolher setup pré-batalha
+    - 2 setups
+* Arrumar status assim que a batalha começar
+* Pesquisador na shop

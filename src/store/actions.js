@@ -9,9 +9,18 @@ export const newEnemy = (context, index) => context.commit('newEnemy', index)
 
 export const mineOre = (context, index) => {
 
-    context.state.gameState.player.currentMiningCooldown = context.getters.getEquippedPlayer.baseMiningCooldown
+    let miningCooldown = context.state.gameState.player.baseMiningCooldown - context.getters.getEquippedPlayer.miningSpeed
+
+    console.log(miningCooldown)
+
+    if (miningCooldown < 1) {
+        miningCooldown = 1
+    }
+
+    context.state.gameState.player.currentMiningCooldown = miningCooldown
+
     const amount = context.getters.getEquippedPlayer.miningLuck
-    context.commit("mineOre", { index, amount })
+    context.commit('mineOre', { amount, oreId: index })
 }
 
 /* 

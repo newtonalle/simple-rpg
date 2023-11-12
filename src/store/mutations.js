@@ -38,14 +38,15 @@ export const newEnemy = (state, index) => {
     state.gameState.combatLog.push(`! Engaged combat with ${state.gameState.currentEnemy.label}!`)
 }
 
-export const mineOre = (state, { oreId, amount }) => {
+export const mineOre = (state, { amount, oreId }) => {
+
 
     // Mines an ore
     if (state.gameState.player.skills.mining < state.gameState.player.skillLimits.mining) {
         state.gameState.player.skills.mining += ORE_VEINS[oreId].experience
     }
     state.gameState.materialAmounts[ORE_VEINS[oreId].dropId] += amount
-    state.gameState.milestoneAmounts.mining[ORE_VEINS[oreId].dropId]++
+    state.gameState.milestoneAmounts.mining[oreId]++
 
 }
 
