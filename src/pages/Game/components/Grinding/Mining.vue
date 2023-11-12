@@ -15,7 +15,7 @@
       <!-- Mine Ore Actions -->
 
       <div v-for="(ore, index) in ores" :key="`${ore.name}-${index}`">
-        <div v-if="ore.unlocked">
+        <div v-if="oreUnlocks[ore.id]">
           <button
             :disabled="player.currentMiningCooldown > 0"
             class="btn btn-secondary"
@@ -73,6 +73,10 @@ export default {
 
     ores() {
       return this.$store.getters.getOres;
+    },
+
+    oreUnlocks() {
+      return this.$store.getters.getOreUnlocks;
     },
   },
 };

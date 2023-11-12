@@ -18,11 +18,11 @@
       <!-- Menu showing all equipments equipped by the player, including their status -->
 
       <div
-        v-for="(item, index) in player.equippedItems"
-        :key="`equipment-${item.label}-${index}`"
+        v-for="(itemId, index) in player.equippedItems"
+        :key="`equipmentItemId-${itemId}-index-${index}`"
       >
         <equipment
-          :item="item"
+          :itemId="itemId"
           :itemEquippedStatus="true"
           @toggleItem="unequipItem(index)"
         />
@@ -43,13 +43,14 @@
       <!-- Menu showing all equipments not equipped by the player, including their status -->
 
       <div
-        v-for="(item, index) in player.inventory"
-        :key="`inventory-${item.label}-${index}`"
+        v-for="(itemId, index) in player.inventory"
+        :key="`inventoryItemId-${itemId}-index-${index}`"
       >
         <equipment
-          :item="item"
+          :itemId="itemId"
           :itemEquippedStatus="false"
           @toggleItem="equipItem(index)"
+          @removeEquipment="removeEquipment(index)"
         />
       </div>
       <br />
@@ -71,15 +72,15 @@ export default {
     unequipItem(index) {
       this.$store.dispatch("unequipItem", index);
     },
+
+    removeEquipment(index) {
+      this.$store.dispatch("removeEquipment", index);
+    },
   },
 
   computed: {
     player() {
       return this.$store.getters.getPlayer;
-    },
-
-    materials() {
-      return this.$store.getters.getMaterials;
     },
   },
 };

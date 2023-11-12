@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1>Tutorial & Introduction</h1>
+    <h1>Tutorial & Introduction 🖥️</h1>
     <br />
     <h4>
       The simple tasks in this game are currently fighting, mining and fishing,

@@ -4,71 +4,133 @@
 
     <br />
 
-    <h4>Enemy Drops 🗡️</h4>
+    <div class="row">
+      <div class="col-6">
+        <h4>Enemy Drops 🗡️</h4>
 
-    <br />
+        <br />
 
-    <div
-      v-for="(material, index) in materials.enemies"
-      :key="`enemyDrops-${material.label}-${index}`"
-    >
-      <h5>{{ material.label }}{{ material.symbol }} x{{ material.amount }}</h5>
-      <button
-        class="btn btn-success"
-        @click="sellItem(material.name, 'enemies')"
-        :disabled="material.amount <= 0"
-      >
-        Sell ({{ material.price }}x 🪙)
-      </button>
-      <br />
-      <br />
+        <div
+          v-for="(material, index) in materials"
+          :key="`enemyMaterials-${material.id}-index-${index}`"
+        >
+          <div v-if="material.type === 'enemyDrop'">
+            <h5>
+              {{ material.label }}{{ material.symbol }} x{{
+                materialAmounts[material.id]
+              }}
+            </h5>
+            <button
+              class="btn btn-success"
+              @click="sellItem(material.id)"
+              :disabled="materialAmounts[material.id] <= 0"
+            >
+              Sell ({{ material.price }}x 🪙)
+            </button>
+            <br />
+            <br />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <h4>Mining Drops 🪨</h4>
+
+        <br />
+
+        <div
+          v-for="(material, index) in materials"
+          :key="`miningMaterials-${material.id}-index-${index}`"
+        >
+          <div v-if="material.type === 'miningDrop'">
+            <h5>
+              {{ material.label }}{{ material.symbol }} x{{
+                materialAmounts[material.id]
+              }}
+            </h5>
+            <button
+              class="btn btn-success"
+              @click="sellItem(material.id)"
+              :disabled="materialAmounts[material.id] <= 0"
+            >
+              Sell ({{ material.price }}x 🪙)
+            </button>
+            <br />
+            <br />
+          </div>
+        </div>
+      </div>
     </div>
 
     <br />
+
+    <hr />
+
     <br />
-
-    <h4>Mining Drops 🪨</h4>
-
     <br />
+    <!-- 
+    <div class="row">
+      <div class="col-6">
+        <h4>Fish 🐟</h4>
 
-    <div
-      v-for="(material, index) in materials.mining"
-      :key="`miningDrops-${material.label}-${index}`"
-    >
-      <h5>{{ material.label }}{{ material.symbol }} x{{ material.amount }}</h5>
-      <button
-        class="btn btn-success"
-        @click="sellItem(material.name, 'mining')"
-        :disabled="material.amount <= 0"
-      >
-        Sell ({{ material.price }}x 🪙)
-      </button>
-      <br />
-      <br />
+        <br />
+
+        <div
+          v-for="(material, index) in materials"
+          :key="`fishingMaterials-${material.id}-index-${index}`"
+        >
+          <div v-if="material.type === 'fishingDrop'">
+            <h5>
+              {{ material.label }}{{ material.symbol }} x{{
+                materialAmounts[material.id]
+              }}
+            </h5>
+            <button
+              class="btn btn-success"
+              @click="sellItem(material.id)"
+              :disabled="materialAmounts[material.id] <= 0"
+            >
+              Sell ({{ material.price }}x 🪙)
+            </button>
+            <br />
+            <br />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <h4>Treasures 💰</h4>
+
+        <br />
+
+        <div
+          v-for="(material, index) in materials"
+          :key="`treasureMaterials-${material.id}-index-${index}`"
+        >
+          <div v-if="material.type === 'fishingTreasure'">
+            <h5>
+              {{ material.label }}{{ material.symbol }} x{{
+                materialAmounts[material.id]
+              }}
+            </h5>
+            <button
+              class="btn btn-success"
+              style="width: 200px"
+              @click="openTreasure(material.id)"
+              :disabled="materialAmounts[material.id] <= 0"
+            >
+              Open (+{{ material.prize }}x 🪙)
+            </button>
+            <br />
+            <br />
+          </div>
+        </div>
+      </div>
     </div>
 
     <br />
-    <br />
 
-    <h4>Fish 🐟</h4>
-
-    <br />
-
-    <div
-      v-for="(material, index) in materials.fishing"
-      :key="`fishingDropsFish-${material.label}-${index}`"
-    >
-      <h5>{{ material.label }}{{ material.symbol }} x{{ material.amount }}</h5>
-      <button
-        class="btn btn-success"
-        @click="sellItem(material.name, 'fishing')"
-        :disabled="material.amount <= 0"
-      >
-        Sell ({{ material.price }}x 🪙)
-      </button>
-      <br />
-      <br />
-    </div>
+    <hr />
 
     <br />
     <br />
@@ -78,38 +140,20 @@
     <br />
 
     <div
-      v-for="(material, index) in materials.specialDrops"
-      :key="`fishingDropsSpecial-${material.label}-${index}`"
+      v-for="(material, index) in materials"
+      :key="`specialFishingMaterials-${material.id}-index-${index}`"
     >
-      <h5>{{ material.label }}{{ material.symbol }} x{{ material.amount }}</h5>
-      <br />
+      <div v-if="material.type === 'specialFishingDrop'">
+        <h5>
+          {{ material.label }}{{ material.symbol }} x{{
+            materialAmounts[material.id]
+          }}
+        </h5>
+        <br />
+        <br />
+      </div>
     </div>
-
-    <br />
-    <br />
-
-    <h4>Treasures 💰</h4>
-
-    <br />
-
-    <div
-      v-for="(material, index) in materials.treasures"
-      :key="`fishingDropsTreasures-${material.label}-${index}`"
-    >
-      <h5>{{ material.label }}{{ material.symbol }} x{{ material.amount }}</h5>
-      <button
-        class="btn btn-success"
-        @click="openTreasure(material.name)"
-        :disabled="material.amount <= 0"
-      >
-        Open ({{ material.prize }}x 🪙)
-      </button>
-      <br />
-      <br />
-    </div>
-
-    <br />
-    <br />
+    -->
   </div>
 </template>
 
@@ -119,15 +163,19 @@ export default {
     materials() {
       return this.$store.getters.getMaterials;
     },
+
+    materialAmounts() {
+      return this.$store.getters.getMaterialAmounts;
+    },
   },
 
   methods: {
-    sellItem(item, type) {
-      this.$store.dispatch("sellItem", { item, type });
+    sellItem(materialId) {
+      this.$store.dispatch("sellItem", materialId);
     },
 
-    openTreasure(treasure) {
-      this.$store.dispatch("openTreasure", treasure);
+    openTreasure(materialId) {
+      this.$store.dispatch("openTreasure", materialId);
     },
   },
 };

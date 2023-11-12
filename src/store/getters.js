@@ -1,12 +1,20 @@
+import { ENEMIES, EQUIPMENTS, MATERIALS, MILESTONES, ORE_VEINS, RECIPES, SHOP } from './constants'
+
 export const getGameState = (state) => state.gameState
 
 export const getTimeElapsed = (state) => state.gameState.timeElapsed
 
 export const getPlayer = (state) => state.gameState.player
 
-export const getEnemies = (state) => state.gameState.enemies
+export const getEquipments = () => EQUIPMENTS
 
-export const getOres = (state) => state.gameState.ores
+export const getEnemies = () => ENEMIES
+
+export const getEnemyUnlocks = (state) => state.gameState.enemyUnlocks
+
+export const getOres = () => ORE_VEINS
+
+export const getOreUnlocks = (state) => state.gameState.oreUnlocks
 
 export const getCombatLog = (state) => state.gameState.combatLog
 
@@ -14,13 +22,21 @@ export const getFishingLog = (state) => state.gameState.fishingLog
 
 export const getCurrentEnemy = (state) => state.gameState.currentEnemy
 
-export const getMaterials = (state) => state.gameState.materials
+export const getMaterials = () => MATERIALS
 
-export const getMilestones = (state) => state.gameState.milestones
+export const getMaterialAmounts = (state) => state.gameState.materialAmounts
 
-export const getRecipes = (state) => state.gameState.recipes
+export const getMilestones = () => MILESTONES
 
-export const getShop = (state) => state.gameState.shop
+export const getMilestoneAmounts = (state) => state.gameState.milestoneAmounts
+
+export const getRecipes = () => RECIPES
+
+export const getRecipeUnlocks = (state) => state.gameState.recipeUnlocks
+
+export const getShop = () => SHOP
+
+export const getShopUnlocks = (state) => state.gameState.shopUnlocks
 
 export const getNumberOfEquipment = (state) => {
 
@@ -28,11 +44,11 @@ export const getNumberOfEquipment = (state) => {
 
     let equipmentAmounts = {}
 
-    state.gameState.player.inventory.forEach(equipment => {
-        if (equipmentAmounts[equipment.name]) {
-            equipmentAmounts[equipment.name]++
+    state.gameState.player.inventory.forEach(equipmentId => {
+        if (equipmentAmounts[EQUIPMENTS[equipmentId].name]) {
+            equipmentAmounts[EQUIPMENTS[equipmentId].name]++
         } else {
-            equipmentAmounts[equipment.name] = 1
+            equipmentAmounts[EQUIPMENTS[equipmentId].name] = 1
         }
     });
 
@@ -41,13 +57,13 @@ export const getNumberOfEquipment = (state) => {
 
 export const getTotalMilestoneStats = (state) => {
     let milestones = {
-        enemies: Object.values(state.gameState.milestones.enemies).reduce(
+        enemies: Object.values(state.gameState.milestoneAmounts.enemies).reduce(
             (enemiesKilled, enemyType) => enemiesKilled + enemyType.amount, 0),
 
-        mining: Object.values(state.gameState.milestones.mining).reduce(
+        mining: Object.values(state.gameState.milestoneAmounts.mining).reduce(
             (oresMined, oreType) => oresMined + oreType.amount, 0),
 
-        fishing: Object.values(state.gameState.milestones.fishing).reduce(
+        fishing: Object.values(state.gameState.milestoneAmounts.fishing).reduce(
             (fishFished, fishType) => fishFished + fishType.amount, 0),
 
     }
@@ -59,28 +75,37 @@ export const getTotalMilestoneStats = (state) => {
 
 export const getEquippedPlayer = (state) => {
     let equippedPlayer = {
-        maxHealth: state.gameState.player.maxHealth + state.gameState.player.equippedItems.reduce(
-            (healthBonus, item) => healthBonus + item.healthBonus, 0),
+        maxHealth: state.gameState.player.stats.maxHealth + state.gameState.player.equippedItems.reduce(
+            (healthBonus, itemId) => healthBonus + EQUIPMENTS[itemId].healthBonus, 0),
 
-        defense: state.gameState.player.defense + state.gameState.player.equippedItems.reduce(
-            (defenseBonus, item) => defenseBonus + item.defenseBonus, 0),
+        defense: state.gameState.player.stats.defense + state.gameState.player.equippedItems.reduce(
+            (defenseBonus, itemId) => defenseBonus + EQUIPMENTS[itemId].defenseBonus, 0),
 
-        strength: state.gameState.player.strength + state.gameState.skillBonuses.combat[getPlayerSkillLevel(state).combat].strengthBonus + state.gameState.player.equippedItems.reduce(
-            (strengthBonus, item) => strengthBonus + item.strengthBonus, 0),
+        strength: state.gameState.player.stats.strength + state.gameState.skillBonuses.combat[getPlayerSkillLevel(state).combat].strengthBonus + state.gameState.player.equippedItems.reduce(
+            (strengthBonus, itemId) => strengthBonus + EQUIPMENTS[itemId].strengthBonus, 0),
 
-        miningLuck: state.gameState.player.miningLuck + state.gameState.skillBonuses.mining[getPlayerSkillLevel(state).mining].miningLuckBonus + state.gameState.player.equippedItems.reduce(
-            (miningLuckBonus, item) => miningLuckBonus + item.miningLuckBonus, 0),
+        attackSpeed: state.gameState.player.stats.attackSpeed + state.gameState.player.equippedItems.reduce(
+            (attackSpeedBonus, itemId) => attackSpeedBonus + EQUIPMENTS[itemId].attackSpeedBonus, 0),
 
-        miningSpeed: state.gameState.player.miningSpeed + state.gameState.skillBonuses.mining[getPlayerSkillLevel(state).mining].miningSpeedBonus + state.gameState.player.equippedItems.reduce(
-            (miningSpeedBonus, item) => miningSpeedBonus + item.miningSpeedBonus, 0),
+        miningLuck: state.gameState.player.stats.miningLuck + state.gameState.skillBonuses.mining[getPlayerSkillLevel(state).mining].miningLuckBonus + state.gameState.player.equippedItems.reduce(
+            (miningLuckBonus, itemId) => miningLuckBonus + EQUIPMENTS[itemId].miningLuckBonus, 0),
 
-        fishingLuck: state.gameState.player.fishingLuck + state.gameState.skillBonuses.fishing[getPlayerSkillLevel(state).fishing].fishingLuckBonus + state.gameState.player.equippedItems.reduce(
-            (fishingLuckBonus, item) => fishingLuckBonus + item.fishingLuckBonus, 0),
+        miningSpeed: state.gameState.player.stats.miningSpeed + state.gameState.skillBonuses.mining[getPlayerSkillLevel(state).mining].miningSpeedBonus + state.gameState.player.equippedItems.reduce(
+            (miningSpeedBonus, itemId) => miningSpeedBonus + EQUIPMENTS[itemId].miningSpeedBonus, 0),
+
+        fishingLuck: state.gameState.player.stats.fishingLuck + state.gameState.skillBonuses.fishing[getPlayerSkillLevel(state).fishing].fishingLuckBonus + state.gameState.player.equippedItems.reduce(
+            (fishingLuckBonus, itemId) => fishingLuckBonus + EQUIPMENTS[itemId].fishingLuckBonus, 0),
+
+        critChance: state.gameState.player.stats.critChance + state.gameState.player.equippedItems.reduce(
+            (critChanceBonus, itemId) => critChanceBonus + EQUIPMENTS[itemId].critChanceBonus, 0),
+
+        critDamageMultiplier: state.gameState.player.stats.critDamageMultiplier + state.gameState.player.equippedItems.reduce(
+            (critDamageMultiplierBonus, itemId) => critDamageMultiplierBonus + EQUIPMENTS[itemId].critDamageMultiplierBonus, 0),
 
         baseAttackCooldown: state.gameState.player.baseAttackCooldown,
 
         baseMiningCooldown: state.gameState.player.baseMiningCooldown - state.gameState.player.equippedItems.reduce(
-            (miningSpeedBonus, item) => miningSpeedBonus + item.miningSpeedBonus, 0),
+            (miningSpeedBonus, itemId) => miningSpeedBonus + EQUIPMENTS[itemId].miningSpeedBonus, 0),
     }
 
 
@@ -91,8 +116,8 @@ export const getPlayerEquipment = (state) => {
 
     let playerEquipments = {}
 
-    state.gameState.player.equippedItems.forEach(item => {
-        playerEquipments[item.type] = item
+    state.gameState.player.equippedItems.forEach(itemId => {
+        playerEquipments[EQUIPMENTS[itemId].type] = EQUIPMENTS[itemId]
     });
 
 

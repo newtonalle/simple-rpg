@@ -7,7 +7,7 @@
           <hr class="divider" />
           <mining />
           <hr class="divider" />
-          <fishing />
+          <!--<fishing />-->
         </div>
         <div class="col-sm"><inventory /></div>
         <div class="col-sm"><milestones /></div>
@@ -21,14 +21,14 @@ import Battle from "./components/Grinding/Battle.vue";
 import Mining from "./components/Grinding/Mining.vue";
 import Milestones from "./components/Milestones/Milestones.vue";
 import Inventory from "./components/MainInventory/Inventory.vue";
-import Fishing from "./components/Grinding/Fishing.vue";
+// import Fishing from "./components/Grinding/Fishing.vue";
 
 export default {
   data: () => ({
     setIntervalId: 0,
   }),
 
-  components: { Battle, Mining, Fishing, Milestones, Inventory },
+  components: { Battle, Mining, /*Fishing,*/ Milestones, Inventory },
 
   methods: {
     updateGame() {

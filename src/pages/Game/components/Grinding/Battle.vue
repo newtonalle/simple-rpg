@@ -9,10 +9,21 @@
       <p class="fs-5">
         Combat Lvl. {{ playerSkills.combat }} ({{ player.skills.combat }} XP)
       </p>
-      <p>{{ player.health }}/{{ equippedPlayer.maxHealth }} ❤️</p>
-      <p>{{ player.mana }}/{{ player.maxMana }} 🪄</p>
-      <p>{{ equippedPlayer.strength }} 👊</p>
-      <p>{{ equippedPlayer.defense }} 🛡️</p>
+      <div class="row">
+        <div class="col">
+          <p>{{ player.stats.health }}/{{ equippedPlayer.maxHealth }} ❤️</p>
+          <p>{{ player.stats.mana }}/{{ player.stats.maxMana }} 🪄</p>
+        </div>
+        <div class="col">
+          <p>{{ equippedPlayer.strength }} 👊</p>
+          <p>{{ equippedPlayer.defense }} 🛡️</p>
+        </div>
+        <div class="col">
+          <p>{{ equippedPlayer.critChance }}% 💥🍀</p>
+          <p>{{ equippedPlayer.critDamageMultiplier }}x 💥👊</p>
+        </div>
+      </div>
+      <p>{{ equippedPlayer.attackSpeed }}⚡</p>
       <p>{{ player.coins }} 🪙</p>
     </div>
 
@@ -22,9 +33,11 @@
 
     <div v-if="currentEnemy.label">
       <h3>{{ currentEnemy.label }}</h3>
-      <p>{{ currentEnemy.health }}/{{ currentEnemy.maxHealth }} ❤️</p>
-      <p>{{ currentEnemy.strength }} 👊</p>
-      <p>{{ currentEnemy.defense }} 🛡️</p>
+      <p>
+        {{ currentEnemy.stats.health }}/{{ currentEnemy.stats.maxHealth }} ❤️
+      </p>
+      <p>{{ currentEnemy.stats.strength }} 👊</p>
+      <p>{{ currentEnemy.stats.defense }} 🛡️</p>
 
       <!-- Player Actions -->
 
@@ -47,8 +60,8 @@
         <br />
         <button
           :disabled="
-            player.mana - playerEquipments.wand.manaCost < 0 ||
-            player.health >= equippedPlayer.maxHealth
+            player.stats.mana - playerEquipments.wand.manaCost < 0 ||
+            player.stats.health >= equippedPlayer.maxHealth
           "
           class="btn btn-success"
           @click="heal"
@@ -64,7 +77,7 @@
     <!-- Starting Battle Actions -->
 
     <div v-for="(enemy, index) in enemies" :key="`${enemy.label}-${index}`">
-      <div v-if="enemy.unlocked">
+      <div v-if="enemyUnlocks[enemy.id]">
         <button
           class="btn btn-success"
           @click="fight(index)"
@@ -149,6 +162,10 @@ export default {
 
     enemies() {
       return this.$store.getters.getEnemies;
+    },
+
+    enemyUnlocks() {
+      return this.$store.getters.getEnemyUnlocks;
     },
 
     milestones() {

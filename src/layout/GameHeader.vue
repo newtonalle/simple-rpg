@@ -7,7 +7,8 @@
           style="margin-left: 10px"
           class="navbar-brand"
           :to="{ name: 'game' }"
-          >Simple RPG</router-link
+          >Simple RPG
+          <h6 class="text-sm">Version 1.1</h6></router-link
         >
 
         <button
@@ -37,6 +38,18 @@
               :class="['nav-link', $route.name === 'tutorial' ? 'active' : '']"
               :to="{ name: 'tutorial' }"
               >Tutorial</router-link
+            >
+
+            <router-link
+              :class="['nav-link', $route.name === 'wiki' ? 'active' : '']"
+              :to="{ name: 'wiki' }"
+              >Wiki</router-link
+            >
+
+            <router-link
+              :class="['nav-link', $route.name === 'updates' ? 'active' : '']"
+              :to="{ name: 'updates' }"
+              >Updates</router-link
             >
 
             <router-link

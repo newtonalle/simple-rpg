@@ -1,5 +1,7 @@
 <template>
   <div class="text-center">
+    <h1>Inventory & Shop 👜</h1>
+    <br />
     <div class="container">
       <div class="row">
         <div class="col-sm"><crafting /></div>
