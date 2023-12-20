@@ -26,6 +26,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### Update 1.2
 
 - Crit Bar glitches when reentering screen ?
+- Equip in battle
 
 - Make Grid Accept other sizes
 
@@ -37,6 +38,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * Weapon/Armor Skills, 
 * Magic Damage/Ranged Damage
 * Movement Speed
+
+* Enemy True Damage & Percentage Damage
 
 * Fazer Wiki & Tutorial - Gi
 

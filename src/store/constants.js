@@ -696,7 +696,7 @@ export const ENEMIES = [
         id: 0,
         label: 'Worm',
         type: 'boss',
-        attackPatterns: [[[[2, 1, 0, 0, 0], [0, 0, 2, 1, 0]], [[0, 0, 2, 1, 0], [2, 1, 0, 0, 0]]]],
+        attackPatterns: [[[[2, 1], [0, 0], [2, 1]], [[0, 0], [2, 1], [0, 0]], [[2, 1], [0, 0], [2, 1]]]],
         stats: {
             maxHealth: 5,
             health: 5,
