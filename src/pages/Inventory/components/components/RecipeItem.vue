@@ -51,61 +51,61 @@
         {{ equipments[recipe.result.id].effectLore }}
       </p>
 
-      <p class="fw-bold" v-if="equipments[recipe.result.id].strengthBonus != 0">
+      <p class="fw-bold" v-if="equipments[recipe.result.id].strengthBonus">
         {{ equipments[recipe.result.id].strengthBonus }} 👊
       </p>
 
-      <p class="fw-bold" v-if="equipments[recipe.result.id].defenseBonus != 0">
+      <p class="fw-bold" v-if="equipments[recipe.result.id].defenseBonus">
         {{ equipments[recipe.result.id].defenseBonus }} 🛡️
       </p>
 
-      <p class="fw-bold" v-if="equipments[recipe.result.id].healthBonus != 0">
+      <p class="fw-bold" v-if="equipments[recipe.result.id].healthBonus">
         {{ equipments[recipe.result.id].healthBonus }} ❤️
       </p>
 
-      <p
-        class="fw-bold"
-        v-if="equipments[recipe.result.id].miningSpeedBonus != 0"
-      >
+      <p class="fw-bold" v-if="equipments[recipe.result.id].miningSpeedBonus">
         {{ equipments[recipe.result.id].miningSpeedBonus }} ⛏
       </p>
 
-      <p
-        class="fw-bold"
-        v-if="equipments[recipe.result.id].miningLuckBonus != 0"
-      >
-        {{ equipments[recipe.result.id].miningLuckBonus }} 🍀
+      <p class="fw-bold" v-if="equipments[recipe.result.id].miningLuckBonus">
+        {{ equipments[recipe.result.id].miningLuckBonus }} ⛏🍀
       </p>
 
-      <p
-        class="fw-bold"
-        v-if="equipments[recipe.result.id].fishingLuckBonus != 0"
-      >
+      <p class="fw-bold" v-if="equipments[recipe.result.id].foragingSpeedBonus">
+        {{ equipments[recipe.result.id].foragingSpeedBonus }} 🪓
+      </p>
+
+      <p class="fw-bold" v-if="equipments[recipe.result.id].foragingLuckBonus">
+        {{ equipments[recipe.result.id].foragingLuckBonus }} 🪓🍀
+      </p>
+
+      <p class="fw-bold" v-if="equipments[recipe.result.id].farmingLuckBonus">
+        {{ equipments[recipe.result.id].farmingLuckBonus }} 🌱🍀
+      </p>
+
+      <p class="fw-bold" v-if="equipments[recipe.result.id].fishingLuckBonus">
         {{ equipments[recipe.result.id].fishingLuckBonus }} 🐟
       </p>
 
-      <p class="fw-bold" v-if="equipments[recipe.result.id].manaCost != 0">
+      <p class="fw-bold" v-if="equipments[recipe.result.id].manaCost">
         {{ equipments[recipe.result.id].manaCost }} 🪄
       </p>
 
-      <p class="fw-bold" v-if="equipments[recipe.result.id].healing != 0">
+      <p class="fw-bold" v-if="equipments[recipe.result.id].healing">
         {{ equipments[recipe.result.id].healing }} ️‍🩹
       </p>
 
-      <p class="fw-bold" v-if="equipments[recipe.result.id].regeneration != 0">
+      <p class="fw-bold" v-if="equipments[recipe.result.id].regeneration">
         {{ equipments[recipe.result.id].regeneration }} ️‍💗
       </p>
 
-      <p
-        class="fw-bold"
-        v-if="equipments[recipe.result.id].critChanceBonus != 0"
-      >
+      <p class="fw-bold" v-if="equipments[recipe.result.id].critChanceBonus">
         {{ equipments[recipe.result.id].critChanceBonus }}% ️💥🍀
       </p>
 
       <p
         class="fw-bold"
-        v-if="equipments[recipe.result.id].critDamageMultiplierBonus != 0"
+        v-if="equipments[recipe.result.id].critDamageMultiplierBonus"
       >
         {{ equipments[recipe.result.id].critDamageMultiplierBonus }}x ️💥👊
       </p>
@@ -144,11 +144,7 @@ export default {
 
       if (this.recipes[this.index].equipmentCosts) {
         this.recipes[this.index].equipmentCosts.forEach((equipmentCost) => {
-          if (
-            !this.numberOfEquipment[this.equipments[equipmentCost.id].name] ||
-            this.numberOfEquipment[this.equipments[equipmentCost.id].name] <
-              equipmentCost.amount
-          ) {
+          if (this.numberOfEquipment[equipmentCost.id] < equipmentCost.amount) {
             result = false;
           }
         });

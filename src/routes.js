@@ -4,6 +4,7 @@ import Credits from './pages/Credits/Credits.vue'
 import Tutorial from './pages/Tutorial/Tutorial.vue'
 import Wiki from './pages/Wiki/Wiki.vue'
 import Updates from './pages/Updates/Updates.vue'
+import Debug from './pages/Debug/DebugPage.vue'
 
 
 export default [
@@ -13,4 +14,5 @@ export default [
     { path: '/tutorial', component: Tutorial, name: 'tutorial' },
     { path: '/wiki', component: Wiki, name: 'wiki' },
     { path: '/updates', component: Updates, name: 'updates' },
+    { path: '/debug', component: Debug, name: 'debug' },
 ]

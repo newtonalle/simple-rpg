@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1>Credits ❤️</h1>
+    <h1>Credits <span @click="toDebugScreen()">❤️</span></h1>
     <h4>📝 Original Game made By Weldenvarden 📝</h4>
     <h4>💻 Online Adaptation made By Notwen 💻</h4>
     <br />
@@ -12,29 +12,6 @@
 
     <br />
     <br />
-
-    <h3>Saving</h3>
-    <input placeholder="Input Save" type="text" v-model="importedSave" />
-    <button
-      style="margin-left: 20px"
-      class="btn btn-success"
-      @click="importGame"
-    >
-      Import Save
-    </button>
-    <br />
-    <br />
-    <input
-      v-model="currentSave"
-      placeholder="The Exported Save will Appear Here"
-    />
-    <button
-      style="margin-left: 20px"
-      class="btn btn-success"
-      @click="exportGame"
-    >
-      Export Save
-    </button>
   </div>
 </template>
 
@@ -42,15 +19,9 @@
 export default {
   data: () => ({
     setIntervalId: 0,
-    importedSave: "",
-    currentSave: "",
   }),
 
   computed: {
-    gameState() {
-      return this.$store.getters.getGameState;
-    },
-
     timeElapsed() {
       return this.$store.getters.getTimeElapsed;
     },
@@ -61,12 +32,8 @@ export default {
       this.$store.dispatch("updateGame");
     },
 
-    importGame() {
-      this.$store.dispatch("importGame", JSON.parse(this.importedSave));
-    },
-
-    exportGame() {
-      this.currentSave = JSON.stringify(this.gameState);
+    toDebugScreen() {
+      this.$router.push({ name: "debug" });
     },
   },
 

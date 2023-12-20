@@ -47,61 +47,61 @@
         {{ equipments[item.equipmentId].effectLore }}
       </p>
 
-      <p class="fw-bold" v-if="equipments[item.equipmentId].strengthBonus != 0">
+      <p class="fw-bold" v-if="equipments[item.equipmentId].strengthBonus">
         {{ equipments[item.equipmentId].strengthBonus }} 👊
       </p>
 
-      <p class="fw-bold" v-if="equipments[item.equipmentId].defenseBonus != 0">
+      <p class="fw-bold" v-if="equipments[item.equipmentId].defenseBonus">
         {{ equipments[item.equipmentId].defenseBonus }} 🛡️
       </p>
 
-      <p class="fw-bold" v-if="equipments[item.equipmentId].healthBonus != 0">
+      <p class="fw-bold" v-if="equipments[item.equipmentId].healthBonus">
         {{ equipments[item.equipmentId].healthBonus }} ❤️
       </p>
 
-      <p
-        class="fw-bold"
-        v-if="equipments[item.equipmentId].miningSpeedBonus != 0"
-      >
+      <p class="fw-bold" v-if="equipments[item.equipmentId].miningSpeedBonus">
         {{ equipments[item.equipmentId].miningSpeedBonus }} ⛏
       </p>
 
-      <p
-        class="fw-bold"
-        v-if="equipments[item.equipmentId].miningLuckBonus != 0"
-      >
-        {{ equipments[item.equipmentId].miningLuckBonus }} 🍀
+      <p class="fw-bold" v-if="equipments[item.equipmentId].miningLuckBonus">
+        {{ equipments[item.equipmentId].miningLuckBonus }} ⛏🍀
       </p>
 
-      <p
-        class="fw-bold"
-        v-if="equipments[item.equipmentId].fishingLuckBonus != 0"
-      >
+      <p class="fw-bold" v-if="equipments[item.equipmentId].foragingSpeedBonus">
+        {{ equipments[item.equipmentId].foragingSpeedBonus }} 🪓
+      </p>
+
+      <p class="fw-bold" v-if="equipments[item.equipmentId].foragingLuckBonus">
+        {{ equipments[item.equipmentId].foragingLuckBonus }} 🪓🍀
+      </p>
+
+      <p class="fw-bold" v-if="equipments[item.equipmentId].farmingLuckBonus">
+        {{ equipments[item.equipmentId].farmingLuckBonus }} 🌱🍀
+      </p>
+
+      <p class="fw-bold" v-if="equipments[item.equipmentId].fishingLuckBonus">
         {{ equipments[item.equipmentId].fishingLuckBonus }} 🐟
       </p>
 
-      <p class="fw-bold" v-if="equipments[item.equipmentId].manaCost != 0">
+      <p class="fw-bold" v-if="equipments[item.equipmentId].manaCost">
         {{ equipments[item.equipmentId].manaCost }} 🪄
       </p>
 
-      <p class="fw-bold" v-if="equipments[item.equipmentId].healing != 0">
+      <p class="fw-bold" v-if="equipments[item.equipmentId].healing">
         {{ equipments[item.equipmentId].healing }} ️‍🩹
       </p>
 
-      <p class="fw-bold" v-if="equipments[item.equipmentId].regeneration != 0">
+      <p class="fw-bold" v-if="equipments[item.equipmentId].regeneration">
         {{ equipments[item.equipmentId].regeneration }} ️‍💗
       </p>
 
-      <p
-        class="fw-bold"
-        v-if="equipments[item.equipmentId].critChanceBonus != 0"
-      >
+      <p class="fw-bold" v-if="equipments[item.equipmentId].critChanceBonus">
         {{ equipments[item.equipmentId].critChanceBonus }}% ️💥🍀
       </p>
 
       <p
         class="fw-bold"
-        v-if="equipments[item.equipmentId].critDamageMultiplierBonus != 0"
+        v-if="equipments[item.equipmentId].critDamageMultiplierBonus"
       >
         {{ equipments[item.equipmentId].critDamageMultiplierBonus }}x ️💥👊
       </p>
@@ -141,9 +141,7 @@ export default {
       if (this.shop[this.index].equipmentPrices) {
         this.shop[this.index].equipmentPrices.forEach((equipmentPrice) => {
           if (
-            !this.numberOfEquipment[this.equipments[equipmentPrice.id].name] ||
-            this.numberOfEquipment[this.equipments[equipmentPrice.id].name] <
-              equipmentPrice.amount
+            this.numberOfEquipment[equipmentPrice.id] < equipmentPrice.amount
           ) {
             result = false;
           }

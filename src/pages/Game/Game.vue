@@ -7,6 +7,10 @@
           <hr class="divider" />
           <mining />
           <hr class="divider" />
+          <foraging />
+          <hr class="divider" />
+          <farming />
+          <hr class="divider" />
           <!--<fishing />-->
         </div>
         <div class="col-sm"><inventory /></div>
@@ -19,6 +23,8 @@
 <script>
 import Battle from "./components/Grinding/Battle.vue";
 import Mining from "./components/Grinding/Mining.vue";
+import Foraging from "./components/Grinding/Foraging.vue";
+import Farming from "./components/Grinding/Farming.vue";
 import Milestones from "./components/Milestones/Milestones.vue";
 import Inventory from "./components/MainInventory/Inventory.vue";
 // import Fishing from "./components/Grinding/Fishing.vue";
@@ -28,7 +34,14 @@ export default {
     setIntervalId: 0,
   }),
 
-  components: { Battle, Mining, /*Fishing,*/ Milestones, Inventory },
+  components: {
+    Battle,
+    Mining,
+    Foraging,
+    Farming,
+    /*Fishing,*/ Milestones,
+    Inventory,
+  },
 
   methods: {
     updateGame() {

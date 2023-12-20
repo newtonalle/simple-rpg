@@ -25,25 +25,23 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Update 1.2
 
-* Grinding skills
-    - Added Foraging
-    - Added Farming
-    - Added a Mini Game System to some skills
-    - Added a Tool/Weapon Swap Mechanic
+- Crit Bar glitches when reentering screen ?
 
+- Make Grid Accept other sizes
 
-* Minigames
-    - Barra de ataque/crítico (Atacar bosses e minerar ores)
-    - Desviar dos ataques (grid)
+- Min Cooldown to each tree/ore?
+- Base Cooldown for ores/trees
+- Amount attribute to ores/trees drops
 
-* Farming:
-    - Plantar
-    - Colher
+* Weapon Types
+* Weapon/Armor Skills, 
+* Magic Damage/Ranged Damage
+* Movement Speed
 
-* Foraging:
-    - Mesmo que mining
+* Fazer Wiki & Tutorial - Gi
 
-* Escolher setup pré-batalha
-    - 2 setups
-* Arrumar status assim que a batalha começar
-* Pesquisador na shop
+### Update 1.2.1
+
+* Cheat Prevention
+    - Equipping Rules (in mutations/actions)
+    - Item/Money Check (in mutations/actions)

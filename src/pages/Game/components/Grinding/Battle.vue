@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col">
           <p>{{ player.stats.health }}/{{ equippedPlayer.maxHealth }} ❤️</p>
-          <p>{{ player.stats.mana }}/{{ player.stats.maxMana }} 🪄</p>
+          <p>{{ player.stats.mana }}/{{ equippedPlayer.maxMana }} 🪄</p>
         </div>
         <div class="col">
           <p>{{ equippedPlayer.strength }} 👊</p>
@@ -39,36 +39,64 @@
       <p>{{ currentEnemy.stats.strength }} 👊</p>
       <p>{{ currentEnemy.stats.defense }} 🛡️</p>
 
-      <!-- Player Actions -->
+      <div v-if="currentEnemy.type === 'common'">
+        <!-- Common Battle -->
 
-      <!-- Attacking -->
+        <!-- Player Actions -->
 
-      <button
-        :disabled="player.currentAttackCooldown > 0"
-        class="btn btn-danger"
-        @click="attack"
-      >
-        Attack
-        <span v-if="player.currentAttackCooldown > 0"
-          >({{ player.currentAttackCooldown }}s)</span
-        >
-      </button>
+        <!-- Attacking -->
 
-      <!-- Healing -->
-
-      <div v-if="playerEquipments.wand">
-        <br />
         <button
-          :disabled="
-            player.stats.mana - playerEquipments.wand.manaCost < 0 ||
-            player.stats.health >= equippedPlayer.maxHealth
-          "
-          class="btn btn-success"
-          @click="heal"
+          :disabled="player.currentAttackCooldown > 0"
+          class="btn btn-danger"
+          @click="attack"
         >
-          Heal
-          <span>({{ playerEquipments.wand.manaCost }}🪄)</span>
+          Attack
+          <span v-if="player.currentAttackCooldown > 0"
+            >({{ player.currentAttackCooldown }}s)</span
+          >
         </button>
+
+        <!-- Healing -->
+
+        <div v-if="playerEquipments.wand">
+          <br />
+          <button
+            :disabled="
+              player.stats.mana - playerEquipments.wand.manaCost < 0 ||
+              player.stats.health >= equippedPlayer.maxHealth
+            "
+            class="btn btn-success"
+            @click="heal"
+          >
+            Heal
+            <span>({{ playerEquipments.wand.manaCost }}🪄)</span>
+          </button>
+        </div>
+      </div>
+      <div v-else-if="currentEnemy.type === 'boss'">
+        <!-- Boss Battle -->
+
+        <h2>BOSS BATTLE</h2>
+        <div>
+          <!-- Dodge Attack -->
+          <p>Dodge the Attacks using "WASD" keys to move!</p>
+          <dodge-board />
+        </div>
+
+        <br />
+        <br />
+
+        <div>
+          <!-- Attack -->
+
+          <crit-bar
+            :speed="17.539999"
+            :cooldown="player.currentAttackCooldown"
+            :hitText="`Attack`"
+            @critHit="critBarAttack"
+          />
+        </div>
       </div>
     </div>
 
@@ -79,7 +107,7 @@
     <div v-for="(enemy, index) in enemies" :key="`${enemy.label}-${index}`">
       <div v-if="enemyUnlocks[enemy.id]">
         <button
-          class="btn btn-success"
+          :class="`btn btn-${enemyButtonColor(enemy.type)}`"
           @click="fight(index)"
           :disabled="currentEnemy.label"
         >
@@ -108,10 +136,27 @@
 </template>
 
 <script>
+import CritBar from "./components/CritBar.vue";
+import DodgeBoard from "./components/DodgeBoard.vue";
 export default {
+  components: { CritBar, DodgeBoard },
+
   methods: {
     fight(index) {
       this.$store.dispatch("newEnemy", index);
+    },
+
+    critBarAttack(hitAccuracy) {
+      this.$store.dispatch("playerPassive");
+
+      this.$store.dispatch("critBarAttack", hitAccuracy);
+
+      if (this.currentEnemy.label) {
+        this.$store.dispatch("attack", {
+          user: "currentEnemy",
+          target: "player",
+        });
+      }
     },
 
     attack() {
@@ -136,6 +181,19 @@ export default {
 
     clearCombatLog() {
       this.$store.dispatch("clearCombatLog");
+    },
+
+    enemyButtonColor(enemyType) {
+      switch (enemyType) {
+        case "common":
+          return "success";
+
+        case "boss":
+          return "danger";
+
+        default:
+          return "warning";
+      }
     },
   },
 
@@ -182,6 +240,6 @@ export default {
 <style 
 scoped>
 button {
-  width: 150px;
+  width: 175px;
 }
 </style>

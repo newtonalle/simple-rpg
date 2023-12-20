@@ -8,7 +8,7 @@
           class="navbar-brand"
           :to="{ name: 'game' }"
           >Simple RPG
-          <h6 class="text-sm">Version 1.1</h6></router-link
+          <h6 class="text-sm">Version 1.2</h6></router-link
         >
 
         <button

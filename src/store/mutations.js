@@ -1,4 +1,4 @@
-import { ENEMIES, MATERIALS, ORE_VEINS, SHOP, RECIPES, EQUIPMENTS, /*FISHING_LOOT_TABLE*/ } from './constants'
+import { ENEMIES, MATERIALS, ORE_VEINS, CROPS, SHOP, RECIPES, EQUIPMENTS, PLANTS, /*FISHING_LOOT_TABLE*/ } from './constants'
 
 const clonedeep = require('lodash.clonedeep')
 
@@ -9,12 +9,10 @@ function calculateRolledDrop(possibleDrops) {
 
     possibleDrops.forEach(possibleDrop => {
         if (!calculatedDrop.drop) {
-            console.log(rollValue, possibleDrop.weigth)
             if (rollValue <= possibleDrop.weigth) {
                 calculatedDrop = possibleDrop
             } else {
                 rollValue -= possibleDrop.weigth
-                console.log(rollValue)
             }
 
         }
@@ -24,6 +22,7 @@ function calculateRolledDrop(possibleDrops) {
 
 }
 
+const COMBAT_LOG_LIMIT = 5
 
 
 export const setState = (prevState, newState) => Object.assign(prevState, newState)
@@ -32,14 +31,19 @@ export const setGameState = (state, newGameState) => Object.assign(state.gameSta
 
 export const newEnemy = (state, index) => {
 
+    // Resets Dodge Board
+
+    state.gameState.currentDodgeBoard.playerPos = [0, 0]
+    state.gameState.currentDodgeBoard.currentAttackStep = 0
+    state.gameState.currentDodgeBoard.attackBoard = [[[]]]
+
     // Generates new enemy for the player to battle
 
     state.gameState.currentEnemy = clonedeep(ENEMIES[index])
-    state.gameState.combatLog.push(`! Engaged combat with ${state.gameState.currentEnemy.label}!`)
+    state.gameState.combatLog.unshift(`! Engaged combat with ${state.gameState.currentEnemy.label}!`)
 }
 
 export const mineOre = (state, { amount, oreId }) => {
-
 
     // Mines an ore
     if (state.gameState.player.skills.mining < state.gameState.player.skillLimits.mining) {
@@ -47,6 +51,45 @@ export const mineOre = (state, { amount, oreId }) => {
     }
     state.gameState.materialAmounts[ORE_VEINS[oreId].dropId] += amount
     state.gameState.milestoneAmounts.mining[oreId]++
+
+}
+
+export const foragePlant = (state, { amount, plantId }) => {
+
+    // Forages a plant
+    if (state.gameState.player.skills.foraging < state.gameState.player.skillLimits.foraging) {
+        state.gameState.player.skills.foraging += PLANTS[plantId].experience
+    }
+    state.gameState.materialAmounts[PLANTS[plantId].dropId] += amount
+    state.gameState.milestoneAmounts.foraging[plantId]++
+
+}
+
+export const plantCrop = (state, cropId) => {
+
+    // Plants a crop in a plot
+
+    if (state.gameState.farming.cropPlots.length < state.gameState.farming.maxCropPlotSize && state.gameState.materialAmounts[CROPS[cropId].seedId] >= 1) {
+        state.gameState.materialAmounts[CROPS[cropId].seedId]--
+        state.gameState.farming.cropPlots.push({
+            id: clonedeep(CROPS[cropId].id),
+            growthTimer: clonedeep(CROPS[cropId].growthTime),
+        })
+    }
+}
+
+export const harvestCrop = (state, { amountBuff, cropId }) => {
+
+    // Harvests a fully grown crop
+
+    if (state.gameState.player.skills.farming < state.gameState.player.skillLimits.farming) {
+        state.gameState.player.skills.farming += CROPS[cropId].experience
+    }
+
+    const amount = Math.floor(Math.random() * (CROPS[cropId].drop.amount[1] - CROPS[cropId].drop.amount[0])) + CROPS[cropId].drop.amount[0]
+
+    state.gameState.materialAmounts[CROPS[cropId].drop.id] += amount + amountBuff
+    state.gameState.milestoneAmounts.farming[cropId]++
 
 }
 
@@ -109,16 +152,35 @@ export const clearFishingLog = (state) => {
 } 
 */
 
-export const inflictDamage = (state, { inflictedDamage, target, wasCrit }) => {
+export const inflictDamage = (state, { inflictedDamage, target, crit: { wasCrit, critType }, playerStats }) => {
 
     // Deal the amount of damage
 
     state.gameState[target].stats.health -= inflictedDamage
 
     if (wasCrit) {
-        state.gameState.combatLog.push(`CRIT! ${state.gameState[target].label} was heavily attacked for ${inflictedDamage} of damage!`)
+        switch (critType) {
+            case "normal":
+                state.gameState.combatLog.unshift(`CRIT! ${state.gameState[target].label} was heavily attacked for ${inflictedDamage} of damage!`)
+                break;
+
+            case "weak":
+                state.gameState.combatLog.unshift(`WEAK CRIT! ${state.gameState[target].label} was attacked for ${inflictedDamage} of damage!`)
+                break;
+
+            case "strong":
+                state.gameState.combatLog.unshift(`STRONG CRIT! ${state.gameState[target].label} was heavily attacked for ${inflictedDamage} of damage!`)
+                break;
+
+            case "extreme":
+                state.gameState.combatLog.unshift(`EXTREME CRIT! ${state.gameState[target].label} recieved a powerful blow that dealt ${inflictedDamage} of damage!`)
+                break;
+
+            default:
+                break;
+        }
     } else {
-        state.gameState.combatLog.push(`${state.gameState[target].label} was attacked for ${inflictedDamage} of damage!`)
+        state.gameState.combatLog.unshift(`${state.gameState[target].label} was attacked for ${inflictedDamage} of damage!`)
     }
 
     // If the health of the target drops to zero or less remove the currentEnemy
@@ -126,7 +188,7 @@ export const inflictDamage = (state, { inflictedDamage, target, wasCrit }) => {
     // If the enemy dies, drop the apropriate loot, account to the slayer milestone and add the xp to the player
 
     if (state.gameState.currentEnemy.stats.health <= 0) {
-        state.gameState.combatLog.push(`${state.gameState.currentEnemy.label} was defeated!`)
+        state.gameState.combatLog.unshift(`${state.gameState.currentEnemy.label} was defeated!`)
 
         if (state.gameState.currentEnemy.drops.length > 0) {
 
@@ -135,16 +197,16 @@ export const inflictDamage = (state, { inflictedDamage, target, wasCrit }) => {
             if (recievedDrop.drop.type === "material") {
 
                 state.gameState.materialAmounts[recievedDrop.drop.id] += recievedDrop.amount
-                state.gameState.combatLog.push(`Received ${recievedDrop.amount}x ${MATERIALS[recievedDrop.drop.id].label}!`)
+                state.gameState.combatLog.unshift(`Received ${recievedDrop.amount}x ${MATERIALS[recievedDrop.drop.id].label}!`)
 
             } else if (recievedDrop.drop.type === "equipment") {
 
                 state.gameState.player.inventory.push(recievedDrop.drop.id)
-                state.gameState.combatLog.push(`Received ${recievedDrop.amount}x ${EQUIPMENTS[recievedDrop.drop.id].label}!`)
+                state.gameState.combatLog.unshift(`Received ${recievedDrop.amount}x ${EQUIPMENTS[recievedDrop.drop.id].label}!`)
 
             } else if (recievedDrop.drop.type === "coin") {
                 state.gameState.player.coins += recievedDrop.amount
-                state.gameState.combatLog.push(`Received ${recievedDrop.amount}x 🪙!`)
+                state.gameState.combatLog.unshift(`Received ${recievedDrop.amount}x 🪙!`)
             }
         }
 
@@ -153,19 +215,22 @@ export const inflictDamage = (state, { inflictedDamage, target, wasCrit }) => {
         }
         state.gameState.milestoneAmounts.enemies[state.gameState.currentEnemy.id]++
         state.gameState.currentEnemy = {}
+        state.gameState.player.stats.health = playerStats.maxHealth
+        state.gameState.player.stats.mana = playerStats.maxMana
     }
 
     // If the player dies, take 10% of their coins and heal them back to life
 
     if (state.gameState.player.stats.health <= 0) {
-        state.gameState.combatLog.push(`${state.gameState.player.label} was defeated by ${state.gameState.currentEnemy.label} and lost 10% of your total coins!`)
+        state.gameState.combatLog.unshift(`${state.gameState.player.label} was defeated by ${state.gameState.currentEnemy.label} and lost 10% of your total coins!`)
         state.gameState.player.coins = Math.floor(state.gameState.player.coins / 100 * 90)
-        state.gameState.player.stats.health = state.gameState.player.stats.maxHealth // MAX HEALTH
+        state.gameState.player.stats.health = playerStats.maxHealth
+        state.gameState.player.stats.mana = playerStats.maxMana
         state.gameState.currentEnemy = {}
     }
 
-    while (state.gameState.combatLog.length > 5) {
-        state.gameState.combatLog.splice(0, 1)
+    while (state.gameState.combatLog.length > COMBAT_LOG_LIMIT) {
+        state.gameState.combatLog.splice(COMBAT_LOG_LIMIT, 1)
     }
 }
 
@@ -177,7 +242,7 @@ export const healPlayer = (state, { healing, manaCost, maxHealth }) => {
 
     // Heals the player for some amount of health, costing mana
 
-    state.gameState.combatLog.push(`${state.gameState.player.label} was healed for ${healing}!`)
+    state.gameState.combatLog.unshift(`${state.gameState.player.label} was healed for ${healing}!`)
 
     state.gameState.player.stats.mana -= manaCost
 
@@ -189,14 +254,19 @@ export const healPlayer = (state, { healing, manaCost, maxHealth }) => {
     }
 }
 
-export const equipItem = (state, index) => {
-    state.gameState.player.equippedItems.push(clonedeep(state.gameState.player.inventory[index]))
+export const equipItem = (state, { index, setupIndex }) => {
+    state.gameState.player.setups[setupIndex].push(clonedeep(state.gameState.player.inventory[index]))
     state.gameState.player.inventory.splice(index, 1)
 }
 
-export const unequipItem = (state, index) => {
-    state.gameState.player.inventory.push(clonedeep(state.gameState.player.equippedItems[index]))
-    state.gameState.player.equippedItems.splice(index, 1)
+export const unequipItem = (state, { index, setupIndex }) => {
+    state.gameState.player.inventory.push(clonedeep(state.gameState.player.setups[setupIndex][index]))
+    state.gameState.player.setups[setupIndex].splice(index, 1)
+
+}
+
+export const chooseEquippedSetup = (state, setupIndex) => {
+    state.gameState.player.equippedSetup = setupIndex
 
 }
 
@@ -275,17 +345,78 @@ export const openTreasure = (state, materialId) => {
     }
 }
 
+export const stepAttackBoard = (state) => {
+    state.gameState.currentDodgeBoard.currentAttackStep++
+    if (state.gameState.currentDodgeBoard.currentAttackStep > state.gameState.currentDodgeBoard.attackBoard[0][0].length) {
+        let randomAttack = clonedeep(state.gameState.currentEnemy.attackPatterns[Math.floor(Math.random() * state.gameState.currentEnemy.attackPatterns.length)])
+        state.gameState.currentDodgeBoard.attackBoard = randomAttack
+        state.gameState.currentDodgeBoard.currentAttackStep = 0
+    }
+}
+
+export const playerMove = (state, direction) => {
+    const playerPos = state.gameState.currentDodgeBoard.playerPos
+
+    switch (direction) {
+        case 0: // Left
+            if ((playerPos[1] - 1) >= 0) {
+                state.gameState.currentDodgeBoard.playerPos = [playerPos[0], (playerPos[1] - 1)]
+            }
+            break;
+
+        case 1: // Up
+            if ((playerPos[0] - 1) >= 0) {
+                state.gameState.currentDodgeBoard.playerPos = [(playerPos[0] - 1), playerPos[1]]
+            }
+            break;
+
+        case 2: // Right
+            if ((playerPos[1] + 1) <= 5) {
+                state.gameState.currentDodgeBoard.playerPos = [playerPos[0], (playerPos[1] + 1)]
+            }
+            break;
+
+        case 3: // Down
+            if ((playerPos[0] + 1) <= 5) {
+                state.gameState.currentDodgeBoard.playerPos = [(playerPos[0] + 1), playerPos[1]]
+            }
+            break;
+
+        default:
+            break;
+    }
+}
+
+export const resetPlayerStats = (state, { maxHealth, maxMana }) => {
+    if (!state.gameState.currentEnemy.label) {
+        state.gameState.player.stats.health = maxHealth
+        state.gameState.player.stats.mana = maxMana
+    }
+
+    if (state.gameState.player.stats.health > maxHealth) {
+        state.gameState.player.stats.health = maxHealth
+    }
+
+    if (state.gameState.player.stats.mana > maxMana) {
+        state.gameState.player.stats.mana = maxMana
+    }
+}
+
 export const updateGame = (state) => {
 
 
     state.gameState.milestoneAmounts.enemies.push()
     state.gameState.milestoneAmounts.mining.push()
+    state.gameState.milestoneAmounts.foraging.push()
+    state.gameState.milestoneAmounts.farming.push()
     state.gameState.milestoneAmounts.fishing.push()
 
     state.gameState.materialAmounts.push()
 
     state.gameState.enemyUnlocks.push()
     state.gameState.oreUnlocks.push()
+    state.gameState.plantUnlocks.push()
+    state.gameState.cropUnlocks.push()
     state.gameState.recipeUnlocks.push()
     state.gameState.shopUnlocks.push()
 
@@ -299,6 +430,17 @@ export const updateGame = (state) => {
     if (state.gameState.player.currentMiningCooldown > 0) {
         state.gameState.player.currentMiningCooldown--
     }
+
+    if (state.gameState.player.currentForagingCooldown > 0) {
+        state.gameState.player.currentForagingCooldown--
+    }
+
+
+    state.gameState.farming.cropPlots.forEach(crop => {
+        if (crop.growthTimer > 0) {
+            crop.growthTimer--
+        }
+    });
 
     if (state.gameState.player.currentFishingCooldown > 0) {
         state.gameState.player.currentFishingCooldown--

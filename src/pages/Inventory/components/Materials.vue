@@ -60,6 +60,71 @@
           </div>
         </div>
       </div>
+
+      <div class="col-6">
+        <h4>Foraging Drops 🪵</h4>
+
+        <br />
+
+        <div
+          v-for="(material, index) in materials"
+          :key="`foragingMaterials-${material.id}-index-${index}`"
+        >
+          <div v-if="material.type === 'foragingDrop'">
+            <h5>
+              {{ material.label }}{{ material.symbol }} x{{
+                materialAmounts[material.id]
+              }}
+            </h5>
+            <button
+              class="btn btn-success"
+              @click="sellItem(material.id)"
+              :disabled="materialAmounts[material.id] <= 0"
+            >
+              Sell ({{ material.price }}x 🪙)
+            </button>
+            <br />
+            <br />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <h4>Farming Drops/Seeds 🌱</h4>
+
+        <br />
+
+        <div
+          v-for="(material, index) in materials"
+          :key="`farmingMaterialsAndSeeds-${material.id}-index-${index}`"
+        >
+          <div v-if="material.type === 'farmingDrop'">
+            <h5>
+              {{ material.label }}{{ material.symbol }} x{{
+                materialAmounts[material.id]
+              }}
+            </h5>
+            <button
+              class="btn btn-success"
+              @click="sellItem(material.id)"
+              :disabled="materialAmounts[material.id] <= 0"
+            >
+              Sell ({{ material.price }}x 🪙)
+            </button>
+            <br />
+            <br />
+          </div>
+          <div v-else-if="material.type === 'farmingSeed'">
+            <h5>
+              {{ material.label }}{{ material.symbol }} x{{
+                materialAmounts[material.id]
+              }}
+            </h5>
+            <br />
+            <br />
+          </div>
+        </div>
+      </div>
     </div>
 
     <br />

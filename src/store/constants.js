@@ -7,85 +7,37 @@ export const EQUIPMENTS = [
     {
         id: 0,
         label: 'Leather Helmet',
-        name: 'leatherHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
         setLabel: 'Leather',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 1,
         label: 'Leather Chestplate',
-        name: 'leatherChestplate',
         type: 'chestplate',
         typeLabel: 'Chestplate',
         setLabel: 'Leather',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 2,
         label: 'Leather Leggings',
-        name: 'leatherLeggings',
         type: 'leggings',
         typeLabel: 'Leggings',
         setLabel: 'Leather',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 3,
         label: 'Leather Boots',
-        name: 'leatherBoots',
         type: 'boots',
         typeLabel: 'Boots',
         setLabel: 'Leather',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Chainmail Armor
@@ -93,89 +45,45 @@ export const EQUIPMENTS = [
     {
         id: 4,
         label: 'Chainmail Helmet',
-        name: 'chainmailHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
         set: 'chainmail',
         setLabel: 'Chainmail',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
         defenseBonus: 1,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 5,
         label: 'Chainmail Chestplate',
-        name: 'chainmailChestplate',
         type: 'chestplate',
         typeLabel: 'Chestplate',
         set: 'chainmail',
         setLabel: 'Chainmail',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
         defenseBonus: 1,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 6,
         label: 'Chainmail Leggings',
-        name: 'chainmailLeggings',
         type: 'leggings',
         typeLabel: 'Leggings',
         set: 'chainmail',
         setLabel: 'Chainmail',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
         defenseBonus: 1,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 7,
         label: 'Chainmail Boots',
-        name: 'chainmailBoots',
         type: 'boots',
         typeLabel: 'Boots',
         set: 'chainmail',
         setLabel: 'Chainmail',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
         defenseBonus: 1,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Iron Armor
@@ -183,89 +91,49 @@ export const EQUIPMENTS = [
     {
         id: 8,
         label: 'Iron Helmet',
-        name: 'ironHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
         set: 'iron',
         setLabel: 'Iron',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
         defenseBonus: 1,
         strengthBonus: 1,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 9,
         label: 'Iron Chestplate',
-        name: 'ironChestplate',
         type: 'chestplate',
         typeLabel: 'Chestplate',
         set: 'iron',
         setLabel: 'Iron',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
         defenseBonus: 1,
         strengthBonus: 1,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 10,
         label: 'Iron Leggings',
-        name: 'ironLeggings',
         type: 'leggings',
         typeLabel: 'Leggings',
         set: 'iron',
         setLabel: 'Iron',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
         defenseBonus: 1,
         strengthBonus: 1,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 11,
         label: 'Iron Boots',
-        name: 'ironBoots',
         type: 'boots',
         typeLabel: 'Boots',
         set: 'iron',
         setLabel: 'Iron',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 2,
         defenseBonus: 1,
         strengthBonus: 1,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Diamond Armor
@@ -273,89 +141,49 @@ export const EQUIPMENTS = [
     {
         id: 12,
         label: 'Diamond Helmet',
-        name: 'diamondHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
         set: 'diamond',
         setLabel: 'Diamond',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 3,
         defenseBonus: 1,
         strengthBonus: 2,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 13,
         label: 'Diamond Chestplate',
-        name: 'diamondChestplate',
         type: 'chestplate',
         typeLabel: 'Chestplate',
         set: 'diamond',
         setLabel: 'Diamond',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 3,
         defenseBonus: 1,
         strengthBonus: 2,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 14,
         label: 'Diamond Leggings',
-        name: 'diamondLeggings',
         type: 'leggings',
         typeLabel: 'Leggings',
         set: 'diamond',
         setLabel: 'Diamond',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 3,
         defenseBonus: 1,
         strengthBonus: 2,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 15,
         label: 'Diamond Boots',
-        name: 'diamondBoots',
         type: 'boots',
         typeLabel: 'Boots',
         set: 'diamond',
         setLabel: 'Diamond',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 3,
         defenseBonus: 1,
         strengthBonus: 2,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Reinforced Diamond Armor
@@ -363,89 +191,49 @@ export const EQUIPMENTS = [
     {
         id: 16,
         label: 'Reinforced Diamond Helmet',
-        name: 'reinforcedDiamondHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
         set: 'reinforcedDiamond',
         setLabel: 'Reinforced Diamond',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 5,
         defenseBonus: 2,
         strengthBonus: 3,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 17,
         label: 'Reinforced Diamond Chestplate',
-        name: 'reinforcedDiamondChestplate',
         type: 'chestplate',
         typeLabel: 'Chestplate',
         set: 'reinforcedDiamond',
         setLabel: 'Reinforced Diamond',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 5,
         defenseBonus: 2,
         strengthBonus: 3,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 18,
         label: 'Reinforced Diamond Leggings',
-        name: 'reinforcedDiamondLeggings',
         type: 'leggings',
         typeLabel: 'Leggings',
         set: 'reinforcedDiamond',
         setLabel: 'Reinforced Diamond',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 5,
         defenseBonus: 2,
         strengthBonus: 3,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 19,
         label: 'Reinforced Diamond Boots',
-        name: 'reinforcedDiamondBoots',
         type: 'boots',
         typeLabel: 'Boots',
         set: 'reinforcedDiamond',
         setLabel: 'Reinforced Diamond',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 5,
         defenseBonus: 2,
         strengthBonus: 3,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Special Armors
@@ -455,20 +243,10 @@ export const EQUIPMENTS = [
     {
         id: 20,
         label: 'Worm Skull',
-        name: 'wormSkull',
         type: 'helmet',
         typeLabel: 'Helmet',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 10,
         defenseBonus: 2,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
         regeneration: 3,
     },
 
@@ -477,41 +255,19 @@ export const EQUIPMENTS = [
     {
         id: 21,
         label: 'Venomous Helmet',
-        name: 'venomousHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
         strengthBonus: 10,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 22,
         label: 'Voracious Helmet',
-        name: 'voraciousHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
         healthBonus: 3,
         defenseBonus: 3,
         strengthBonus: 15,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Wolf Slayer
@@ -519,22 +275,9 @@ export const EQUIPMENTS = [
     {
         id: 23,
         label: 'Pack Shield',
-        name: 'packShield',
         specialEffect: 'ignoresEnemyDefense',
         effectLore: "Ignores the enemy's defense",
         type: 'accessory',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Werewolf Armor
@@ -542,85 +285,37 @@ export const EQUIPMENTS = [
     {
         id: 24,
         label: 'Werewolf Helmet',
-        name: 'werewolfHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
         set: 'werewolf',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
         defenseBonus: 10,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 25,
         label: 'Werewolf Chestplate',
-        name: 'werewolfChestplate',
         type: 'chestplate',
         typeLabel: 'Chestplate',
         set: 'werewolf',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
         defenseBonus: 10,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 26,
         label: 'Werewolf Leggings',
-        name: 'werewolfLeggings',
         type: 'leggings',
         typeLabel: 'Leggings',
         set: 'werewolf',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
         defenseBonus: 10,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 27,
         label: 'Werewolf Boots',
-        name: 'werewolfBoots',
         type: 'boots',
         typeLabel: 'Boots',
         set: 'werewolf',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
         defenseBonus: 10,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Fishing Armors
@@ -630,7 +325,6 @@ export const EQUIPMENTS = [
     {
         id: 28,
         label: 'Whitetip Shark Helmet',
-        name: 'whitetipSharkHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
         set: 'whitetipShark',
@@ -638,24 +332,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 1
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 3,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 29,
         label: 'Whitetip Shark Chestplate',
-        name: 'whitetipSharkChestplate',
         type: 'chestplate',
         typeLabel: 'Chestplate',
         set: 'whitetipShark',
@@ -663,24 +345,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 1
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 3,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 30,
         label: 'Whitetip Shark Leggings',
-        name: 'whitetipSharkLeggings',
         type: 'leggings',
         typeLabel: 'Leggings',
         set: 'whitetipShark',
@@ -688,24 +358,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 1
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 3,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 31,
         label: 'Whitetip Shark Boots',
-        name: 'whitetipSharkBoots',
         type: 'boots',
         typeLabel: 'Boots',
         set: 'whitetipShark',
@@ -713,18 +371,7 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 1
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 3,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Tiger Shark Armor
@@ -732,7 +379,6 @@ export const EQUIPMENTS = [
     {
         id: 32,
         label: 'Tiger Shark Helmet',
-        name: 'tigerSharkHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
         set: 'tigerShark',
@@ -740,24 +386,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 2
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 5,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 33,
         label: 'Tiger Shark Chestplate',
-        name: 'tigerSharkChestplate',
         type: 'chestplate',
         typeLabel: 'Chestplate',
         set: 'tigerShark',
@@ -765,24 +399,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 2
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 5,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 34,
         label: 'Tiger Shark Leggings',
-        name: 'tigerSharkLeggings',
         type: 'leggings',
         typeLabel: 'Leggings',
         set: 'tigerShark',
@@ -790,24 +412,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 2
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 5,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 35,
         label: 'Tiger Shark Boots',
-        name: 'tigerSharkBoots',
         type: 'boots',
         typeLabel: 'Boots',
         set: 'tigerShark',
@@ -815,18 +425,7 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 2
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 5,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Great White Shark Armor
@@ -834,7 +433,6 @@ export const EQUIPMENTS = [
     {
         id: 36,
         label: 'Great White Shark Helmet',
-        name: 'greatWhiteSharkHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
         set: 'greatWhiteShark',
@@ -842,24 +440,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 3
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 7,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 37,
         label: 'Great White Shark Chestplate',
-        name: 'greatWhiteSharkChestplate',
         type: 'chestplate',
         typeLabel: 'Chestplate',
         set: 'greatWhiteShark',
@@ -867,24 +453,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 3
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 7,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 38,
         label: 'Great White Shark Leggings',
-        name: 'greatWhiteSharkLeggings',
         type: 'leggings',
         typeLabel: 'Leggings',
         set: 'greatWhiteShark',
@@ -892,24 +466,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 3
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 7,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 39,
         label: 'Great White Shark Boots',
-        name: 'greatWhiteSharkBoots',
         type: 'boots',
         typeLabel: 'Boots',
         set: 'greatWhiteShark',
@@ -917,18 +479,7 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 3
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 7,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Megalodon Shark Armor
@@ -936,7 +487,6 @@ export const EQUIPMENTS = [
     {
         id: 40,
         label: 'Megalodon Shark Helmet',
-        name: 'megalodonSharkHelmet',
         type: 'helmet',
         typeLabel: 'Helmet',
         set: 'megalodonShark',
@@ -944,24 +494,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 4
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 10,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 41,
         label: 'Megalodon Shark Chestplate',
-        name: 'megalodonSharkChestplate',
         type: 'chestplate',
         typeLabel: 'Chestplate',
         set: 'megalodonShark',
@@ -969,24 +507,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 4
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 10,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 42,
         label: 'Megalodon Shark Leggings',
-        name: 'megalodonSharkLeggings',
         type: 'leggings',
         typeLabel: 'Leggings',
         set: 'megalodonShark',
@@ -994,24 +520,12 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 4
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 10,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 43,
         label: 'Megalodon Shark Boots',
-        name: 'megalodonSharkBoots',
         type: 'boots',
         typeLabel: 'Boots',
         set: 'megalodonShark',
@@ -1019,18 +533,7 @@ export const EQUIPMENTS = [
             effect: 'skipFishingTier',
             tier: 4
         },
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 10,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Wands
@@ -1038,41 +541,19 @@ export const EQUIPMENTS = [
     {
         id: 44,
         label: 'Wand of Healing',
-        name: 'wandOfHealing',
         type: 'wand',
         typeLabel: 'Wand',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
         manaCost: 1,
         healing: 3,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 45,
         label: 'Wand of Mending',
-        name: 'wandOfMending',
         type: 'wand',
         typeLabel: 'Wand',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
         manaCost: 1,
         healing: 5,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
 
@@ -1081,101 +562,41 @@ export const EQUIPMENTS = [
     {
         id: 46,
         label: 'Bronze Sword',
-        name: 'bronzeSword',
         type: 'weapon',
         typeLabel: 'Weapon',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
         strengthBonus: 2,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 47,
         label: 'Iron Sword',
-        name: 'ironSword',
         type: 'weapon',
         typeLabel: 'Weapon',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
         strengthBonus: 3,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 48,
         label: 'Diamond Sword',
-        name: 'diamondSword',
         type: 'weapon',
         typeLabel: 'Weapon',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
         strengthBonus: 5,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 49,
         label: 'Sharp Diamond Sword',
-        name: 'sharpDiamondSword',
         type: 'weapon',
         typeLabel: 'Weapon',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
         strengthBonus: 7,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 50,
         label: 'Mithril Sword',
-        name: 'mithrilSword',
         type: 'weapon',
         typeLabel: 'Weapon',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
         strengthBonus: 12,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Pickaxes
@@ -1183,101 +604,44 @@ export const EQUIPMENTS = [
     {
         id: 51,
         label: 'Iron Pickaxe',
-        name: 'ironPickaxe',
-        type: 'tool',
-        typeLabel: 'Tool',
-        miningSpeedBonus: 0,
+        type: 'pickaxe',
+        typeLabel: 'Pickaxe',
         miningLuckBonus: 1,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 52,
         label: 'Gold Pickaxe',
-        name: 'goldPickaxe',
-        type: 'tool',
-        typeLabel: 'Tool',
-        miningSpeedBonus: 0,
+        type: 'pickaxe',
+        typeLabel: 'Pickaxe',
         miningLuckBonus: 2,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 53,
         label: 'Diamond Pickaxe',
-        name: 'diamondPickaxe',
-        type: 'tool',
-        typeLabel: 'Tool',
+        type: 'pickaxe',
+        typeLabel: 'Pickaxe',
         miningSpeedBonus: 1,
         miningLuckBonus: 3,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 54,
         label: 'Reinforced Diamond Pickaxe',
-        name: 'reinforcedDiamondPickaxe',
-        type: 'tool',
-        typeLabel: 'Tool',
+        type: 'pickaxe',
+        typeLabel: 'Pickaxe',
         miningSpeedBonus: 1,
         miningLuckBonus: 5,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 55,
         label: 'Mithril Pickaxe',
-        name: 'mithrilPickaxe',
-        type: 'tool',
-        typeLabel: 'Tool',
+        type: 'pickaxe',
+        typeLabel: 'Pickaxe',
         miningSpeedBonus: 2,
         miningLuckBonus: 7,
-        fishingLuckBonus: 0,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     // Fishing Rods
@@ -1285,81 +649,45 @@ export const EQUIPMENTS = [
     {
         id: 56,
         label: 'Fishing Rod',
-        name: 'fishingRod',
         type: 'rod',
         typeLabel: 'Fishing Rod',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 5,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 57,
         label: 'Rod of the Sea',
-        name: 'rodOfTheSea',
         type: 'rod',
         typeLabel: 'Fishing Rod',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 15,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 58,
         label: 'Lucky Rod',
-        name: 'luckyRod',
         type: 'rod',
         typeLabel: 'Fishing Rod',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 30,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
     },
 
     {
         id: 59,
         label: 'Blessed Rod',
-        name: 'blessedRod',
         type: 'rod',
         typeLabel: 'Fishing Rod',
-        miningSpeedBonus: 0,
-        miningLuckBonus: 0,
         fishingLuckBonus: 50,
-        healthBonus: 0,
-        defenseBonus: 0,
-        strengthBonus: 0,
-        manaCost: 0,
-        healing: 0,
-        critChanceBonus: 0,
-        critDamageMultiplierBonus: 0,
-        attackSpeedBonus: 0,
-        regeneration: 0,
+    },
+
+    // Axes
+
+    {
+        id: 60,
+        label: 'Enchanted Axe',
+        type: 'axe',
+        typeLabel: 'Axe',
+        foragingSpeedBonus: 15,
+        foragingLuckBonus: 6,
+        strengthBonus: 3,
     },
 ]
 
@@ -1367,7 +695,8 @@ export const ENEMIES = [
     {
         id: 0,
         label: 'Worm',
-        name: 'worm',
+        type: 'boss',
+        attackPatterns: [[[[2, 1, 0, 0, 0], [0, 0, 2, 1, 0]], [[0, 0, 2, 1, 0], [2, 1, 0, 0, 0]]]],
         stats: {
             maxHealth: 5,
             health: 5,
@@ -1381,12 +710,12 @@ export const ENEMIES = [
 
         drops: [
             {
-                weigth: 0.9,
+                weigth: 0.5,
                 drop: { id: -1, type: "coin" },
                 amount: 1,
             },
             {
-                weigth: 0.1,
+                weigth: 0.5,
                 drop: { id: 0, type: "material" },
                 amount: 1,
             }
@@ -1396,7 +725,7 @@ export const ENEMIES = [
     {
         id: 1,
         label: 'Bat',
-        name: 'bat',
+        type: 'common',
         stats: {
             maxHealth: 8,
             health: 8,
@@ -1411,7 +740,7 @@ export const ENEMIES = [
             categoryType: 'enemies',
             subcategoryType: 0
         },
-        requiredMilestoneAmount: 50,
+        requiredMilestoneAmount: 25,
         drops: [
             {
                 weigth: 1,
@@ -1424,7 +753,7 @@ export const ENEMIES = [
     {
         id: 2,
         label: 'Rat',
-        name: 'rat',
+        type: 'common',
         stats: {
             maxHealth: 5,
             health: 5,
@@ -1439,7 +768,7 @@ export const ENEMIES = [
             categoryType: 'enemies',
             subcategoryType: 1
         },
-        requiredMilestoneAmount: 50,
+        requiredMilestoneAmount: 25,
 
         drops: [
             {
@@ -1463,7 +792,7 @@ export const ENEMIES = [
     {
         id: 3,
         label: 'Spider',
-        name: 'spider',
+        type: 'common',
         stats: {
             maxHealth: 20,
             health: 20,
@@ -1478,7 +807,7 @@ export const ENEMIES = [
             categoryType: 'enemies',
             subcategoryType: 2
         },
-        requiredMilestoneAmount: 50,
+        requiredMilestoneAmount: 25,
         drops: [
             {
                 weigth: 0.9,
@@ -1496,133 +825,198 @@ export const ENEMIES = [
     {
         id: 4,
         label: 'Wolf',
-        name: 'wolf',
+        type: 'common',
         stats: {
-            maxHealth: 25,
-            health: 25,
-            defense: 5,
+            maxHealth: 30,
+            health: 30,
+            defense: 8,
             strength: 8,
-            critChance: 10,
+            critChance: 20,
             critDamageMultiplier: 2,
             attackDelay: 3,
-        },
-        experience: 3,
-        requiredMilestoneType: {
-            categoryType: 'enemies',
-            subcategoryType: 3
-        },
-        requiredMilestoneAmount: 50,
-        drops: []
-    },
-
-    {
-        id: 5,
-        label: 'Giant Wolf',
-        name: 'giantWolf',
-        stats: {
-            maxHealth: 50,
-            health: 50,
-            defense: 10,
-            strength: 10,
-            critChance: 10,
-            critDamageMultiplier: 2,
-            attackDelay: 6,
         },
         experience: 5,
         requiredMilestoneType: {
             categoryType: 'enemies',
-            subcategoryType: 4
+            subcategoryType: 3
         },
-        requiredMilestoneAmount: 50,
-        drops: []
+        requiredMilestoneAmount: 25,
+        drops: [
+            {
+                weigth: 0.9,
+                drop: { id: -1, type: "coin" },
+                amount: 6,
+            },
+            {
+                weigth: 0.1,
+                drop: { id: 2, type: "material" },
+                amount: 1,
+            }
+        ]
     },
 
     {
-        id: 6,
+        id: 5,
         label: 'Bear',
-        name: 'bear',
+        type: 'common',
         stats: {
-            maxHealth: 60,
-            health: 60,
+            maxHealth: 50,
+            health: 50,
             defense: 10,
             strength: 15,
-            critChance: 10,
+            critChance: 20,
             critDamageMultiplier: 2,
             attackDelay: 3,
+        },
+        experience: 8,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 4
+        },
+        requiredMilestoneAmount: 25,
+        drops: [
+            {
+                weigth: 1,
+                drop: { id: -1, type: "coin" },
+                amount: 8,
+            },
+        ]
+    },
+
+
+    {
+        id: 6,
+        label: 'Giant Worm',
+        type: 'boss',
+        attackPatterns: [
+            [[[2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0]], [[2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1], [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1], [0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]]],
+        stats: {
+            maxHealth: 75,
+            health: 75,
+            defense: 12,
+            strength: 20,
+            critChance: 25,
+            critDamageMultiplier: 2,
+            attackDelay: 10,
         },
         experience: 10,
         requiredMilestoneType: {
             categoryType: 'enemies',
             subcategoryType: 5
         },
-        requiredMilestoneAmount: 50,
-        drops: []
+        requiredMilestoneAmount: 25,
+        drops: [
+            {
+                weigth: 0.5,
+                drop: { id: -1, type: "coin" },
+                amount: 10,
+            },
+            {
+                weigth: 0.5,
+                drop: { id: 0, type: "material" },
+                amount: 2,
+            }
+        ]
     },
 
     {
         id: 7,
         label: 'Giant Spider',
-        name: 'giantSpider',
-        stats: {
-            maxHealth: 75,
-            health: 75,
-            defense: 15,
-            strength: 20,
-            critChance: 10,
-            critDamageMultiplier: 2,
-            attackDelay: 6,
-        },
-        experience: 7,
-        requiredMilestoneType: {
-            categoryType: 'enemies',
-            subcategoryType: 6
-        },
-        requiredMilestoneAmount: 50,
-        drops: []
-    },
-
-    {
-        id: 8,
-        label: 'Giant Bear',
-        name: 'giantBear',
+        type: 'boss',
+        attackPatterns: [
+            [[[2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0]], [[2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1], [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1], [0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]]],
         stats: {
             maxHealth: 100,
             health: 100,
             defense: 15,
             strength: 25,
-            critChance: 10,
+            critChance: 25,
             critDamageMultiplier: 2,
-            attackDelay: 6,
+            attackDelay: 10,
         },
         experience: 15,
         requiredMilestoneType: {
             categoryType: 'enemies',
-            subcategoryType: 7
+            subcategoryType: 6
         },
-        requiredMilestoneAmount: 50,
-        drops: []
+        requiredMilestoneAmount: 25,
+        drops: [
+            {
+                weigth: 0.5,
+                drop: { id: -1, type: "coin" },
+                amount: 15,
+            },
+            {
+                weigth: 0.5,
+                drop: { id: 1, type: "material" },
+                amount: 1,
+            }
+        ]
     },
 
     {
-        id: 9,
-        label: 'Giant Worm',
-        name: 'giantWorm',
+        id: 8,
+        label: 'Giant Wolf',
+        type: 'boss',
+        attackPatterns: [
+            [[[2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0]], [[2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1], [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1], [0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]]],
         stats: {
-            maxHealth: 200,
-            health: 200,
+            maxHealth: 150,
+            health: 150,
             defense: 20,
-            strength: 30,
-            critChance: 10,
+            strength: 35,
+            critChance: 25,
             critDamageMultiplier: 2,
             attackDelay: 10,
         },
         experience: 20,
         requiredMilestoneType: {
             categoryType: 'enemies',
+            subcategoryType: 7
+        },
+        requiredMilestoneAmount: 25,
+        drops: [
+            {
+                weigth: 0.5,
+                drop: { id: -1, type: "coin" },
+                amount: 20,
+            },
+            {
+                weigth: 0.5,
+                drop: { id: 2, type: "material" },
+                amount: 1,
+            }
+        ]
+    },
+
+    {
+        id: 9,
+        label: 'Giant Bear',
+        type: 'boss',
+        attackPatterns: [
+            [[[2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0]], [[2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1], [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1], [0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]]],
+        stats: {
+            maxHealth: 250,
+            health: 250,
+            defense: 20,
+            strength: 40,
+            critChance: 30,
+            critDamageMultiplier: 2,
+            attackDelay: 10,
+        },
+        experience: 30,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
             subcategoryType: 8
         },
-        requiredMilestoneAmount: 50,
-        drops: []
+        requiredMilestoneAmount: 25,
+        drops: [
+            {
+                weigth: 1,
+                drop: { id: -1, type: "coin" },
+                amount: 30,
+            },
+        ]
     },
 ]
 
@@ -1732,7 +1126,6 @@ export const MATERIALS = [
     {
         id: 0,
         label: 'Worm Heart',
-        name: 'wormHeart',
         type: 'enemyDrop',
         symbol: '💜',
         price: 2
@@ -1741,7 +1134,6 @@ export const MATERIALS = [
     {
         id: 1,
         label: 'String',
-        name: 'string',
         type: 'enemyDrop',
         symbol: '➰',
         price: 5
@@ -1750,7 +1142,6 @@ export const MATERIALS = [
     {
         id: 2,
         label: 'Wolf Tooth',
-        name: 'wolfTooth',
         type: 'enemyDrop',
         symbol: '🦷',
         price: 10
@@ -1759,7 +1150,6 @@ export const MATERIALS = [
     {
         id: 3,
         label: 'Stone',
-        name: 'stone',
         type: 'miningDrop',
         symbol: '🪨',
         price: 5
@@ -1768,7 +1158,6 @@ export const MATERIALS = [
     {
         id: 4,
         label: 'Coal',
-        name: 'coal',
         type: 'miningDrop',
         symbol: '🌑',
         price: 7
@@ -1777,7 +1166,6 @@ export const MATERIALS = [
     {
         id: 5,
         label: 'Iron',
-        name: 'iron',
         type: 'miningDrop',
         symbol: '🔩',
         price: 10
@@ -1786,7 +1174,6 @@ export const MATERIALS = [
     {
         id: 6,
         label: 'Gold',
-        name: 'gold',
         type: 'miningDrop',
         symbol: '🌕',
         price: 20
@@ -1795,7 +1182,6 @@ export const MATERIALS = [
     {
         id: 7,
         label: 'Diamond',
-        name: 'diamond',
         type: 'miningDrop',
         symbol: '💎',
         price: 30
@@ -1804,7 +1190,6 @@ export const MATERIALS = [
     {
         id: 8,
         label: 'Mithril',
-        name: 'mithril',
         type: 'miningDrop',
         symbol: '🟢',
         price: 50
@@ -1813,7 +1198,6 @@ export const MATERIALS = [
     {
         id: 9,
         label: 'Cod',
-        name: 'cod',
         type: 'fishingDrop',
         symbol: '🐟',
         price: 10,
@@ -1823,7 +1207,6 @@ export const MATERIALS = [
     {
         id: 10,
         label: 'Salmon',
-        name: 'salmon',
         type: 'fishingDrop',
         symbol: '🐠',
         price: 20,
@@ -1833,7 +1216,6 @@ export const MATERIALS = [
     {
         id: 11,
         label: 'Bass',
-        name: 'bass',
         type: 'fishingDrop',
         symbol: '🐠',
         price: 30,
@@ -1843,7 +1225,6 @@ export const MATERIALS = [
     {
         id: 12,
         label: 'Carp',
-        name: 'carp',
         type: 'fishingDrop',
         symbol: '🐡',
         price: 50,
@@ -1853,7 +1234,6 @@ export const MATERIALS = [
     {
         id: 13,
         label: 'Whitetip Shark Tooth',
-        name: 'whitetipSharkTooth',
         type: 'specialFishingDrop',
         symbol: '🦷',
         price: 50,
@@ -1863,7 +1243,6 @@ export const MATERIALS = [
     {
         id: 14,
         label: 'Tiger Shark Tooth',
-        name: 'tigerSharkTooth',
         type: 'specialFishingDrop',
         symbol: '🦷',
         price: 50,
@@ -1873,7 +1252,6 @@ export const MATERIALS = [
     {
         id: 15,
         label: 'Great White Shark Tooth',
-        name: 'greatWhiteSharkTooth',
         type: 'specialFishingDrop',
         symbol: '🦷',
         price: 50,
@@ -1883,7 +1261,6 @@ export const MATERIALS = [
     {
         id: 16,
         label: 'Megalodon Shark Tooth',
-        name: 'megalodonSharkTooth',
         type: 'specialFishingDrop',
         symbol: '🦷',
         price: 50,
@@ -1893,7 +1270,6 @@ export const MATERIALS = [
     {
         id: 17,
         label: 'Common Treasure',
-        name: 'commonTreasure',
         type: 'fishingTreasure',
         symbol: '📦',
         prize: 2000,
@@ -1904,7 +1280,6 @@ export const MATERIALS = [
     {
         id: 18,
         label: 'Rare Treasure',
-        name: 'rareTreasure',
         type: 'fishingTreasure',
         symbol: '📦',
         prize: 4000,
@@ -1915,7 +1290,6 @@ export const MATERIALS = [
     {
         id: 19,
         label: 'Epic Treasure',
-        name: 'epicTreasure',
         type: 'fishingTreasure',
         symbol: '📦',
         prize: 8000,
@@ -1926,7 +1300,6 @@ export const MATERIALS = [
     {
         id: 20,
         label: 'Legendary Treasure',
-        name: 'legendaryTreasure',
         type: 'fishingTreasure',
         symbol: '📦',
         prize: 15000,
@@ -1963,68 +1336,142 @@ export const MATERIALS = [
         symbol: '🟩',
         price: 100,
     },
+
+    {
+        id: 25,
+        label: 'Oak Log',
+        type: 'foragingDrop',
+        symbol: '🪵',
+        price: 3,
+    },
+
+    {
+        id: 26,
+        label: 'Birch Log',
+        type: 'foragingDrop',
+        symbol: '🪵',
+        price: 5,
+    },
+
+    {
+        id: 27,
+        label: 'Spruce Log',
+        type: 'foragingDrop',
+        symbol: '🪵',
+        price: 8,
+    },
+
+    {
+        id: 28,
+        label: 'Dark Oak Log',
+        type: 'foragingDrop',
+        symbol: '🪵',
+        price: 12,
+    },
+
+    {
+        id: 29,
+        label: 'Acacia Log',
+        type: 'foragingDrop',
+        symbol: '🪵',
+        price: 17,
+    },
+
+    {
+        id: 30,
+        label: 'Jungle Log',
+        type: 'foragingDrop',
+        symbol: '🪵',
+        price: 23,
+    },
+
+    {
+        id: 31,
+        label: 'Wheat Seed',
+        type: 'farmingSeed',
+        symbol: '🫘',
+    },
+
+    {
+        id: 32,
+        label: 'Carrot Seed',
+        type: 'farmingSeed',
+        symbol: '🫘',
+    },
+
+    {
+        id: 33,
+        label: 'Potato Sprout',
+        type: 'farmingSeed',
+        symbol: '🌱',
+    },
+
+    {
+        id: 34,
+        label: 'Wheat',
+        type: 'farmingDrop',
+        symbol: '🌾',
+        price: 50,
+    },
+
+    {
+        id: 35,
+        label: 'Carrot',
+        type: 'farmingDrop',
+        symbol: '🥕',
+        price: 98,
+    },
+
+    {
+        id: 36,
+        label: 'Potato',
+        type: 'farmingDrop',
+        symbol: '🥔',
+        price: 137,
+    },
 ]
 
 export const MILESTONES = {
     enemies: [
         {
             id: 0,
-            label: 'Worm',
-            name: 'worm',
         },
 
         {
             id: 1,
-            label: 'Bat',
-            name: 'bat',
         },
 
         {
             id: 2,
-            label: 'Rat',
-            name: 'rat',
         },
 
         {
             id: 3,
-            label: 'Spider',
-            name: 'spider',
         },
 
         {
             id: 4,
-            label: 'Wolf',
-            name: 'wolf',
         },
 
         {
             id: 5,
-            label: 'Giant Wolf',
-            name: 'giantWolf',
         },
 
         {
             id: 6,
-            label: 'Bear',
-            name: 'bear',
         },
 
         {
             id: 7,
-            label: 'Giant Spider',
-            name: 'giantSpider',
+
         },
 
         {
             id: 8,
-            label: 'Giant Bear',
-            name: 'giantBear',
         },
 
         {
             id: 9,
-            label: 'Giant Worm',
-            name: 'giantWorm',
         },
     ],
 
@@ -2032,39 +1479,71 @@ export const MILESTONES = {
 
         {
             id: 0,
-            label: 'Stone',
-            name: 'stone',
         },
 
         {
             id: 1,
-            label: 'Coal',
-            name: 'coal',
         },
 
         {
             id: 2,
-            label: 'Iron',
-            name: 'iron',
         },
 
         {
             id: 3,
-            label: 'Gold',
-            name: 'gold',
         },
 
         {
             id: 4,
-            label: 'Diamond',
-            name: 'diamond',
         },
 
         {
             id: 5,
-            label: 'Mithril',
-            name: 'mithril',
         }
+
+    ],
+
+    foraging: [
+
+        {
+            id: 0,
+        },
+
+        {
+            id: 1,
+        },
+
+        {
+            id: 2,
+        },
+
+        {
+            id: 3,
+        },
+
+        {
+            id: 4,
+        },
+
+        {
+            id: 5,
+        }
+
+    ],
+
+    farming: [
+
+        {
+            id: 0,
+        },
+
+        {
+            id: 1,
+        },
+
+        {
+            id: 2,
+        },
 
     ],
 
@@ -2072,36 +1551,27 @@ export const MILESTONES = {
 
         {
             id: 0,
-            label: 'Cod',
-            name: 'cod',
         },
 
         {
             id: 1,
-            label: 'Salmon',
-            name: 'salmon',
         },
 
         {
             id: 2,
-            label: 'Bass',
-            name: 'bass',
         },
 
         {
             id: 3,
-            label: 'Carp',
-            name: 'carp',
-        }
+        },
 
-    ]
+    ],
 }
 
 export const ORE_VEINS = [
     {
         id: 0,
         label: 'Stone',
-        name: 'stone',
         dropId: 3,
         experience: 1,
     },
@@ -2109,7 +1579,6 @@ export const ORE_VEINS = [
     {
         id: 1,
         label: 'Coal',
-        name: 'coal',
         dropId: 4,
         experience: 2,
         requiredSkill: {
@@ -2121,7 +1590,6 @@ export const ORE_VEINS = [
     {
         id: 2,
         label: 'Iron',
-        name: 'iron',
         dropId: 5,
         experience: 4,
         requiredSkill: {
@@ -2133,7 +1601,6 @@ export const ORE_VEINS = [
     {
         id: 3,
         label: 'Gold',
-        name: 'gold',
         dropId: 6,
         experience: 5,
         requiredSkill: {
@@ -2145,7 +1612,6 @@ export const ORE_VEINS = [
     {
         id: 4,
         label: 'Diamond',
-        name: 'diamond',
         dropId: 7,
         experience: 7,
         requiredSkill: {
@@ -2157,13 +1623,130 @@ export const ORE_VEINS = [
     {
         id: 5,
         label: 'Mithril',
-        name: 'mithril',
         dropId: 8,
         experience: 10,
         requiredSkill: {
             skill: 'mining',
             level: 12,
         },
+    },
+]
+
+export const PLANTS = [
+    {
+        id: 0,
+        label: 'Oak Tree',
+        dropId: 25,
+        experience: 1,
+    },
+
+    {
+        id: 1,
+        label: 'Birch Tree',
+        dropId: 26,
+        experience: 2,
+        requiredSkill: {
+            skill: 'foraging',
+            level: 1,
+        },
+    },
+
+    {
+        id: 2,
+        label: 'Spruce Tree',
+        dropId: 27,
+        experience: 4,
+        requiredSkill: {
+            skill: 'foraging',
+            level: 3,
+        },
+    },
+
+    {
+        id: 3,
+        label: 'Dark Oak Tree',
+        dropId: 28,
+        experience: 5,
+        requiredSkill: {
+            skill: 'foraging',
+            level: 5,
+        },
+    },
+
+    {
+        id: 4,
+        label: 'Acacia Tree',
+        dropId: 29,
+        experience: 7,
+        requiredSkill: {
+            skill: 'foraging',
+            level: 8,
+        },
+    },
+
+    {
+        id: 5,
+        label: 'Jungle Tree',
+        dropId: 30,
+        experience: 10,
+        requiredSkill: {
+            skill: 'foraging',
+            level: 12,
+        },
+    },
+]
+
+export const CROPS = [
+    {
+        id: 0,
+        label: 'Wheat',
+        seedLabel: 'Seed',
+        growingIcon: '🌾',
+        seedId: 31,
+        growthTime: 10,
+        drop: {
+            id: 34,
+            amount: [2, 7],
+        },
+        experience: 1,
+    },
+
+    {
+        id: 1,
+        label: 'Carrot',
+        seedLabel: 'Seed',
+        growingIcon: '🥕',
+        seedId: 32,
+        growthTime: 10,
+        drop: {
+            id: 35,
+            amount: [1, 5],
+        },
+        experience: 2,
+        requiredMilestoneType: {
+            categoryType: 'farming',
+            subcategoryType: 0
+        },
+        requiredMilestoneAmount: 25,
+    },
+
+    {
+        id: 2,
+        label: 'Potato',
+        seedLabel: 'Sprout',
+        growingIcon: '🥔',
+        seedId: 33,
+        growthTime: 10,
+        drop: {
+            id: 36,
+            amount: [1, 3],
+        },
+        experience: 3,
+        requiredMilestoneType: {
+            categoryType: 'farming',
+            subcategoryType: 1
+        },
+        requiredMilestoneAmount: 25,
     },
 ]
 
@@ -2998,6 +2581,200 @@ export const SKILL_BONUSES = {
     },
 
     ],
+
+    foraging: [{
+        foragingSpeedBonus: 0,
+        foragingLuckBonus: 0,
+    },
+
+    {
+        foragingSpeedBonus: 0,
+        foragingLuckBonus: 0,
+    },
+
+    {
+        foragingSpeedBonus: 0,
+        foragingLuckBonus: 0,
+    },
+
+    {
+        foragingSpeedBonus: 1,
+        foragingLuckBonus: 1,
+    },
+
+    {
+        foragingSpeedBonus: 1,
+        foragingLuckBonus: 1,
+    },
+
+    {
+        foragingSpeedBonus: 2,
+        foragingLuckBonus: 2,
+    },
+
+    {
+        foragingSpeedBonus: 2,
+        foragingLuckBonus: 2,
+    },
+
+    {
+        foragingSpeedBonus: 2,
+        foragingLuckBonus: 2,
+    },
+
+    {
+        foragingSpeedBonus: 3,
+        foragingLuckBonus: 5,
+    },
+
+    {
+        foragingSpeedBonus: 3,
+        foragingLuckBonus: 5,
+    },
+
+    {
+        foragingSpeedBonus: 3,
+        foragingLuckBonus: 5,
+    },
+
+    {
+        foragingSpeedBonus: 3,
+        foragingLuckBonus: 5,
+    },
+
+    {
+        foragingSpeedBonus: 4,
+        foragingLuckBonus: 8,
+    },
+
+    {
+        foragingSpeedBonus: 4,
+        foragingLuckBonus: 8,
+    },
+
+    {
+        foragingSpeedBonus: 4,
+        foragingLuckBonus: 8,
+    },
+
+    {
+        foragingSpeedBonus: 6,
+        foragingLuckBonus: 10,
+    },
+
+    {
+        foragingSpeedBonus: 6,
+        foragingLuckBonus: 10,
+    },
+
+    {
+        foragingSpeedBonus: 6,
+        foragingLuckBonus: 10,
+    },
+
+    {
+        foragingSpeedBonus: 6,
+        foragingLuckBonus: 10,
+    },
+
+    {
+        foragingSpeedBonus: 6,
+        foragingLuckBonus: 10,
+    },
+
+    {
+        foragingSpeedBonus: 6,
+        foragingLuckBonus: 10,
+    },
+
+    ],
+
+    farming: [{
+        farmingLuckBonus: 0,
+    },
+
+    {
+        farmingLuckBonus: 0,
+    },
+
+    {
+        farmingLuckBonus: 0,
+    },
+
+    {
+        farmingLuckBonus: 1,
+    },
+
+    {
+        farmingLuckBonus: 1,
+    },
+
+    {
+        farmingLuckBonus: 2,
+    },
+
+    {
+        farmingLuckBonus: 2,
+    },
+
+    {
+        farmingLuckBonus: 2,
+    },
+
+    {
+        farmingLuckBonus: 5,
+    },
+
+    {
+        farmingLuckBonus: 5,
+    },
+
+    {
+        farmingLuckBonus: 5,
+    },
+
+    {
+        farmingLuckBonus: 5,
+    },
+
+    {
+        farmingLuckBonus: 8,
+    },
+
+    {
+        farmingLuckBonus: 8,
+    },
+
+    {
+        farmingLuckBonus: 8,
+    },
+
+    {
+        farmingLuckBonus: 10,
+    },
+
+    {
+        farmingLuckBonus: 10,
+    },
+
+    {
+        farmingLuckBonus: 10,
+    },
+
+    {
+        farmingLuckBonus: 10,
+    },
+
+    {
+        farmingLuckBonus: 10,
+    },
+
+    {
+        farmingLuckBonus: 10,
+    },
+
+    ],
+
     fishing: [{
         fishingLuckBonus: 0,
     },
