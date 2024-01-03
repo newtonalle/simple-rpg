@@ -1,6 +1,7 @@
 <template>
   <div class="text-center">
     <h1>Credits <span @click="toDebugScreen()">❤️</span></h1>
+    <br />
     <h4>📝 Original Game made By Weldenvarden 📝</h4>
     <h4>💻 Online Adaptation made By Notwen 💻</h4>
     <br />

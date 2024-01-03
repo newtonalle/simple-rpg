@@ -2,7 +2,9 @@
   <div>
     <h2>Foraging</h2>
     <p class="fs-5">
-      Foraging Lvl. {{ playerSkills.foraging }} ({{ player.skills.foraging }}
+      Foraging Lvl. {{ playerSkills.foraging + 1 }} ({{
+        player.skills.foraging
+      }}
       XP)
     </p>
 
@@ -43,6 +45,7 @@
         :speed="17.539999"
         :cooldown="player.currentForagingCooldown"
         :hitText="`Forage ${plants[selectedPlantId].label}`"
+        :markerId="`foraging-0`"
         @critHit="critBarForage"
       />
     </div>
@@ -50,6 +53,20 @@
     <!-- Message for missing axe -->
 
     <p v-if="!playerEquipments.axe">Equip an axe before you can forage!</p>
+
+    <br />
+    <br />
+
+    <div v-if="foragingLog.length > 0">
+      <hr class="divider" />
+
+      <div v-for="(log, index) in foragingLog" :key="`${log}-${index}`">
+        <p class="fs-8">{{ log }}</p>
+      </div>
+      <button style="width: 200px" class="btn btn-danger" @click="clearLog">
+        Clear Foraging Log
+      </button>
+    </div>
   </div>
 </template>
 
@@ -77,6 +94,10 @@ export default {
         index: this.selectedPlantId,
         hitAccuracy,
       });
+    },
+
+    clearLog() {
+      this.$store.dispatch("clearLog", "foragingLog");
     },
   },
 
@@ -111,6 +132,10 @@ export default {
 
     plantUnlocks() {
       return this.$store.getters.getPlantUnlocks;
+    },
+
+    foragingLog() {
+      return this.$store.getters.getForagingLog;
     },
   },
 };

@@ -7,7 +7,7 @@
     <div style="cursor: pointer" @click="popoutUpdate(0)">
       <br />
       <h2>Update 1.2</h2>
-      <p style="font-style: italic">Released December nºth, 2023</p>
+      <p style="font-style: italic">Released January nºth, 2024</p>
       <div v-if="popout[0]">
         <br />
         <br />
@@ -27,9 +27,10 @@
 
         <br />
 
-        <p>- Added 2 New Skills to the game (Foraging & Farming)</p>
+        <p>- Added a New Skill to the game (Foraging)</p>
         <p>- Added Crit Bar Mechanic to Bosses, Mining & Foraging Skills</p>
         <p>- Added 8 new items (2 Cheese Items & 6 Log Items)</p>
+        <p>- Added Colections System</p>
 
         <br />
         <br />
@@ -38,12 +39,15 @@
 
         <br />
 
-        <p>- Added Grid Dodge Mechanic to Bosses</p>
+        <p>
+          - Added Grid Dodge Mechanic to Bosses, with new stats (move speed)
+        </p>
         <p>- Balancing of Enemy Status & Appearing Order Logic</p>
         <p>
           - The player is now only allowed to bring 2 different sets of items to
           a battle
         </p>
+        <p>- Added Weapon types, with new stats (accuracy)</p>
 
         <br />
         <br />
@@ -57,7 +61,6 @@
           - Fixed bug where the player could get extra health at the begining of
           a battle by quickly changing equipment & spawning the enemy
         </p>
-        <p>- Added cheat prevention code to the shop & inventory</p>
       </div>
 
       <br />
@@ -114,6 +117,8 @@
 export default {
   data: () => ({
     popout: [false, false],
+    setIntervalId: 0,
+    speedSetIntervalId: 1,
   }),
 
   methods: {
@@ -121,6 +126,35 @@ export default {
       this.popout[index] = !this.popout[index];
       this.popout.push();
     },
+
+    updateGame() {
+      this.$store.dispatch("updateGame");
+    },
+
+    speedyUpdate() {
+      this.$store.dispatch("speedyUpdate");
+    },
+
+    versionUpdate() {
+      this.$store.dispatch("versionUpdate");
+    },
+  },
+
+  created() {
+    this.versionUpdate();
+
+    this.setIntervalId = setInterval(() => {
+      this.updateGame();
+    }, 1000);
+
+    this.speedSetIntervalId = setInterval(() => {
+      this.speedyUpdate();
+    }, 100);
+  },
+
+  destroyed() {
+    clearInterval(this.setIntervalId);
+    clearInterval(this.speedSetIntervalId);
   },
 };
 </script>

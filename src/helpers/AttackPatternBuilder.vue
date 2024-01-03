@@ -77,6 +77,12 @@
         <br />
       </div>
       <p>{{ fullGrid }}</p>
+
+      <br />
+
+      <button @click="resetPattern()" class="btn btn-danger">
+        Reset Pattern
+      </button>
     </div>
   </div>
 </template>
@@ -122,6 +128,19 @@ export default {
       }
 
       this.startedPattern = true;
+    },
+
+    resetPattern() {
+      if (
+        confirm(
+          "This will erase the current pattern being built, are you sure you want to continue?"
+        )
+      ) {
+        this.gridSize = 6;
+        this.currentGrid = [];
+        this.fullGrid = [];
+        this.startedPattern = false;
+      }
     },
   },
 };

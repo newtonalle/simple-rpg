@@ -2,7 +2,7 @@
   <div>
     <h2>Farming</h2>
     <p class="fs-5">
-      Farming Lvl. {{ playerSkills.farming }} ({{ player.skills.farming }}
+      Farming Lvl. {{ playerSkills.farming + 1 }} ({{ player.skills.farming }}
       XP)
     </p>
 
@@ -74,13 +74,25 @@
     <div v-if="farmingStatus.cropPlots.length <= 0">
       <p>Currently Empty!</p>
     </div>
+
+    <br />
+    <br />
+
+    <div v-if="farmingLog.length > 0">
+      <hr class="divider" />
+
+      <div v-for="(log, index) in farmingLog" :key="`${log}-${index}`">
+        <p class="fs-8">{{ log }}</p>
+      </div>
+      <button style="width: 200px" class="btn btn-danger" @click="clearLog">
+        Clear Farming Log
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  data: () => ({}),
-
   methods: {
     plantCrop(cropId) {
       this.$store.dispatch("plantCrop", cropId);
@@ -88,6 +100,10 @@ export default {
 
     harvestPlot(index) {
       this.$store.dispatch("harvestPlot", index);
+    },
+
+    clearLog() {
+      this.$store.dispatch("clearLog", "farmingLog");
     },
   },
 
@@ -122,6 +138,10 @@ export default {
 
     materialAmounts() {
       return this.$store.getters.getMaterialAmounts;
+    },
+
+    farmingLog() {
+      return this.$store.getters.getFarmingLog;
     },
   },
 };

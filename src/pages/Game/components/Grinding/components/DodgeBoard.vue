@@ -1,13 +1,24 @@
 <template>
   <div>
-    <!-- <div
+    <!--<div
       v-for="(line, indexasd) in currentDodgeBoard.attackBoard"
       :key="indexasd"
     >
       <span v-for="(space, indexasdd) in line" :key="indexasdd">
         {{ space[currentDodgeBoard.currentAttackStep] }}</span
       >
-    </div> -->
+    </div>
+    <p>
+      {{ equippedPlayer.moveSpeed }} 🦶💨
+      <span v-if="this.currentDodgeBoard.moveCooldown > 0"
+        >({{ this.currentDodgeBoard.moveCooldown.toFixed(1) }}s to move!)</span
+      >
+     
+    </p> -->
+    <p v-if="currentDodgeBoard.moveCooldown > 0">
+      Move Unavailable ({{ currentDodgeBoard.moveCooldown.toFixed(1) }}s)
+    </p>
+    <p v-else>Move Available</p>
     <canvas id="dodgeBoardCanvas" :width="300" :height="300" />
   </div>
 </template>
@@ -16,6 +27,7 @@
 export default {
   data: () => ({
     plannedMove: -1,
+    battleLoaded: false,
 
     boardSize: 300,
     inBetweenSpaceMargin: 5,
@@ -23,6 +35,7 @@ export default {
 
     enemyAttackSpeed: 250,
     attackingSetIntervalId: 24522,
+    battleManagerSetIntervalId: 1910,
   }),
   computed: {
     currentDodgeBoard() {
@@ -31,10 +44,17 @@ export default {
     currentEnemy() {
       return this.$store.getters.getCurrentEnemy;
     },
+    equippedPlayer() {
+      return this.$store.getters.getEquippedPlayer;
+    },
   },
   methods: {
     updateCanvas() {
-      if (this.currentEnemy.label && this.currentEnemy.type === "boss") {
+      if (
+        this.currentEnemy.label &&
+        this.currentEnemy.type === "boss" &&
+        this.currentDodgeBoard.attackBoard[0][0][0] != undefined
+      ) {
         const playerPos = this.currentDodgeBoard.playerPos;
         const attackBoard = this.currentDodgeBoard.attackBoard;
         const currentStep = this.currentDodgeBoard.currentAttackStep;
@@ -68,32 +88,31 @@ export default {
             }
 
             ctx.fillRect(
-              (this.boardSize / 6) * spaceIndex, // X Start
-              (this.boardSize / 6) * lineIndex, // Y Start
-              this.boardSize / 6 - this.inBetweenSpaceMargin, // X Size
-              this.boardSize / 6 - this.inBetweenSpaceMargin // Y Size
+              (this.boardSize / attackBoard.length) * spaceIndex, // X Start
+              (this.boardSize / attackBoard.length) * lineIndex, // Y Start
+              this.boardSize / attackBoard.length - this.inBetweenSpaceMargin, // X Size
+              this.boardSize / attackBoard.length - this.inBetweenSpaceMargin // Y Size
             );
           });
         });
 
         ctx.fillStyle = "#89f0a4";
         ctx.fillRect(
-          (this.boardSize / 6) * playerPos[1] + this.playerLocationOutline, // X Start
-          (this.boardSize / 6) * playerPos[0] + this.playerLocationOutline, // Y Start
-          this.boardSize / 6 -
+          (this.boardSize / attackBoard.length) * playerPos[1] +
+            this.playerLocationOutline, // X Start
+          (this.boardSize / attackBoard.length) * playerPos[0] +
+            this.playerLocationOutline, // Y Start
+          this.boardSize / attackBoard.length -
             this.inBetweenSpaceMargin -
             this.playerLocationOutline * 2, // X Size
-          this.boardSize / 6 -
+          this.boardSize / attackBoard.length -
             this.inBetweenSpaceMargin -
             this.playerLocationOutline * 2 // Y Size
         );
 
         if (attackBoard[playerPos[0]][playerPos[1]][currentStep] === 1) {
           if (this.currentEnemy.label) {
-            this.$store.dispatch("attack", {
-              user: "currentEnemy",
-              target: "player",
-            });
+            this.$store.dispatch("attackGridHit");
           }
         }
       }
@@ -116,18 +135,40 @@ export default {
       this.$store.dispatch("stepAttackBoard");
       this.updateCanvas();
     },
+
+    unloadCurrentBattle() {
+      clearInterval(this.attackingSetIntervalId);
+      this.battleLoaded = false;
+    },
+
+    manageBattle() {
+      if (this.currentEnemy.label && this.currentEnemy.type === "boss") {
+        if (!this.battleLoaded) {
+          // Activate dodge board using enemy pattern step delay
+
+          this.attackingSetIntervalId = setInterval(() => {
+            this.stepAttackBoard();
+          }, this.currentEnemy.bossStats.patternStepDelay * 1000);
+          this.battleLoaded = true;
+        }
+      } else {
+        // Deactivate dodge board
+
+        this.unloadCurrentBattle();
+      }
+    },
   },
   mounted() {
     window.addEventListener("keydown", this.keyPressHandle);
-
-    this.attackingSetIntervalId = setInterval(() => {
-      this.stepAttackBoard();
-    }, this.enemyAttackSpeed);
+    this.battleManagerSetIntervalId = setInterval(() => {
+      this.manageBattle();
+    }, 10);
   },
 
   destroyed() {
-    clearInterval(this.attackingSetIntervalId);
     window.removeEventListener("keydown", this.keyPressHandle);
+    clearInterval(this.battleLoaderSetIntervalId);
+    clearInterval(this.attackingSetIntervalId);
   },
 };
 </script>

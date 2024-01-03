@@ -41,74 +41,7 @@
     <br />
 
     <div v-if="hovering && recipe.result.type === 'equipment'">
-      <p class="fw-bold">
-        {{ equipments[recipe.result.id].typeLabel }}
-      </p>
-      <p class="fw-bold" v-if="equipments[recipe.result.id].setLabel">
-        {{ equipments[recipe.result.id].setLabel }} Set
-      </p>
-      <p class="fw-bold" v-if="equipments[recipe.result.id].effectLore">
-        {{ equipments[recipe.result.id].effectLore }}
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].strengthBonus">
-        {{ equipments[recipe.result.id].strengthBonus }} 👊
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].defenseBonus">
-        {{ equipments[recipe.result.id].defenseBonus }} 🛡️
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].healthBonus">
-        {{ equipments[recipe.result.id].healthBonus }} ❤️
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].miningSpeedBonus">
-        {{ equipments[recipe.result.id].miningSpeedBonus }} ⛏
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].miningLuckBonus">
-        {{ equipments[recipe.result.id].miningLuckBonus }} ⛏🍀
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].foragingSpeedBonus">
-        {{ equipments[recipe.result.id].foragingSpeedBonus }} 🪓
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].foragingLuckBonus">
-        {{ equipments[recipe.result.id].foragingLuckBonus }} 🪓🍀
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].farmingLuckBonus">
-        {{ equipments[recipe.result.id].farmingLuckBonus }} 🌱🍀
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].fishingLuckBonus">
-        {{ equipments[recipe.result.id].fishingLuckBonus }} 🐟
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].manaCost">
-        {{ equipments[recipe.result.id].manaCost }} 🪄
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].healing">
-        {{ equipments[recipe.result.id].healing }} ️‍🩹
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].regeneration">
-        {{ equipments[recipe.result.id].regeneration }} ️‍💗
-      </p>
-
-      <p class="fw-bold" v-if="equipments[recipe.result.id].critChanceBonus">
-        {{ equipments[recipe.result.id].critChanceBonus }}% ️💥🍀
-      </p>
-
-      <p
-        class="fw-bold"
-        v-if="equipments[recipe.result.id].critDamageMultiplierBonus"
-      >
-        {{ equipments[recipe.result.id].critDamageMultiplierBonus }}x ️💥👊
-      </p>
+      <equipment-stats :itemId="recipe.result.id" />
     </div>
 
     <br />
@@ -119,10 +52,13 @@
 </template>
 
 <script>
+import EquipmentStats from "../../../components/EquipmentStats.vue";
 export default {
   data: () => ({
     hovering: false,
   }),
+
+  components: { EquipmentStats },
 
   props: { recipe: Object, index: Number },
 

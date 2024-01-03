@@ -2,7 +2,7 @@
   <div>
     <h2>Mining</h2>
     <p class="fs-5">
-      Mining Lvl. {{ playerSkills.mining }} ({{ player.skills.mining }} XP)
+      Mining Lvl. {{ playerSkills.mining + 1 }} ({{ player.skills.mining }} XP)
     </p>
 
     <!-- Menu with Current Pickaxe Stats -->
@@ -30,7 +30,7 @@
 
           <!-- CRIT DESIGN -->
 
-          <button class="btn btn-secondary" @click="selectOre(index)">
+          <button class="btn btn-secondary" @click="selectOreId(index)">
             {{ ore.label }}
           </button>
           <br />
@@ -42,6 +42,7 @@
         :speed="17.539999"
         :cooldown="player.currentMiningCooldown"
         :hitText="`Mine ${ores[selectedOreId].label}`"
+        :markerId="`mining-0`"
         @critHit="critBarMine"
       />
     </div>
@@ -49,6 +50,20 @@
     <!-- Message for missing pickaxe -->
 
     <p v-if="!playerEquipments.pickaxe">Equip a pickaxe before you can mine!</p>
+
+    <br />
+    <br />
+
+    <div v-if="miningLog.length > 0">
+      <hr class="divider" />
+
+      <div v-for="(log, index) in miningLog" :key="`${log}-${index}`">
+        <p class="fs-8">{{ log }}</p>
+      </div>
+      <button style="width: 200px" class="btn btn-danger" @click="clearLog">
+        Clear Mining Log
+      </button>
+    </div>
   </div>
 </template>
 
@@ -76,6 +91,10 @@ export default {
         index: this.selectedOreId,
         hitAccuracy,
       });
+    },
+
+    clearLog() {
+      this.$store.dispatch("clearLog", "miningLog");
     },
   },
 
@@ -110,6 +129,10 @@ export default {
 
     oreUnlocks() {
       return this.$store.getters.getOreUnlocks;
+    },
+
+    miningLog() {
+      return this.$store.getters.getMiningLog;
     },
   },
 };

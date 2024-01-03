@@ -1,11 +1,11 @@
 <template>
   <div>
     <div>
-      <h2>Inventory</h2>
+      <h2>Equipments</h2>
 
       <!-- The player's equipments that are currently equipped -->
 
-      <h3>Equipped Items</h3>
+      <h3>Equipped</h3>
 
       <!-- Menu showing all equipments equipped by the player, including their status -->
       <div class="row">
@@ -25,17 +25,21 @@
           </button>
           <br />
           <br />
-          <div
-            v-for="(itemId, index) in setup"
-            :key="`equipmentItemId-${itemId}-index-${index}`"
-          >
-            <equipment
-              :index="index"
-              :itemId="itemId"
-              :itemEquippedStatus="true"
-              :inBattle="!!currentEnemy.id"
-              @toggleItem="unequipItem(index, setupIndex)"
-            />
+          <div class="row">
+            <div
+              v-for="(itemId, index) in setup"
+              :key="`equipmentItemId-${itemId}-index-${index}`"
+              class="col-6"
+            >
+              <equipment
+                :index="index"
+                :itemId="itemId"
+                :itemEquippedStatus="true"
+                :inBattle="!!currentEnemy.label"
+                :deleteButtonAppear="deleteButtonAppear"
+                @toggleItem="unequipItem(index, setupIndex)"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -51,31 +55,37 @@
       <hr class="divider" />
 
       <!-- The player's equipments that are not currently equipped -->
+      <div v-if="showUnequippedItems">
+        <h3>Unequipped</h3>
 
-      <h3>Equipments</h3>
-
-      <div v-if="player.inventory.length <= 0">
-        <h5>No equipments in your inventory!</h5>
         <br />
-        <br />
-      </div>
 
-      <!-- Menu showing all equipments not equipped by the player, including their status -->
+        <div v-if="player.inventory.length <= 0">
+          <h5>No unequipped items in your inventory!</h5>
+          <br />
+          <br />
+        </div>
 
-      <div
-        v-for="(itemId, index) in player.inventory"
-        :key="`inventoryItemId-${itemId}-index-${index}`"
-      >
-        <equipment
-          :index="index"
-          :itemId="itemId"
-          :itemEquippedStatus="false"
-          :inBattle="!!currentEnemy.id"
-          @toggleItem="equipItem"
-          @removeEquipment="removeEquipment(index)"
-        />
+        <!-- Menu showing all equipments not equipped by the player, including their status -->
+        <div class="row">
+          <div
+            v-for="(itemId, index) in player.inventory"
+            :key="`inventoryItemId-${itemId}-index-${index}`"
+            class="col-4"
+          >
+            <equipment
+              :index="index"
+              :itemId="itemId"
+              :itemEquippedStatus="false"
+              :inBattle="!!currentEnemy.label"
+              :deleteButtonAppear="deleteButtonAppear"
+              @toggleItem="equipItem"
+              @removeEquipment="removeEquipment(index)"
+            />
+          </div>
+          <br />
+        </div>
       </div>
-      <br />
     </div>
   </div>
 </template>
@@ -84,6 +94,8 @@
 import Equipment from "./Equipment.vue";
 
 export default {
+  props: { showUnequippedItems: Boolean, deleteButtonAppear: Boolean },
+
   components: { Equipment },
 
   methods: {

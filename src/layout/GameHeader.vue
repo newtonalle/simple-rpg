@@ -35,6 +35,14 @@
               >Inventory</router-link
             >
             <router-link
+              :class="[
+                'nav-link',
+                $route.name === 'progressionTracker' ? 'active' : '',
+              ]"
+              :to="{ name: 'progressionTracker' }"
+              >Milestones/Collections</router-link
+            >
+            <router-link
               :class="['nav-link', $route.name === 'tutorial' ? 'active' : '']"
               :to="{ name: 'tutorial' }"
               >Tutorial</router-link

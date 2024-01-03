@@ -3,7 +3,8 @@
     <h2>Fishing</h2>
 
     <p class="fs-5">
-      Fishing Lvl. {{ playerSkills.fishing }} ({{ player.skills.fishing }} XP)
+      Fishing Lvl. {{ playerSkills.fishing + 1 }} ({{ player.skills.fishing }}
+      XP)
     </p>
 
     <!-- Menu with Current Fishing Rod Stats -->
@@ -35,11 +36,7 @@
       <div v-for="(log, index) in fishingLog" :key="`${log}-${index}`">
         <p>{{ log }}</p>
       </div>
-      <button
-        style="width: 200px"
-        class="btn btn-danger"
-        @click="clearFishingLog"
-      >
+      <button style="width: 200px" class="btn btn-danger" @click="clearLog">
         Clear Fishing Log
       </button>
 
@@ -55,8 +52,8 @@ export default {
       this.$store.dispatch("fish");
     },
 
-    clearFishingLog() {
-      this.$store.dispatch("clearFishingLog");
+    clearLog() {
+      this.$store.dispatch("clearLog", "fishingLog");
     },
   },
 

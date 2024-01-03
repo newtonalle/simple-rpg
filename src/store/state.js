@@ -6,22 +6,45 @@ export default () => ({
             label: 'Hero',
             coins: 0,
             stats: {
+                // Combat
+
                 maxHealth: 10,
                 health: 10,
+
                 maxMana: 10,
                 mana: 10,
+
                 defense: 0,
+
                 strength: 1,
-                attackSpeed: 0,
-                miningLuck: 0,
-                miningSpeed: 0,
-                foragingLuck: 0,
-                foragingSpeed: 0,
-                farmingLuck: 0,
-                fishingLuck: 0,
-                maxFishingTier: 4,
                 critChance: 10,
                 critDamageMultiplier: 2,
+                attackSpeed: 0,
+
+                magicDamage: 0,
+
+                aimingAccuracy: 0, // Percentage
+
+                moveSpeed: 0,
+
+                // Mining
+
+                miningLuck: 0,
+                miningSpeed: 0,
+
+                // Foraging
+
+                foragingLuck: 0,
+                foragingSpeed: 0,
+
+                // Farming
+
+                farmingLuck: 0,
+
+                // Fishing
+
+                fishingLuck: 0,
+                maxFishingTier: 4,
             },
 
             skills: {
@@ -34,18 +57,6 @@ export default () => ({
                 farming: 0,
 
                 fishing: 0,
-            },
-
-            skillLimits: {
-                combat: 333000,
-
-                mining: 333000,
-
-                foraging: 333000,
-
-                farming: 333000,
-
-                fishing: 333000,
             },
 
             inventory: [],
@@ -76,6 +87,8 @@ export default () => ({
         currentDodgeBoard: {
             playerPos: [0, 0], // Y - X
             currentAttackStep: 0,
+            moveCooldown: 0,
+            passiveActivateCooldown: 0,
             // 0 - Empty
             // 1 - Attack
             // 2 - Warning
@@ -84,206 +97,41 @@ export default () => ({
             ]
         },
 
-        enemyUnlocks: [
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
+        enemyUnlocks: [],
 
-        oreUnlocks: [
-            true,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
+        oreUnlocks: [],
 
-        plantUnlocks: [
-            true,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
+        plantUnlocks: [],
 
-        cropUnlocks: [
-            true,
-            false,
-            false,
-        ],
+        cropUnlocks: [],
 
-        materialAmounts: [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-        ],
+        materialAmounts: [],
 
         milestoneAmounts: {
-            enemies: [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-            ],
+            enemies: [],
 
-            mining: [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-            ],
+            mining: [],
 
-            foraging: [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-            ],
+            foraging: [],
 
-            farming: [
-                0,
-                0,
-                0,
-            ],
+            farming: [],
 
-            fishing: [
-                0,
-                0,
-                0,
-                0,
-            ],
+            fishing: [],
         },
 
-        recipeUnlocks: [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-        ],
+        collectionAmounts: [],
 
-        shopUnlocks: [
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true
-        ],
+        recipeUnlocks: [],
+
+        shopUnlocks: [],
 
         combatLog: [],
+
+        miningLog: [],
+
+        foragingLog: [],
+
+        farmingLog: [],
 
         fishingLog: [],
     }

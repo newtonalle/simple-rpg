@@ -60,7 +60,7 @@
           </div>
         </div>
       </div>
-
+      <hr />
       <div class="col-6">
         <h4>Foraging Drops 🪵</h4>
 
@@ -90,6 +90,27 @@
       </div>
 
       <div class="col-6">
+        <h4>Crafted Items 🔨</h4>
+
+        <br />
+
+        <div
+          v-for="(material, index) in materials"
+          :key="`specialCraftingMaterials-${material.id}-index-${index}`"
+        >
+          <div v-if="material.type === 'specialCrafting'">
+            <h5>
+              {{ material.label }}{{ material.symbol }} x{{
+                materialAmounts[material.id]
+              }}
+            </h5>
+            <br />
+            <br />
+          </div>
+        </div>
+      </div>
+
+      <!--<div class="col-6">
         <h4>Farming Drops/Seeds 🌱</h4>
 
         <br />
@@ -124,7 +145,7 @@
             <br />
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
 
     <br />

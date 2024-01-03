@@ -1,17 +1,18 @@
 <template>
   <div>
     <img
-      id="critbarId"
       class="critBar"
       src="../../../../../assets/Bar.png"
       alt="BAR IMG"
+      style="height: 40px; width: 150px"
     />
     <br />
     <img
-      id="markerId"
+      :id="`markerId-${markerId}`"
       class="critMarker"
       src="../../../../../assets/Marker.png"
       alt="MARKER"
+      style="height: 20px; width: 20px"
     />
 
     <br />
@@ -34,7 +35,7 @@ export default {
     // (-1) - going left
   }),
 
-  props: { speed: Number, cooldown: Number, hitText: String },
+  props: { speed: Number, cooldown: Number, hitText: String, markerId: Number },
 
   methods: {
     critHit() {
@@ -49,7 +50,7 @@ export default {
     },
 
     critMove() {
-      let image = document.getElementById("markerId");
+      let image = document.getElementById(`markerId-${this.markerId}`);
 
       this.critMarkerPosX += 10 * this.critDirection;
       image.style.marginLeft = this.critMarkerPosX + "px";
@@ -59,7 +60,7 @@ export default {
     },
   },
 
-  created() {
+  mounted() {
     this.setIntervalId = setInterval(() => {
       this.critMove();
     }, this.speed);
@@ -72,14 +73,6 @@ export default {
 </script>
 
 <style scoped>
-.critMarker {
-  height: 20px;
-  width: 20px;
-}
-.critBar {
-  height: 40px;
-  width: 150px;
-}
 button {
   width: 150px;
 }

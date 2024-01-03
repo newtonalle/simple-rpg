@@ -10,6 +10,10 @@
     <br />
     <br />
 
+    <hr />
+
+    <br />
+
     <h3>Save</h3>
 
     <br />
@@ -39,6 +43,118 @@
 
     <br />
     <br />
+
+    <hr />
+
+    <br />
+
+    <h3>Quick XP</h3>
+
+    <br />
+
+    <button
+      style="margin-left: 20px"
+      class="btn btn-success"
+      @click="debugGiveXp"
+    >
+      Gain XP
+    </button>
+
+    <br />
+    <br />
+
+    <input v-model="skillType" type="text" placeholder="Skill" />
+
+    <br />
+    <br />
+
+    <input v-model="xpAmount" type="number" placeholder="Amount" />
+
+    <br />
+    <br />
+
+    <hr />
+
+    <br />
+
+    <h3>Quick Coins</h3>
+
+    <br />
+
+    <button
+      style="margin-left: 20px"
+      class="btn btn-success"
+      @click="debugGiveCoins"
+    >
+      Gain Coins
+    </button>
+
+    <br />
+    <br />
+
+    <input v-model="coinsAmount" type="number" placeholder="Amount" />
+
+    <br />
+    <br />
+
+    <hr />
+
+    <br />
+
+    <h3>Quick Item</h3>
+
+    <br />
+
+    <button
+      style="margin-left: 20px"
+      class="btn btn-success"
+      @click="debugGiveItemById"
+    >
+      Gain Item
+    </button>
+
+    <br />
+    <br />
+
+    <input v-model="itemId" type="number" placeholder="Item ID" />
+
+    <br />
+    <br />
+
+    <hr />
+
+    <br />
+
+    <h3>Quick Material</h3>
+
+    <br />
+
+    <button
+      style="margin-left: 20px"
+      class="btn btn-success"
+      @click="debugGiveMaterialById"
+    >
+      Gain Material
+    </button>
+
+    <br />
+    <br />
+
+    <input v-model="materialId" type="number" placeholder="Material ID" />
+
+    <br />
+    <br />
+
+    <input
+      v-model="materialsAmount"
+      type="number"
+      placeholder="Material Amount"
+    />
+
+    <br />
+    <br />
+
+    <br />
   </div>
 </template>
 
@@ -48,6 +164,12 @@ export default {
   data: () => ({
     importedSave: "",
     currentSave: "",
+    skillType: "",
+    xpAmount: "",
+    coinsAmount: "",
+    itemId: "",
+    materialId: "",
+    materialsAmount: "",
   }),
 
   components: { AttackPatternBuilder },
@@ -66,6 +188,34 @@ export default {
     exportGame() {
       this.currentSave = JSON.stringify(this.gameState);
     },
+
+    debugGiveXp() {
+      this.$store.dispatch("debugGiveXp", {
+        type: this.skillType,
+        amount: Number(this.xpAmount),
+      });
+    },
+
+    debugGiveCoins() {
+      this.$store.dispatch("debugGiveCoins", Number(this.coinsAmount));
+    },
+
+    debugGiveItemById() {
+      this.$store.dispatch("debugGiveItemById", Number(this.itemId));
+    },
+
+    debugGiveMaterialById() {
+      this.$store.dispatch("debugGiveMaterialById", {
+        materialId: Number(this.materialId),
+        materialsAmount: Number(this.materialsAmount),
+      });
+    },
   },
 };
 </script>
+
+<style scoped>
+.button {
+  width: 150px;
+}
+</style>

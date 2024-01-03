@@ -7,24 +7,26 @@
     <div>
       <h4 class="fw-bold">{{ player.label }}</h4>
       <p class="fs-5">
-        Combat Lvl. {{ playerSkills.combat }} ({{ player.skills.combat }} XP)
+        Combat Lvl. {{ playerSkills.combat + 1 }} ({{ player.skills.combat }}
+        XP)
       </p>
       <div class="row">
         <div class="col">
           <p>{{ player.stats.health }}/{{ equippedPlayer.maxHealth }} ❤️</p>
           <p>{{ player.stats.mana }}/{{ equippedPlayer.maxMana }} 🪄</p>
+          <p>{{ player.coins }} 🪙</p>
         </div>
         <div class="col">
           <p>{{ equippedPlayer.strength }} 👊</p>
-          <p>{{ equippedPlayer.defense }} 🛡️</p>
+          <p>{{ equippedPlayer.defense.toFixed(1) }} 🛡️</p>
+          <p>{{ equippedPlayer.attackSpeed }}⚡👊</p>
         </div>
         <div class="col">
-          <p>{{ equippedPlayer.critChance }}% 💥🍀</p>
-          <p>{{ equippedPlayer.critDamageMultiplier }}x 💥👊</p>
+          <p>{{ equippedPlayer.critChance.toFixed(2) }}% 💥🍀</p>
+          <p>{{ equippedPlayer.critDamageMultiplier.toFixed(2) }}x 💥👊</p>
+          <p>{{ equippedPlayer.moveSpeed }}🦶💨</p>
         </div>
       </div>
-      <p>{{ equippedPlayer.attackSpeed }}⚡</p>
-      <p>{{ player.coins }} 🪙</p>
     </div>
 
     <br />
@@ -74,35 +76,23 @@
           </button>
         </div>
       </div>
-      <div v-else-if="currentEnemy.type === 'boss'">
-        <!-- Boss Battle -->
-
-        <h2>BOSS BATTLE</h2>
-        <div>
-          <!-- Dodge Attack -->
-          <p>Dodge the Attacks using "WASD" keys to move!</p>
-          <dodge-board />
-        </div>
-
-        <br />
-        <br />
-
-        <div>
-          <!-- Attack -->
-
-          <crit-bar
-            :speed="17.539999"
-            :cooldown="player.currentAttackCooldown"
-            :hitText="`Attack`"
-            @critHit="critBarAttack"
-          />
-        </div>
-      </div>
     </div>
 
     <hr class="divider" />
 
     <!-- Starting Battle Actions -->
+
+    <div v-if="currentEnemy.type === 'boss'">
+      <button :class="`btn btn-danger`" @click="goToBossFight()">
+        Return to Battle
+      </button>
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+    </div>
 
     <div v-for="(enemy, index) in enemies" :key="`${enemy.label}-${index}`">
       <div v-if="enemyUnlocks[enemy.id]">
@@ -124,11 +114,7 @@
       <div v-for="(log, index) in combatLog" :key="`${log}-${index}`">
         <p class="fs-8">{{ log }}</p>
       </div>
-      <button
-        style="width: 200px"
-        class="btn btn-danger"
-        @click="clearCombatLog"
-      >
+      <button style="width: 200px" class="btn btn-danger" @click="clearLog">
         Clear Combat Log
       </button>
     </div>
@@ -136,26 +122,12 @@
 </template>
 
 <script>
-import CritBar from "./components/CritBar.vue";
-import DodgeBoard from "./components/DodgeBoard.vue";
 export default {
-  components: { CritBar, DodgeBoard },
-
   methods: {
     fight(index) {
       this.$store.dispatch("newEnemy", index);
-    },
-
-    critBarAttack(hitAccuracy) {
-      this.$store.dispatch("playerPassive");
-
-      this.$store.dispatch("critBarAttack", hitAccuracy);
-
-      if (this.currentEnemy.label) {
-        this.$store.dispatch("attack", {
-          user: "currentEnemy",
-          target: "player",
-        });
+      if (this.enemies[index].type === "boss") {
+        this.$router.push({ name: "bossFight" });
       }
     },
 
@@ -179,8 +151,8 @@ export default {
       this.$store.dispatch("healPlayer");
     },
 
-    clearCombatLog() {
-      this.$store.dispatch("clearCombatLog");
+    clearLog() {
+      this.$store.dispatch("clearLog", "combatLog");
     },
 
     enemyButtonColor(enemyType) {
@@ -194,6 +166,10 @@ export default {
         default:
           return "warning";
       }
+    },
+
+    goToBossFight() {
+      this.$router.push({ name: "bossFight" });
     },
   },
 

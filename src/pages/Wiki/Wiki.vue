@@ -155,10 +155,44 @@
 
 <script>
 export default {
+  data: () => ({
+    setIntervalId: 0,
+    speedSetIntervalId: 1,
+  }),
+
   methods: {
     scrollToElement(id) {
       document.getElementById(id).scrollIntoView();
     },
+
+    updateGame() {
+      this.$store.dispatch("updateGame");
+    },
+
+    speedyUpdate() {
+      this.$store.dispatch("speedyUpdate");
+    },
+
+    versionUpdate() {
+      this.$store.dispatch("versionUpdate");
+    },
+  },
+
+  created() {
+    this.versionUpdate();
+
+    this.setIntervalId = setInterval(() => {
+      this.updateGame();
+    }, 1000);
+
+    this.speedSetIntervalId = setInterval(() => {
+      this.speedyUpdate();
+    }, 100);
+  },
+
+  destroyed() {
+    clearInterval(this.setIntervalId);
+    clearInterval(this.speedSetIntervalId);
   },
 };
 </script>

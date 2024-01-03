@@ -11,6 +11,9 @@ export const EQUIPMENTS = [
         slotLabel: 'Helmet',
         setLabel: 'Leather',
         healthBonus: 2,
+        equipSkillRequirement: {
+            combat: 2
+        }
     },
 
     {
@@ -51,9 +54,6 @@ export const EQUIPMENTS = [
         setLabel: 'Chainmail',
         healthBonus: 2,
         defenseBonus: 1,
-        equipSkillRequirement: {
-            combat: 1
-        }
     },
 
     {
@@ -65,9 +65,6 @@ export const EQUIPMENTS = [
         setLabel: 'Chainmail',
         healthBonus: 2,
         defenseBonus: 1,
-        equipSkillRequirement: {
-            combat: 1
-        }
     },
 
     {
@@ -79,9 +76,6 @@ export const EQUIPMENTS = [
         setLabel: 'Chainmail',
         healthBonus: 2,
         defenseBonus: 1,
-        equipSkillRequirement: {
-            combat: 1
-        }
     },
 
     {
@@ -93,9 +87,6 @@ export const EQUIPMENTS = [
         setLabel: 'Chainmail',
         healthBonus: 2,
         defenseBonus: 1,
-        equipSkillRequirement: {
-            combat: 1
-        }
     },
 
     // Iron Armor
@@ -107,11 +98,9 @@ export const EQUIPMENTS = [
         slotLabel: 'Helmet',
         set: 'iron',
         setLabel: 'Iron',
-        healthBonus: 3,
+        healthBonus: 2,
         defenseBonus: 1,
-        equipSkillRequirement: {
-            combat: 2
-        }
+        strengthBonus: 1,
     },
 
     {
@@ -121,11 +110,9 @@ export const EQUIPMENTS = [
         slotLabel: 'Chestplate',
         set: 'iron',
         setLabel: 'Iron',
-        healthBonus: 3,
+        healthBonus: 2,
         defenseBonus: 1,
-        equipSkillRequirement: {
-            combat: 2
-        }
+        strengthBonus: 1,
     },
 
     {
@@ -135,11 +122,9 @@ export const EQUIPMENTS = [
         slotLabel: 'Leggings',
         set: 'iron',
         setLabel: 'Iron',
-        healthBonus: 3,
+        healthBonus: 2,
         defenseBonus: 1,
-        equipSkillRequirement: {
-            combat: 2
-        }
+        strengthBonus: 1,
     },
 
     {
@@ -149,210 +134,592 @@ export const EQUIPMENTS = [
         slotLabel: 'Boots',
         set: 'iron',
         setLabel: 'Iron',
-        healthBonus: 3,
+        healthBonus: 2,
         defenseBonus: 1,
-        equipSkillRequirement: {
-            combat: 2
-        }
+        strengthBonus: 1,
     },
+
+    // Diamond Armor
 
     {
         id: 12,
-        label: 'Wooden Stick',
-        slot: 'weapon',
-        slotLabel: 'Weapon',
-        typeId: 0,
-        strengthBonus: 1,
-        critDamageMultiplierBonus: 1,
+        label: 'Diamond Helmet',
+        slot: 'helmet',
+        slotLabel: 'Helmet',
+        set: 'diamond',
+        setLabel: 'Diamond',
+        healthBonus: 3,
+        defenseBonus: 1,
+        strengthBonus: 2,
     },
 
     {
         id: 13,
-        label: 'Stone Sword',
-        slot: 'weapon',
-        slotLabel: 'Weapon',
-        typeId: 0,
+        label: 'Diamond Chestplate',
+        slot: 'chestplate',
+        slotLabel: 'Chestplate',
+        set: 'diamond',
+        setLabel: 'Diamond',
+        healthBonus: 3,
+        defenseBonus: 1,
         strengthBonus: 2,
-        critChanceBonus: 10,
-        critDamageMultiplierBonus: 0.5,
     },
 
     {
         id: 14,
+        label: 'Diamond Leggings',
+        slot: 'leggings',
+        slotLabel: 'Leggings',
+        set: 'diamond',
+        setLabel: 'Diamond',
+        healthBonus: 3,
+        defenseBonus: 1,
+        strengthBonus: 2,
+    },
+
+    {
+        id: 15,
+        label: 'Diamond Boots',
+        slot: 'boots',
+        slotLabel: 'Boots',
+        set: 'diamond',
+        setLabel: 'Diamond',
+        healthBonus: 3,
+        defenseBonus: 1,
+        strengthBonus: 2,
+    },
+
+    // Reinforced Diamond Armor
+
+    {
+        id: 16,
+        label: 'Reinforced Diamond Helmet',
+        slot: 'helmet',
+        slotLabel: 'Helmet',
+        set: 'reinforcedDiamond',
+        setLabel: 'Reinforced Diamond',
+        healthBonus: 5,
+        defenseBonus: 2,
+        strengthBonus: 3,
+    },
+
+    {
+        id: 17,
+        label: 'Reinforced Diamond Chestplate',
+        slot: 'chestplate',
+        slotLabel: 'Chestplate',
+        set: 'reinforcedDiamond',
+        setLabel: 'Reinforced Diamond',
+        healthBonus: 5,
+        defenseBonus: 2,
+        strengthBonus: 3,
+    },
+
+    {
+        id: 18,
+        label: 'Reinforced Diamond Leggings',
+        slot: 'leggings',
+        slotLabel: 'Leggings',
+        set: 'reinforcedDiamond',
+        setLabel: 'Reinforced Diamond',
+        healthBonus: 5,
+        defenseBonus: 2,
+        strengthBonus: 3,
+    },
+
+    {
+        id: 19,
+        label: 'Reinforced Diamond Boots',
+        slot: 'boots',
+        slotLabel: 'Boots',
+        set: 'reinforcedDiamond',
+        setLabel: 'Reinforced Diamond',
+        healthBonus: 5,
+        defenseBonus: 2,
+        strengthBonus: 3,
+    },
+
+    // Special Armors
+
+    // Worm Slayer
+
+    {
+        id: 20,
+        label: 'Worm Skull',
+        slot: 'helmet',
+        slotLabel: 'Helmet',
+        healthBonus: 10,
+        defenseBonus: 2,
+        regeneration: 3,
+    },
+
+    // Spider Slayer
+
+    {
+        id: 21,
+        label: 'Venomous Helmet',
+        slot: 'helmet',
+        slotLabel: 'Helmet',
+        strengthBonus: 10,
+    },
+
+    {
+        id: 22,
+        label: 'Voracious Helmet',
+        slot: 'helmet',
+        slotLabel: 'Helmet',
+        healthBonus: 3,
+        defenseBonus: 3,
+        strengthBonus: 15,
+    },
+
+    // Wolf Slayer
+
+    {
+        id: 23,
+        label: 'Pack Shield',
+        specialEffect: 'ignoresEnemyDefense',
+        effectLore: "Ignores the enemy's defense",
+        slot: 'accessory',
+    },
+
+    // Werewolf Armor
+
+    {
+        id: 24,
+        label: 'Werewolf Helmet',
+        slot: 'helmet',
+        slotLabel: 'Helmet',
+        set: 'werewolf',
+        defenseBonus: 10,
+    },
+
+    {
+        id: 25,
+        label: 'Werewolf Chestplate',
+        slot: 'chestplate',
+        slotLabel: 'Chestplate',
+        set: 'werewolf',
+        defenseBonus: 10,
+    },
+
+    {
+        id: 26,
+        label: 'Werewolf Leggings',
+        slot: 'leggings',
+        slotLabel: 'Leggings',
+        set: 'werewolf',
+        defenseBonus: 10,
+    },
+
+    {
+        id: 27,
+        label: 'Werewolf Boots',
+        slot: 'boots',
+        slotLabel: 'Boots',
+        set: 'werewolf',
+        defenseBonus: 10,
+    },
+
+    // Fishing Armors
+
+    // Whitetip Shark Armor
+
+    {
+        id: 28,
+        label: 'Whitetip Shark Helmet',
+        slot: 'helmet',
+        slotLabel: 'Helmet',
+        set: 'whitetipShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 1
+        },
+        fishingLuckBonus: 3,
+    },
+
+    {
+        id: 29,
+        label: 'Whitetip Shark Chestplate',
+        slot: 'chestplate',
+        slotLabel: 'Chestplate',
+        set: 'whitetipShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 1
+        },
+        fishingLuckBonus: 3,
+    },
+
+    {
+        id: 30,
+        label: 'Whitetip Shark Leggings',
+        slot: 'leggings',
+        slotLabel: 'Leggings',
+        set: 'whitetipShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 1
+        },
+        fishingLuckBonus: 3,
+    },
+
+    {
+        id: 31,
+        label: 'Whitetip Shark Boots',
+        slot: 'boots',
+        slotLabel: 'Boots',
+        set: 'whitetipShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 1
+        },
+        fishingLuckBonus: 3,
+    },
+
+    // Tiger Shark Armor
+
+    {
+        id: 32,
+        label: 'Tiger Shark Helmet',
+        slot: 'helmet',
+        slotLabel: 'Helmet',
+        set: 'tigerShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 2
+        },
+        fishingLuckBonus: 5,
+    },
+
+    {
+        id: 33,
+        label: 'Tiger Shark Chestplate',
+        slot: 'chestplate',
+        slotLabel: 'Chestplate',
+        set: 'tigerShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 2
+        },
+        fishingLuckBonus: 5,
+    },
+
+    {
+        id: 34,
+        label: 'Tiger Shark Leggings',
+        slot: 'leggings',
+        slotLabel: 'Leggings',
+        set: 'tigerShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 2
+        },
+        fishingLuckBonus: 5,
+    },
+
+    {
+        id: 35,
+        label: 'Tiger Shark Boots',
+        slot: 'boots',
+        slotLabel: 'Boots',
+        set: 'tigerShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 2
+        },
+        fishingLuckBonus: 5,
+    },
+
+    // Great White Shark Armor
+
+    {
+        id: 36,
+        label: 'Great White Shark Helmet',
+        slot: 'helmet',
+        slotLabel: 'Helmet',
+        set: 'greatWhiteShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 3
+        },
+        fishingLuckBonus: 7,
+    },
+
+    {
+        id: 37,
+        label: 'Great White Shark Chestplate',
+        slot: 'chestplate',
+        slotLabel: 'Chestplate',
+        set: 'greatWhiteShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 3
+        },
+        fishingLuckBonus: 7,
+    },
+
+    {
+        id: 38,
+        label: 'Great White Shark Leggings',
+        slot: 'leggings',
+        slotLabel: 'Leggings',
+        set: 'greatWhiteShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 3
+        },
+        fishingLuckBonus: 7,
+    },
+
+    {
+        id: 39,
+        label: 'Great White Shark Boots',
+        slot: 'boots',
+        slotLabel: 'Boots',
+        set: 'greatWhiteShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 3
+        },
+        fishingLuckBonus: 7,
+    },
+
+    // Megalodon Shark Armor
+
+    {
+        id: 40,
+        label: 'Megalodon Shark Helmet',
+        slot: 'helmet',
+        slotLabel: 'Helmet',
+        set: 'megalodonShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 4
+        },
+        fishingLuckBonus: 10,
+    },
+
+    {
+        id: 41,
+        label: 'Megalodon Shark Chestplate',
+        slot: 'chestplate',
+        slotLabel: 'Chestplate',
+        set: 'megalodonShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 4
+        },
+        fishingLuckBonus: 10,
+    },
+
+    {
+        id: 42,
+        label: 'Megalodon Shark Leggings',
+        slot: 'leggings',
+        slotLabel: 'Leggings',
+        set: 'megalodonShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 4
+        },
+        fishingLuckBonus: 10,
+    },
+
+    {
+        id: 43,
+        label: 'Megalodon Shark Boots',
+        slot: 'boots',
+        slotLabel: 'Boots',
+        set: 'megalodonShark',
+        fullsetEffect: {
+            effect: 'skipFishingTier',
+            tier: 4
+        },
+        fishingLuckBonus: 10,
+    },
+
+    // Wands
+
+    {
+        id: 44,
+        label: 'Wand of Healing',
+        slot: 'wand',
+        slotLabel: 'Wand',
+        manaCost: 1,
+        healing: 3,
+    },
+
+    {
+        id: 45,
+        label: 'Wand of Mending',
+        slot: 'wand',
+        slotLabel: 'Wand',
+        manaCost: 1,
+        healing: 5,
+    },
+
+
+    // Weapons
+
+    {
+        id: 46,
+        label: 'Bronze Sword',
+        slot: 'weapon',
+        slotLabel: 'Weapon',
+        typeId: 0,
+        strengthBonus: 2,
+    },
+
+    {
+        id: 47,
         label: 'Iron Sword',
         slot: 'weapon',
         slotLabel: 'Weapon',
         typeId: 0,
         strengthBonus: 3,
-        critChanceBonus: 20,
-        critDamageMultiplierBonus: 0.3,
-        equipSkillRequirement: {
-            combat: 1
-        }
     },
 
     {
-        id: 15,
+        id: 48,
         label: 'Diamond Sword',
         slot: 'weapon',
         slotLabel: 'Weapon',
         typeId: 0,
         strengthBonus: 5,
-        critChanceBonus: 20,
-        critDamageMultiplierBonus: 0.3,
-        equipSkillRequirement: {
-            combat: 2
-        }
     },
 
     {
-        id: 16,
-        label: 'Stone Waraxe',
+        id: 49,
+        label: 'Sharp Diamond Sword',
         slot: 'weapon',
         slotLabel: 'Weapon',
         typeId: 0,
-        strengthBonus: 5,
-        critChanceBonus: 80,
-        critDamageMultiplierBonus: 0.8,
-    },
-
-    {
-        id: 17,
-        label: 'Iron Waraxe',
-        slot: 'weapon',
-        slotLabel: 'Weapon',
-        typeId: 0,
-        strengthBonus: 8,
-        critChanceBonus: 80,
-        critDamageMultiplierBonus: 0.8,
-        equipSkillRequirement: {
-            combat: 1
-        }
-    },
-
-    {
-        id: 18,
-        label: 'Iron Dagger',
-        slot: 'weapon',
-        slotLabel: 'Weapon',
-        typeId: 0,
-        strengthBonus: 3,
-        critChanceBonus: 20,
-        critDamageMultiplierBonus: 0.2,
-        attackSpeedBonus: 2,
-        equipSkillRequirement: {
-            combat: 2
-        }
-    },
-
-
-    {
-        id: 19,
-        label: "Oak Bow",
-        slot: 'weapon',
-        slotLabel: 'Weapon',
-        typeId: 1,
-        strengthBonus: 5,
-        aimingAccuracyBonus: 50,
-        critChanceBonus: 50,
-        critDamageMultiplierBonus: 0.5,
-        equipSkillRequirement: {
-            combat: 1
-        }
-    },
-
-    {
-        id: 20,
-        label: "Oak Shortbow",
-        slot: 'weapon',
-        slotLabel: 'Weapon',
-        typeId: 1,
         strengthBonus: 7,
-        aimingAccuracyBonus: 40,
-        critChanceBonus: 50,
-        critDamageMultiplierBonus: 0.5,
-        attackSpeedBonus: 1,
-        equipSkillRequirement: {
-            combat: 1
-        }
     },
 
     {
-        id: 21,
-        label: "Wooden Pickaxe",
+        id: 50,
+        label: 'Mithril Sword',
+        slot: 'weapon',
+        slotLabel: 'Weapon',
+        typeId: 0,
+        strengthBonus: 12,
+    },
+
+    // Pickaxes
+
+    {
+        id: 51,
+        label: 'Iron Pickaxe',
         slot: 'pickaxe',
         slotLabel: 'Pickaxe',
+        miningLuckBonus: 1,
+    },
+
+    {
+        id: 52,
+        label: 'Gold Pickaxe',
+        slot: 'pickaxe',
+        slotLabel: 'Pickaxe',
+        miningLuckBonus: 2,
+    },
+
+    {
+        id: 53,
+        label: 'Diamond Pickaxe',
+        slot: 'pickaxe',
+        slotLabel: 'Pickaxe',
+        miningSpeedBonus: 1,
+        miningLuckBonus: 3,
+    },
+
+    {
+        id: 54,
+        label: 'Reinforced Diamond Pickaxe',
+        slot: 'pickaxe',
+        slotLabel: 'Pickaxe',
+        miningSpeedBonus: 1,
         miningLuckBonus: 5,
     },
 
     {
-        id: 22,
-        label: "Stone Pickaxe",
+        id: 55,
+        label: 'Mithril Pickaxe',
         slot: 'pickaxe',
         slotLabel: 'Pickaxe',
-        miningLuckBonus: 10,
-        miningSpeedBonus: 1,
+        miningSpeedBonus: 20,
+        miningLuckBonus: 0,
+    },
+
+    // Fishing Rods
+
+    {
+        id: 56,
+        label: 'Fishing Rod',
+        slot: 'rod',
+        slotLabel: 'Fishing Rod',
+        fishingLuckBonus: 5,
     },
 
     {
-        id: 23,
-        label: "Iron Pickaxe",
-        slot: 'pickaxe',
-        slotLabel: 'Pickaxe',
-        miningLuckBonus: 20,
-        miningSpeedBonus: 2,
+        id: 57,
+        label: 'Rod of the Sea',
+        slot: 'rod',
+        slotLabel: 'Fishing Rod',
+        fishingLuckBonus: 15,
     },
 
     {
-        id: 24,
-        label: "Golden Pickaxe",
-        slot: 'pickaxe',
-        slotLabel: 'Pickaxe',
-        miningLuckBonus: 40,
-        miningSpeedBonus: 4,
+        id: 58,
+        label: 'Lucky Rod',
+        slot: 'rod',
+        slotLabel: 'Fishing Rod',
+        fishingLuckBonus: 30,
     },
 
     {
-        id: 25,
-        label: "Diamond Pickaxe",
-        slot: 'pickaxe',
-        slotLabel: 'Pickaxe',
-        miningLuckBonus: 60,
-        miningSpeedBonus: 5,
+        id: 59,
+        label: 'Blessed Rod',
+        slot: 'rod',
+        slotLabel: 'Fishing Rod',
+        fishingLuckBonus: 50,
     },
 
+    // Axes
+
     {
-        id: 26,
-        label: "Wooden Axe",
+        id: 60,
+        label: 'Enchanted Axe',
         slot: 'axe',
         slotLabel: 'Axe',
-        foragingLuckBonus: 1,
-        foragingSpeedBonus: 1,
+        foragingSpeedBonus: 15,
+        foragingLuckBonus: 10,
+        strengthBonus: 3,
+    },
+
+    // Bows
+
+    {
+        id: 61,
+        label: "Oak Bow",
+        slot: 'weapon',
+        slotLabel: 'Weapon',
+        typeId: 1,
+        aimingAccuracyBonus: 50,
+        strengthBonus: 3,
     },
 
     {
-        id: 27,
-        label: "Stone Axe",
-        slot: 'axe',
-        slotLabel: 'Axe',
-        foragingLuckBonus: 2,
-        foragingSpeedBonus: 1,
-        equipSkillRequirement: {
-            foraging: 1
-        }
-    },
-
-    {
-        id: 28,
-        label: "Iron Axe",
-        slot: 'axe',
-        slotLabel: 'Axe',
-        foragingLuckBonus: 3,
-        foragingSpeedBonus: 2,
-        equipSkillRequirement: {
-            foraging: 1
-        }
-    },
+        id: 61,
+        label: "Infernal Bow",
+        slot: 'weapon',
+        slotLabel: 'Weapon',
+        typeId: 1,
+        aimingAccuracyBonus: 90,
+        critChanceBonus: 50,
+        strengthBonus: 1,
+    }
 ]
 
 export const ENEMIES = [
@@ -680,7 +1047,6 @@ export const ENEMIES = [
         type: 'boss',
         bossStats: {
             patternStepDelay: 0.5,
-            startingPatternId: 5,
             attackPatternIds: [0, 1, 2, 3, 4],
             gridAttackDamage: {
                 type: "true-percentage",
@@ -1003,14 +1369,14 @@ export const MATERIALS = [
     {
         id: 21,
         label: 'Enchanted String',
-        type: '',
+        type: 'specialCrafting',
         symbol: '🧵',
     },
 
     {
         id: 22,
         label: 'Werewolf Tooth',
-        type: '',
+        type: 'specialCrafting',
         symbol: '🦷',
     },
 
@@ -1035,44 +1401,47 @@ export const MATERIALS = [
         label: 'Oak Log',
         type: 'foragingDrop',
         symbol: '🪵',
-        price: 10,
+        price: 3,
     },
 
     {
         id: 26,
-        label: 'Willow Log',
+        label: 'Birch Log',
         type: 'foragingDrop',
         symbol: '🪵',
-        price: 20,
+        price: 5,
     },
 
     {
         id: 27,
-        label: 'Ash Log',
+        label: 'Spruce Log',
         type: 'foragingDrop',
         symbol: '🪵',
-        price: 30,
+        price: 8,
     },
 
     {
         id: 28,
-        label: 'Oak Stick',
-        type: 'specialCrafting',
+        label: 'Dark Oak Log',
+        type: 'foragingDrop',
         symbol: '🪵',
+        price: 12,
     },
 
     {
         id: 29,
-        label: 'Willow Stick',
-        type: 'specialCrafting',
+        label: 'Acacia Log',
+        type: 'foragingDrop',
         symbol: '🪵',
+        price: 17,
     },
 
     {
         id: 30,
-        label: 'Ash Stick',
-        type: 'specialCrafting',
+        label: 'Jungle Log',
+        type: 'foragingDrop',
         symbol: '🪵',
+        price: 23,
     },
 
     {
@@ -1117,35 +1486,7 @@ export const MATERIALS = [
         label: 'Potato',
         type: 'farmingDrop',
         symbol: '🥔',
-        price: 100,
-    },
-
-    {
-        id: 37,
-        label: '',
-        type: '',
-        symbol: '',
-    },
-
-    {
-        id: 38,
-        label: 'Iron Ingot',
-        type: 'specialCrafting',
-        symbol: '⛓️',
-    },
-
-    {
-        id: 39,
-        label: 'Gold Ingot',
-        type: 'specialCrafting',
-        symbol: '⚜️',
-    },
-
-    {
-        id: 40,
-        label: 'Refined Oak Stick',
-        type: 'specialCrafting',
-        symbol: '🪵✨',
+        price: 137,
     },
 ]
 
@@ -1285,25 +1626,6 @@ export const MILESTONES = {
     ],
 }
 
-export const COLLECTIONS = [
-    {
-        id: 0,
-        itemId: 0,
-    },
-    {
-        id: 1,
-        itemId: 1,
-    },
-    {
-        id: 2,
-        itemId: 2,
-    },
-    {
-        id: 3,
-        itemId: 23,
-    },
-]
-
 export const ORE_VEINS = [
     {
         id: 0,
@@ -1312,7 +1634,7 @@ export const ORE_VEINS = [
             id: 3,
             amount: 1
         },
-        experience: 2,
+        experience: 1,
         baseMiningCooldown: 10,
         minMiningCooldown: 1,
     },
@@ -1324,9 +1646,9 @@ export const ORE_VEINS = [
             id: 4,
             amount: 1
         },
-        experience: 4,
-        baseMiningCooldown: 15,
-        minMiningCooldown: 2,
+        experience: 2,
+        baseMiningCooldown: 10,
+        minMiningCooldown: 1,
         requiredSkill: {
             skill: 'mining',
             level: 1,
@@ -1340,9 +1662,9 @@ export const ORE_VEINS = [
             id: 5,
             amount: 1
         },
-        experience: 6,
-        baseMiningCooldown: 20,
-        minMiningCooldown: 4,
+        experience: 4,
+        baseMiningCooldown: 10,
+        minMiningCooldown: 1,
         requiredSkill: {
             skill: 'mining',
             level: 3,
@@ -1356,9 +1678,9 @@ export const ORE_VEINS = [
             id: 6,
             amount: 1
         },
-        experience: 10,
-        baseMiningCooldown: 25,
-        minMiningCooldown: 6,
+        experience: 5,
+        baseMiningCooldown: 10,
+        minMiningCooldown: 1,
         requiredSkill: {
             skill: 'mining',
             level: 5,
@@ -1372,12 +1694,12 @@ export const ORE_VEINS = [
             id: 7,
             amount: 1
         },
-        experience: 25,
-        baseMiningCooldown: 30,
-        minMiningCooldown: 10,
+        experience: 7,
+        baseMiningCooldown: 10,
+        minMiningCooldown: 1,
         requiredSkill: {
             skill: 'mining',
-            level: 7,
+            level: 8,
         },
     },
 ]
@@ -1392,19 +1714,19 @@ export const PLANTS = [
         },
         experience: 1,
         baseForagingCooldown: 10,
-        minForagingCooldown: 2,
+        minForagingCooldown: 1,
     },
 
     {
         id: 1,
-        label: 'Willow Tree',
+        label: 'Birch Tree',
         drop: {
             id: 26,
             amount: 1
         },
         experience: 2,
-        baseForagingCooldown: 15,
-        minForagingCooldown: 4,
+        baseForagingCooldown: 10,
+        minForagingCooldown: 1,
         requiredSkill: {
             skill: 'foraging',
             level: 1,
@@ -1413,17 +1735,65 @@ export const PLANTS = [
 
     {
         id: 2,
-        label: 'Ash Tree',
+        label: 'Spruce Tree',
         drop: {
             id: 27,
             amount: 1
         },
         experience: 4,
-        baseForagingCooldown: 20,
-        minForagingCooldown: 5,
+        baseForagingCooldown: 10,
+        minForagingCooldown: 1,
         requiredSkill: {
             skill: 'foraging',
             level: 3,
+        },
+    },
+
+    {
+        id: 3,
+        label: 'Dark Oak Tree',
+        drop: {
+            id: 28,
+            amount: 1
+        },
+        experience: 5,
+        baseForagingCooldown: 10,
+        minForagingCooldown: 1,
+        requiredSkill: {
+            skill: 'foraging',
+            level: 5,
+        },
+    },
+
+    {
+        id: 4,
+        label: 'Acacia Tree',
+        drop: {
+            id: 29,
+            amount: 1
+        },
+        experience: 7,
+        baseForagingCooldown: 10,
+        minForagingCooldown: 1,
+        requiredSkill: {
+            skill: 'foraging',
+            level: 8,
+        },
+    },
+
+    {
+        id: 5,
+        label: 'Jungle Tree',
+        drop: {
+            id: 30,
+            amount: 1
+        },
+        experience: 10,
+        baseForagingCooldown: 10,
+        minForagingCooldown: 1,
+        requiredSkill: {
+            skill: 'foraging',
+            level: 12,
         },
     },
 ]
@@ -1484,531 +1854,714 @@ export const CROPS = [
 
 export const RECIPES = [
 
-    // Chainmail Armor
+    // Worm Slayers
 
     {
         id: 0,
-        result: { id: 4, type: 'equipment' },
+        result: { id: 44, type: 'equipment' },
         materialCosts: [
-            { id: 38, amount: 10 },
+            { id: 0, amount: 300 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 1,
-        }
+        goldCost: 1000,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 0
+        },
+        requiredMilestoneAmount: 250,
     },
 
     {
         id: 1,
-        result: { id: 5, type: 'equipment' },
+        result: { id: 45, type: 'equipment' },
         materialCosts: [
-            { id: 38, amount: 10 },
+            { id: 0, amount: 500 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 1,
-        }
+        equipmentCosts: [{
+            id: 44,
+            amount: 1,
+        }],
+        goldCost: 2500,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 0
+        },
+        requiredMilestoneAmount: 500,
     },
 
     {
         id: 2,
-        result: { id: 6, type: 'equipment' },
-        materialCosts: [
-            { id: 38, amount: 10 },
-        ],
-        requiredSkill: {
-            skill: "combat",
-            level: 1,
-        }
+        result: { id: 20, type: 'equipment' },
+        equipmentCosts: [{
+            id: 44,
+            amount: 2,
+        }],
+        goldCost: 10000,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 0
+        },
+        requiredMilestoneAmount: 1000,
     },
+
+    // Spider Slayers
 
     {
         id: 3,
-        result: { id: 7, type: 'equipment' },
+        result: { id: 21, type: 'material' },
         materialCosts: [
-            { id: 38, amount: 10 },
+            { id: 1, amount: 10 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 1,
-        }
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 3
+        },
+        requiredMilestoneAmount: 250,
     },
-
-    // Iron Armor
 
     {
         id: 4,
-        result: { id: 8, type: 'equipment' },
+        result: { id: 21, type: 'equipment' },
         materialCosts: [
-            { id: 38, amount: 20 },
+            { id: 21, amount: 100 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 2,
-        }
+        goldCost: 5000,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 3
+        },
+        requiredMilestoneAmount: 750,
     },
 
     {
         id: 5,
-        result: { id: 9, type: 'equipment' },
+        result: { id: 22, type: 'equipment' },
         materialCosts: [
-            { id: 38, amount: 20 },
+            { id: 21, amount: 150 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 2,
-        }
+        equipmentCosts: [{
+            id: 21,
+            amount: 1,
+        }],
+        goldCost: 25000,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 3
+        },
+        requiredMilestoneAmount: 1500,
     },
+
+    // Wolf Slayers
 
     {
         id: 6,
-        result: { id: 10, type: 'equipment' },
+        result: { id: 22, type: 'material' },
         materialCosts: [
-            { id: 38, amount: 20 },
+            { id: 2, amount: 10 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 2,
-        }
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 4
+        },
+        requiredMilestoneAmount: 250,
     },
 
     {
         id: 7,
-        result: { id: 11, type: 'equipment' },
+        result: { id: 23, type: 'equipment' },
         materialCosts: [
-            { id: 38, amount: 20 },
+            { id: 22, amount: 25 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 2,
-        }
+        goldCost: 5000,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 4
+        },
+        requiredMilestoneAmount: 500,
     },
+
+    // Werewolf Armor
 
     {
         id: 8,
-        result: { id: 12, type: 'equipment' },
+        result: { id: 24, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 10 },
+            { id: 22, amount: 50 },
         ],
-        requiredCollection: {
-            collectionId: 1,
-            amount: 100,
-        }
+        goldCost: 10000,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 4
+        },
+        requiredMilestoneAmount: 1000,
     },
 
     {
         id: 9,
-        result: { id: 13, type: 'equipment' },
+        result: { id: 25, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 2 },
-            { id: 3, amount: 5 },
+            { id: 22, amount: 50 },
         ],
+        goldCost: 10000,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 4
+        },
+        requiredMilestoneAmount: 1000,
     },
 
     {
         id: 10,
-        result: { id: 14, type: 'equipment' },
+        result: { id: 26, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 2 },
-            { id: 38, amount: 5 },
+            { id: 22, amount: 50 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 1,
-        }
+        goldCost: 10000,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 4
+        },
+        requiredMilestoneAmount: 1000,
     },
 
     {
         id: 11,
-        result: { id: 15, type: 'equipment' },
+        result: { id: 27, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 2 },
-            { id: 7, amount: 5 },
+            { id: 22, amount: 50 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 2,
-        }
+        goldCost: 10000,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 4
+        },
+        requiredMilestoneAmount: 1000,
     },
+
+    // Fishing Armors
+
+    // Whitetip Shark Armor
 
     {
         id: 12,
-        result: { id: 16, type: 'equipment' },
+        result: { id: 28, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 2 },
-            { id: 3, amount: 10 },
+            { id: 13, amount: 25 },
+            { id: 9, amount: 125 },
         ],
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 0
+        },
+        requiredMilestoneAmount: 1,
     },
 
     {
         id: 13,
-        result: { id: 17, type: 'equipment' },
+        result: { id: 29, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 2 },
-            { id: 38, amount: 10 },
+            { id: 13, amount: 25 },
+            { id: 9, amount: 125 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 1,
-        }
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 0
+        },
+        requiredMilestoneAmount: 1,
     },
 
     {
         id: 14,
-        result: { id: 18, type: 'equipment' },
+        result: { id: 30, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 1 },
-            { id: 38, amount: 5 },
+            { id: 13, amount: 25 },
+            { id: 9, amount: 125 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 2,
-        }
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 0
+        },
+        requiredMilestoneAmount: 1,
     },
 
     {
         id: 15,
-        result: { id: 19, type: 'equipment' },
+        result: { id: 31, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 3 },
-            { id: 1, amount: 5 },
+            { id: 13, amount: 25 },
+            { id: 9, amount: 125 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 1,
-        }
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 0
+        },
+        requiredMilestoneAmount: 1,
     },
+
+    // Tiger Shark Armor
 
     {
         id: 16,
-        result: { id: 20, type: 'equipment' },
+        result: { id: 32, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 2 },
-            { id: 1, amount: 10 },
+            { id: 14, amount: 25 },
+            { id: 10, amount: 625 },
         ],
-        requiredSkill: {
-            skill: "combat",
-            level: 1,
-        }
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 1
+        },
+        requiredMilestoneAmount: 1,
     },
 
     {
         id: 17,
-        result: { id: 21, type: 'equipment' },
+        result: { id: 33, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 5 },
-            { id: 25, amount: 5 },
+            { id: 14, amount: 25 },
+            { id: 10, amount: 625 },
         ],
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 1
+        },
+        requiredMilestoneAmount: 1,
     },
 
     {
         id: 18,
-        result: { id: 22, type: 'equipment' },
+        result: { id: 34, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 5 },
-            { id: 3, amount: 50 },
+            { id: 14, amount: 25 },
+            { id: 10, amount: 625 },
         ],
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 1
+        },
+        requiredMilestoneAmount: 1,
     },
 
     {
         id: 19,
-        result: { id: 23, type: 'equipment' },
+        result: { id: 35, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 5 },
-            { id: 38, amount: 25 },
+            { id: 14, amount: 25 },
+            { id: 10, amount: 625 },
         ],
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 1
+        },
+        requiredMilestoneAmount: 1,
     },
+
+    // Great White Shark Armor
 
     {
         id: 20,
-        result: { id: 24, type: 'equipment' },
+        result: { id: 36, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 5 },
-            { id: 39, amount: 50 },
+            { id: 15, amount: 25 },
+            { id: 11, amount: 1250 },
         ],
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 2
+        },
+        requiredMilestoneAmount: 1,
     },
 
     {
         id: 21,
-        result: { id: 25, type: 'equipment' },
+        result: { id: 37, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 5 },
-            { id: 7, amount: 1000 },
+            { id: 15, amount: 25 },
+            { id: 11, amount: 1250 },
         ],
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 2
+        },
+        requiredMilestoneAmount: 1,
     },
 
     {
         id: 22,
-        result: { id: 26, type: 'equipment' },
+        result: { id: 38, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 2 },
-            { id: 25, amount: 5 },
+            { id: 15, amount: 25 },
+            { id: 11, amount: 1250 },
         ],
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 2
+        },
+        requiredMilestoneAmount: 1,
     },
 
     {
         id: 23,
-        result: { id: 27, type: 'equipment' },
+        result: { id: 39, type: 'equipment' },
         materialCosts: [
-            { id: 28, amount: 2 },
-            { id: 3, amount: 5 },
+            { id: 15, amount: 25 },
+            { id: 11, amount: 1250 },
         ],
-        requiredSkill: {
-            skill: "foraging",
-            level: 1,
-        }
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 2
+        },
+        requiredMilestoneAmount: 1,
     },
+
+    // Megalodon Shark Armor
 
     {
         id: 24,
-        result: { id: 28, type: 'equipment' },
+        result: { id: 40, type: 'equipment' },
         materialCosts: [
-            { id: 40, amount: 2 },
-            { id: 38, amount: 5 },
+            { id: 16, amount: 25 },
+            { id: 12, amount: 2500 },
         ],
-        requiredSkill: {
-            skill: "foraging",
-            level: 1,
-        }
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 3
+        },
+        requiredMilestoneAmount: 1,
+    },
+
+    {
+        id: 25,
+        result: { id: 41, type: 'equipment' },
+        materialCosts: [
+            { id: 16, amount: 25 },
+            { id: 12, amount: 2500 },
+        ],
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 3
+        },
+        requiredMilestoneAmount: 1,
+    },
+
+    {
+        id: 26,
+        result: { id: 42, type: 'equipment' },
+        materialCosts: [
+            { id: 16, amount: 25 },
+            { id: 12, amount: 2500 },
+        ],
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 3
+        },
+        requiredMilestoneAmount: 1,
+    },
+
+    {
+        id: 27,
+        result: { id: 43, type: 'equipment' },
+        materialCosts: [
+            { id: 16, amount: 25 },
+            { id: 12, amount: 2500 },
+        ],
+        goldCost: 0,
+        requiredMilestoneType: {
+            categoryType: 'fishing',
+            subcategoryType: 3
+        },
+        requiredMilestoneAmount: 1,
     },
 
 ]
 
 export const SHOP = [
 
-    // Leather Armor
+    // Armors
+
+    // Leather Set
 
     {
         id: 0,
         equipmentId: 0,
-        goldPrice: 50,
+        goldPrice: 250,
     },
 
     {
         id: 1,
         equipmentId: 1,
-        goldPrice: 50,
+        goldPrice: 250,
     },
 
     {
         id: 2,
         equipmentId: 2,
-        goldPrice: 50,
+        goldPrice: 250,
     },
-
 
     {
         id: 3,
         equipmentId: 3,
-        goldPrice: 50,
+        goldPrice: 250,
     },
 
-    // Chainmail Armor
+    // Chainmail Set
 
     {
         id: 4,
         equipmentId: 4,
-        goldPrice: 100,
-        requiredSkill: {
-            skill: 'combat',
-            level: 1,
-        }
+        goldPrice: 1250,
     },
 
     {
         id: 5,
         equipmentId: 5,
-        goldPrice: 100,
-        requiredSkill: {
-            skill: 'combat',
-            level: 1,
-        }
+        goldPrice: 1250,
     },
 
     {
         id: 6,
         equipmentId: 6,
-        goldPrice: 100,
-        requiredSkill: {
-            skill: 'combat',
-            level: 1,
-        }
+        goldPrice: 1250,
     },
-
 
     {
         id: 7,
         equipmentId: 7,
-        goldPrice: 100,
-        requiredSkill: {
-            skill: 'combat',
-            level: 1,
-        }
+        goldPrice: 1250,
     },
 
-    // Iron Armor
+    // Iron Set
 
     {
         id: 8,
         equipmentId: 8,
-        goldPrice: 250,
-        requiredSkill: {
-            skill: 'combat',
-            level: 2,
-        }
+        goldPrice: 2500,
     },
 
     {
         id: 9,
         equipmentId: 9,
-        goldPrice: 250,
-        requiredSkill: {
-            skill: 'combat',
-            level: 2,
-        }
+        goldPrice: 2500,
     },
 
     {
         id: 10,
         equipmentId: 10,
-        goldPrice: 250,
-        requiredSkill: {
-            skill: 'combat',
-            level: 2,
-        }
+        goldPrice: 2500,
     },
-
 
     {
         id: 11,
         equipmentId: 11,
-        goldPrice: 250,
-        requiredSkill: {
-            skill: 'combat',
-            level: 2,
-        }
+        goldPrice: 2500,
     },
+
+    // Diamond Set
 
     {
         id: 12,
         equipmentId: 12,
-        goldPrice: 10,
+        goldPrice: 7500,
     },
 
     {
         id: 13,
         equipmentId: 13,
-        goldPrice: 25,
+        goldPrice: 7500,
     },
 
     {
         id: 14,
         equipmentId: 14,
-        goldPrice: 100,
-        requiredSkill: {
-            skill: 'combat',
-            level: 1,
-        }
+        goldPrice: 7500,
     },
 
     {
         id: 15,
         equipmentId: 15,
-        goldPrice: 250,
-        requiredSkill: {
-            skill: 'combat',
-            level: 2,
-        }
+        goldPrice: 7500,
     },
+
+    // Reinforced Diamond Set
 
     {
         id: 16,
         equipmentId: 16,
-        goldPrice: 100,
+        goldPrice: 12500,
     },
 
     {
         id: 17,
         equipmentId: 17,
-        goldPrice: 250,
-        requiredSkill: {
-            skill: 'combat',
-            level: 1,
-        }
+        goldPrice: 12500,
     },
 
     {
         id: 18,
         equipmentId: 18,
-        goldPrice: 250,
-        requiredSkill: {
-            skill: 'combat',
-            level: 2,
-        }
+        goldPrice: 12500,
     },
 
     {
         id: 19,
         equipmentId: 19,
-        goldPrice: 100,
-        requiredSkill: {
-            skill: 'combat',
-            level: 1,
-        }
+        goldPrice: 12500,
     },
+
+    // Pickaxes
 
     {
         id: 20,
-        equipmentId: 19,
-        goldPrice: 250,
-        requiredSkill: {
-            skill: 'combat',
-            level: 1,
-        }
+        equipmentId: 51,
+        goldPrice: 1000,
     },
 
     {
         id: 21,
-        equipmentId: 22,
-        goldPrice: 100,
+        equipmentId: 52,
+        goldPrice: 2500,
+        requiredSkill: {
+            skill: 'mining',
+            level: 1,
+        }
     },
 
     {
         id: 22,
-        equipmentId: 26,
-        goldPrice: 25,
+        equipmentId: 53,
+        goldPrice: 10000,
+        requiredSkill: {
+            skill: 'mining',
+            level: 3,
+        }
     },
 
     {
         id: 23,
-        equipmentId: 27,
-        goldPrice: 100,
+        equipmentId: 54,
+        goldPrice: 25000,
         requiredSkill: {
-            skill: 'foraging',
-            level: 1,
+            skill: 'mining',
+            level: 5,
         }
     },
 
     {
         id: 24,
-        equipmentId: 28,
-        goldPrice: 250,
+        equipmentId: 55,
+        goldPrice: 100000,
         requiredSkill: {
-            skill: 'foraging',
-            level: 1,
+            skill: 'mining',
+            level: 8,
         }
+    },
+
+    // Weapons
+
+    {
+        id: 25,
+        equipmentId: 46,
+        goldPrice: 100,
+    },
+
+    {
+        id: 26,
+        equipmentId: 47,
+        goldPrice: 500,
+    },
+
+    {
+        id: 27,
+        equipmentId: 48,
+        goldPrice: 3000,
+    },
+
+    {
+        id: 28,
+        equipmentId: 49,
+        goldPrice: 10000,
+    },
+
+    {
+        id: 29,
+        equipmentId: 50,
+        goldPrice: 25000,
+    },
+
+    // Fishing Rods
+
+    {
+        id: 30,
+        equipmentId: 56,
+        goldPrice: 20000,
+    },
+
+    {
+        id: 31,
+        equipmentId: 57,
+        goldPrice: 0,
+        materialPrices: [
+            { id: 12, amount: 200 },
+        ],
+        equipmentPrices: [{
+            id: 56,
+            amount: 1,
+        }],
+    },
+
+    {
+        id: 32,
+        equipmentId: 58,
+        goldPrice: 0,
+        materialPrices: [
+            { id: 12, amount: 2000 },
+        ],
+        equipmentPrices: [{
+            id: 57,
+            amount: 1,
+        }],
+    },
+
+    {
+        id: 33,
+        equipmentId: 59,
+        goldPrice: 0,
+        materialPrices: [
+            { id: 12, amount: 10000 },
+        ],
+        equipmentPrices: [{
+            id: 58,
+            amount: 1,
+        }],
     },
 ]
 
 export const WEAPON_TYPES = [
     {
         id: 0,
-        label: "Melle",
+        label: "Longsword",
         damageType: "melle",
     },
     {
         id: 1,
-        label: "Ranged",
+        label: "Bow",
         damageType: "ranged",
     }
 ]
@@ -2048,7 +2601,7 @@ export const SKILLS = {
         bonusPerLevel: {
             miningSpeedBonus: 1,
             miningLuckBonus: 5,
-            defenseBonus: 0.5
+            defenseBonus: 1
         }
     },
 
@@ -2121,103 +2674,5 @@ export const ATTACK_PATTERNS = [
         label: "Worm Slide III",
         pattern: [[[2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 0], [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0]], [[0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 0]], [[0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0], [2, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]]]
     },
-    {
-        id: 5,
-        label: "Wait IV",
-        pattern: [[[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]]
-    },
 
-]
-
-export const SAVED_ITEMS_EFFECTS = [
-    {
-        fullsetEffect: {
-            effect: 'skipFishingTier',
-            tier: 3
-        },
-    },
-
-    {
-        id: 23,
-        label: 'Pack Shield',
-        specialEffect: 'ignoresEnemyDefense',
-        effectLore: "Ignores the enemy's defense",
-        slot: 'accessory',
-    },
-
-    // Wands
-
-    {
-        id: 12,
-        label: 'Wand of Healing',
-        slot: 'wand',
-        slotLabel: 'Wand',
-        manaCost: 1,
-        healing: 3,
-    },
-
-    {
-        id: 13,
-        label: 'Wand of Mending',
-        slot: 'wand',
-        slotLabel: 'Wand',
-        manaCost: 1,
-        healing: 5,
-    },
-
-    {
-        id: 0,
-        result: { id: 22, type: 'equipment' },
-        materialCosts: [
-            { id: 21, amount: 150 },
-        ],
-        equipmentCosts: [{
-            id: 21,
-            amount: 1,
-        }],
-        goldCost: 25000,
-        requiredMilestoneType: {
-            categoryType: 'enemies',
-            subcategoryType: 3
-        },
-        requiredMilestoneAmount: 1500,
-    },
-
-    {
-        id: 1,
-        result: { id: 43, type: 'equipment' },
-        materialCosts: [
-            { id: 16, amount: 25 },
-            { id: 12, amount: 2500 },
-        ],
-        goldCost: 0,
-        requiredMilestoneType: {
-            categoryType: 'fishing',
-            subcategoryType: 3
-        },
-        requiredMilestoneAmount: 1,
-    },
-
-    {
-        id: 0,
-        equipmentId: 55,
-        goldPrice: 100000,
-        requiredSkill: {
-            skill: 'mining',
-            level: 8,
-        }
-    },
-
-    {
-        id: 1,
-        equipmentId: 59,
-        goldPrice: 0,
-        materialPrices: [
-            { id: 12, amount: 10000 },
-        ],
-        equipmentPrices: [{
-            id: 58,
-            amount: 1,
-        }],
-    },
 ]

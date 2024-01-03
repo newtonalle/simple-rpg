@@ -4,7 +4,13 @@
 
     <div v-if="itemEquippedStatus">
       <button
-        :disabled="inBattle"
+        :disabled="
+          inBattle &&
+          (equipments[itemId].slot === 'helmet' ||
+            equipments[itemId].slot === 'chestplate' ||
+            equipments[itemId].slot === 'leggings' ||
+            equipments[itemId].slot === 'boots')
+        "
         :class="`btn btn-${buttonLabel.color}`"
         @click="toggleItem"
       >
@@ -15,9 +21,10 @@
     <div v-else>
       <button
         :class="`btn btn-${buttonLabel.color} dropdown-toggle`"
-        :disabled="inBattle"
+        :disabled="!canEquip(0) && !canEquip(1)"
         data-bs-toggle="dropdown"
         aria-expanded="false"
+        style="width: 80px"
       >
         {{ buttonLabel.text }}
       </button>
@@ -27,12 +34,7 @@
           :key="`setup-${setup}-index-${setupIndex}`"
           style="width: 100px"
           class="btn btn-primary"
-          :disabled="
-            player.setups[setupIndex].findIndex(
-              (equipingItemId) =>
-                equipments[equipingItemId].type === equipments[itemId].type
-            ) >= 0 || inBattle
-          "
+          :disabled="!canEquip(setupIndex)"
           @click="toggleItem(setupIndex)"
         >
           #{{ setupIndex }}
@@ -40,8 +42,8 @@
       </ul>
 
       <button
-        v-if="!itemEquippedStatus"
-        style="margin-left: 10px"
+        v-if="!itemEquippedStatus && deleteButtonAppear"
+        style="width: 80px; margin-left: 10px"
         class="btn btn-danger"
         @click="removeEquipment"
       >
@@ -51,80 +53,30 @@
 
     <br />
 
-    <p class="fw-bold" v-if="equipments[itemId].effectLore">
-      {{ equipments[itemId].effectLore }}
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].strengthBonus">
-      {{ equipments[itemId].strengthBonus }} 👊
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].defenseBonus">
-      {{ equipments[itemId].defenseBonus }} 🛡️
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].healthBonus">
-      {{ equipments[itemId].healthBonus }} ❤️
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].miningSpeedBonus">
-      {{ equipments[itemId].miningSpeedBonus }} ⛏
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].miningLuckBonus">
-      {{ equipments[itemId].miningLuckBonus }} ⛏🍀
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].foragingSpeedBonus">
-      {{ equipments[itemId].foragingSpeedBonus }} 🪓
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].foragingLuckBonus">
-      {{ equipments[itemId].foragingLuckBonus }} 🪓🍀
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].farmingLuckBonus">
-      {{ equipments[itemId].farmingLuckBonus }} 🌱🍀
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].fishingLuckBonus">
-      {{ equipments[itemId].fishingLuckBonus }} 🐟
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].manaCost">
-      {{ equipments[itemId].manaCost }} 🪄
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].healing">
-      {{ equipments[itemId].healing }} ️‍🩹
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].regeneration">
-      {{ equipments[itemId].regeneration }} ️‍💗
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].critChanceBonus">
-      {{ equipments[itemId].critChanceBonus }}% ️💥🍀
-    </p>
-
-    <p class="fw-bold" v-if="equipments[itemId].critDamageMultiplierBonus">
-      {{ equipments[itemId].critDamageMultiplierBonus }}x ️💥👊
-    </p>
+    <equipment-stats :itemId="itemId" />
   </div>
 </template>
 
 <script>
+import EquipmentStats from "../../../components/EquipmentStats.vue";
 export default {
   props: {
     index: Number,
     itemId: Number,
     itemEquippedStatus: Boolean,
     inBattle: Boolean,
+    deleteButtonAppear: Boolean,
   },
+
+  components: { EquipmentStats },
 
   computed: {
     player() {
       return this.$store.getters.getPlayer;
+    },
+
+    playerSkillLevel() {
+      return this.$store.getters.getPlayerSkillLevel;
     },
 
     equipments() {
@@ -157,6 +109,51 @@ export default {
       if (confirm("Are you sure you want to delete this item?")) {
         this.$emit("removeEquipment");
       }
+    },
+
+    canEquip(setupIndex) {
+      // Verify if there's already an item equipped using the slot you are currently trying to equip an item on
+
+      let slotOccuppied = this.player.setups[setupIndex].findIndex(
+        (equipingItemId) =>
+          this.equipments[equipingItemId].slot ===
+          this.equipments[this.itemId].slot
+      );
+
+      let skillRequirementMet = true;
+
+      if (this.equipments[this.itemId].equipSkillRequirement) {
+        // First verify if there is a skill requirement
+
+        // If there is one, run through each one of them
+
+        Object.keys(this.equipments[this.itemId].equipSkillRequirement).forEach(
+          (skill) => {
+            // Verify if the requirement is met
+            if (
+              this.playerSkillLevel[skill] <
+              this.equipments[this.itemId].equipSkillRequirement[skill]
+            ) {
+              // If not, set the variable to false
+
+              skillRequirementMet = false;
+            }
+          }
+        );
+      }
+
+      if (
+        slotOccuppied >= 0 ||
+        (this.inBattle &&
+          (this.equipments[this.itemId].slot === "helmet" ||
+            this.equipments[this.itemId].slot === "chestplate" ||
+            this.equipments[this.itemId].slot === "leggings" ||
+            this.equipments[this.itemId].slot === "boots")) ||
+        !skillRequirementMet
+      ) {
+        return false;
+      }
+      return true;
     },
   },
 };
