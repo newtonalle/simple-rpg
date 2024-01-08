@@ -1,8 +1,10 @@
-import { COLLECTIONS, CROPS, ENEMIES, EQUIPMENTS, MATERIALS, MILESTONES, ORE_VEINS, PLANTS, RECIPES, SHOP, SKILLS } from './constants'
+import { COLLECTIONS, CROPS, ENEMIES, EQUIPMENTS, FORGE, LOCATIONS, MATERIALS, MILESTONES, ORE_VEINS, PLANTS, RECIPES, SHOP, SKILLS } from './constants'
 
 export const getGameState = (state) => state.gameState
 
 export const getTimeElapsed = (state) => state.gameState.timeElapsed
+
+export const getLocations = () => LOCATIONS
 
 export const getPlayer = (state) => state.gameState.player
 
@@ -10,13 +12,43 @@ export const getEquipments = () => EQUIPMENTS
 
 export const getEnemies = () => ENEMIES
 
+export const getLocationEnemies = (state) => {
+    let locationEnemies = []
+
+    LOCATIONS[state.gameState.player.currentLocationId].availableEnemies.forEach(enemyId => {
+        locationEnemies.push(ENEMIES[enemyId])
+    });
+
+    return locationEnemies
+}
+
 export const getEnemyUnlocks = (state) => state.gameState.enemyUnlocks
 
 export const getOres = () => ORE_VEINS
 
+export const getLocationOres = (state) => {
+    let locationOres = []
+
+    LOCATIONS[state.gameState.player.currentLocationId].availableOres.forEach(oreId => {
+        locationOres.push(ORE_VEINS[oreId])
+    });
+
+    return locationOres
+}
+
 export const getOreUnlocks = (state) => state.gameState.oreUnlocks
 
 export const getPlants = () => PLANTS
+
+export const getLocationPlants = (state) => {
+    let locationPlants = []
+
+    LOCATIONS[state.gameState.player.currentLocationId].availablePlants.forEach(plantId => {
+        locationPlants.push(PLANTS[plantId])
+    });
+
+    return locationPlants
+}
 
 export const getPlantUnlocks = (state) => state.gameState.plantUnlocks
 
@@ -40,6 +72,18 @@ export const getCurrentEnemy = (state) => state.gameState.currentEnemy
 
 export const getMaterials = () => MATERIALS
 
+export const getAvailableMaterials = () => {
+    let availableMaterials = []
+
+    MATERIALS.forEach(material => {
+        if (!material.currentlyUnavailable) {
+            availableMaterials.push(material)
+        }
+    });
+
+    return availableMaterials
+}
+
 export const getMaterialAmounts = (state) => state.gameState.materialAmounts
 
 export const getMilestones = () => MILESTONES
@@ -53,6 +97,8 @@ export const getCollectionAmounts = (state) => state.gameState.collectionAmounts
 export const getRecipes = () => RECIPES
 
 export const getRecipeUnlocks = (state) => state.gameState.recipeUnlocks
+
+export const getForge = () => FORGE
 
 export const getShop = () => SHOP
 
@@ -248,10 +294,42 @@ export const getEquippedPlayer = (state) => {
                 }
             }, 0),
 
+        trueDamage: false,
+
         baseAttackCooldown: state.gameState.player.baseAttackCooldown,
 
         baseMiningCooldown: state.gameState.player.baseMiningCooldown,
     }
+
+    // Temporary Buffs
+
+    state.gameState.player.stats.temporaryStats.forEach(tempStat => {
+        Object.entries(tempStat).forEach(stat => {
+            if (stat[0] != 'ignoreEnemyDefense') {
+                equippedPlayer[stat[0]] += stat[1]
+            } else {
+                equippedPlayer.trueDamage = true
+            }
+        })
+    })
+
+    // Milestone Equipment Bonuses
+
+    state.gameState.player.setups[equippedSetup].forEach(equipmentId => {
+        let equipment = EQUIPMENTS[equipmentId]
+
+        if (equipment.specialEffect && equipment.specialEffect === "bonusPerMilestone") {
+            let bonusLevels = Math.floor(state.gameState.milestoneAmounts[equipment.specialEffectBonus.milestoneType][equipment.specialEffectBonus.milestoneSubtype] / equipment.specialEffectBonus.amount)
+
+            if (bonusLevels > equipment.specialEffectBonus.bonusCap) {
+                bonusLevels = equipment.specialEffectBonus.bonusCap
+            }
+
+            Object.entries(equipment.specialEffectBonus.bonusPerLevel).forEach(stat => {
+                equippedPlayer[stat[0]] += (stat[1] * bonusLevels)
+            })
+        }
+    });
 
 
     return equippedPlayer

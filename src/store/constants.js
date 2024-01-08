@@ -353,6 +353,261 @@ export const EQUIPMENTS = [
             foraging: 1
         }
     },
+
+    {
+        id: 29,
+        label: "Smelly Cheese",
+        slot: 'accessory',
+        slotLabel: 'Accessory',
+        moveSpeedBonus: 2,
+        attackSpeedBonus: 2,
+        manaCost: 3,
+        useEffect: {
+            effect: 'boostStats',
+            statsBonus: {
+                critChance: 25,
+                critDamageMultiplier: 0.50,
+            },
+            duration: 1,
+        },
+    },
+
+    {
+        id: 30,
+        label: "Stinky Cheese",
+        slot: 'accessory',
+        slotLabel: 'Accessory',
+        moveSpeedBonus: 3,
+        attackSpeedBonus: 3,
+        manaCost: 4,
+        useEffect: {
+            effect: 'boostStats',
+            statsBonus: {
+                critChance: 40,
+                critDamageMultiplier: 0.75,
+            },
+            duration: 1,
+        },
+    },
+
+    {
+        id: 31,
+        label: "Wand of Healing",
+        slot: 'wand',
+        slotLabel: 'Wand',
+        manaCost: 1,
+        useEffect: {
+            effect: 'healing',
+            healing: 2
+        },
+    },
+
+    {
+        id: 32,
+        label: "Wand of Mending",
+        slot: 'wand',
+        slotLabel: 'Wand',
+        manaCost: 2,
+        useEffect: {
+            effect: 'healing',
+            healing: 3
+        },
+    },
+
+    {
+        id: 33,
+        label: "Healing Sword",
+        slot: 'weapon',
+        slotLabel: 'Weapon',
+        typeId: 0,
+        strengthBonus: 3,
+        regeneration: 2,
+    },
+
+    {
+        id: 34,
+        label: "Worm Skull",
+        slot: 'accessory',
+        slotLabel: 'Accessory',
+        healthBonus: 15,
+        regeneration: 5,
+    },
+
+    {
+        id: 35,
+        label: "Wolf Boots",
+        slot: 'boots',
+        slotLabel: 'Boots',
+        set: 'unique',
+        setLabel: 'Unique',
+        healthBonus: 5,
+        defenseBonus: 5,
+        specialEffect: "bonusPerMilestone",
+        specialEffectBonus: {
+            milestoneType: "enemies",
+            milestoneSubtype: 4,
+            amount: 200,
+            bonusCap: 5,
+            bonusPerLevel: {
+                attackSpeed: 1,
+                moveSpeed: 1,
+            }
+        }
+    },
+
+    {
+        id: 36,
+        label: "Pack Shield",
+        slot: 'accessory',
+        slotLabel: 'Accessory',
+        manaCost: 5,
+        useEffect: {
+            effect: 'boostStats',
+            statsBonus: {
+                ignoreEnemyDefense: true
+            },
+            duration: 1,
+        },
+    },
+
+    {
+        id: 37,
+        label: "Predator's Helmet",
+        slot: 'helmet',
+        slotLabel: 'Helmet',
+        setLabel: "Predator's",
+        healthBonus: 7,
+        defenseBonus: 7,
+        specialEffect: "bonusPerMilestone",
+        specialEffectBonus: {
+            milestoneType: "enemies",
+            milestoneSubtype: 4,
+            amount: 200,
+            bonusCap: 5,
+            bonusPerLevel: {
+                defense: 0.25,
+                strength: 0.5,
+            }
+        }
+    },
+
+    {
+        id: 38,
+        label: "Predator's Chestplate",
+        slot: 'chestplate',
+        slotLabel: 'Chestplate',
+        setLabel: "Predator's",
+        healthBonus: 7,
+        defenseBonus: 7,
+        specialEffect: "bonusPerMilestone",
+        specialEffectBonus: {
+            milestoneType: "enemies",
+            milestoneSubtype: 4,
+            amount: 200,
+            bonusCap: 5,
+            bonusPerLevel: {
+                defense: 0.25,
+                strength: 0.5,
+            }
+        }
+    },
+
+    {
+        id: 39,
+        label: "Predator's Leggings",
+        slot: 'leggings',
+        slotLabel: 'Leggings',
+        setLabel: "Predator's",
+        healthBonus: 7,
+        defenseBonus: 7,
+        specialEffect: "bonusPerMilestone",
+        specialEffectBonus: {
+            milestoneType: "enemies",
+            milestoneSubtype: 4,
+            amount: 200,
+            bonusCap: 5,
+            bonusPerLevel: {
+                defense: 0.25,
+                strength: 0.5,
+            }
+        }
+    },
+
+    {
+        id: 40,
+        label: "Predator's Boots",
+        slot: 'boots',
+        slotLabel: 'Boots',
+        setLabel: "Predator's",
+        healthBonus: 7,
+        defenseBonus: 7,
+        specialEffect: "bonusPerMilestone",
+        specialEffectBonus: {
+            milestoneType: "enemies",
+            milestoneSubtype: 4,
+            amount: 200,
+            bonusCap: 5,
+            bonusPerLevel: {
+                defense: 0.25,
+                strength: 0.5,
+            }
+        }
+    },
+
+    {
+        id: 41,
+        label: "Ancestral Strength",
+        slot: 'accessory',
+        slotLabel: 'Accessory',
+        defenseBonus: 7,
+        manaCost: 7,
+        useEffect: {
+            effect: 'boostStats',
+            statsBonus: {
+                critDamageMultiplier: 0.50,
+                ignoreEnemyDefense: true
+            },
+            duration: 1,
+        },
+    },
+
+    {
+        id: 42,
+        label: "Hunter's Bow",
+        slot: 'weapon',
+        slotLabel: 'Weapon',
+        typeId: 1,
+        strengthBonus: 8,
+        critChanceBonus: 50,
+        critDamageMultiplierBonus: 0.50,
+        aimingAccuracyBonus: 75,
+    },
+
+    {
+        id: 43,
+        label: 'Experienced Shortbow',
+        slot: 'weapon',
+        slotLabel: 'Weapon',
+        typeId: 1,
+        strengthBonus: 15,
+        critChanceBonus: 50,
+        critDamageMultiplierBonus: 1,
+        attackSpeedBonus: 2,
+        aimingAccuracyBonus: 80,
+    },
+
+    {
+        id: 44,
+        label: "Sniper's Bow",
+        slot: 'weapon',
+        slotLabel: 'Weapon',
+        typeId: 1,
+        strengthBonus: 20,
+        critChanceBonus: 80,
+        critDamageMultiplierBonus: 1,
+        attackSpeedBonus: -2,
+        aimingAccuracyBonus: 100,
+    },
 ]
 
 export const ENEMIES = [
@@ -711,6 +966,152 @@ export const ENEMIES = [
             }
         ]
     },
+
+    {
+        id: 11,
+        label: 'Dirt Worm',
+        type: 'common',
+        stats: {
+            maxHealth: 150,
+            health: 150,
+            defense: 20,
+            strength: 25,
+            critChance: 30,
+            critDamageMultiplier: 2,
+            attackDelay: 3,
+        },
+
+        experience: 20,
+        drops: [
+            {
+                weigth: 0.5,
+                drop: { id: -1, type: "coin" },
+                amount: 15,
+            },
+            {
+                weigth: 0.5,
+                drop: { id: 0, type: "material" },
+                amount: 3,
+            }
+        ]
+    },
+
+    {
+        id: 12,
+        label: 'Healthy Worm',
+        type: 'common',
+        stats: {
+            maxHealth: 400,
+            health: 400,
+            defense: 0,
+            strength: 20,
+            critChance: 30,
+            critDamageMultiplier: 2,
+            attackDelay: 3,
+        },
+        experience: 25,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 11
+        },
+        requiredMilestoneAmount: 25,
+        drops: [
+            {
+                weigth: 0.5,
+                drop: { id: -1, type: "coin" },
+                amount: 20,
+            },
+            {
+                weigth: 0.5,
+                drop: { id: 0, type: "material" },
+                amount: 3,
+            }
+        ]
+    },
+
+    {
+        id: 13,
+        label: 'Heavy Worm',
+        type: 'common',
+        stats: {
+            maxHealth: 200,
+            health: 200,
+            defense: 30,
+            strength: 10,
+            critChance: 50,
+            critDamageMultiplier: 3,
+            attackDelay: 3,
+        },
+        experience: 25,
+        requiredMilestoneType: {
+            categoryType: 'enemies',
+            subcategoryType: 11
+        },
+        requiredMilestoneAmount: 25,
+        drops: [
+            {
+                weigth: 0.5,
+                drop: { id: -1, type: "coin" },
+                amount: 20,
+            },
+            {
+                weigth: 0.5,
+                drop: { id: 0, type: "material" },
+                amount: 3,
+            }
+        ]
+    },
+
+    {
+        id: 14,
+        label: 'Baby Stone Golem',
+        type: 'common',
+        stats: {
+            maxHealth: 200,
+            health: 200,
+            defense: 30,
+            strength: 30,
+            critChance: 40,
+            critDamageMultiplier: 2,
+            attackDelay: 3,
+        },
+        experience: 40,
+        drops: [
+            {
+                weigth: 0.5,
+                drop: { id: -1, type: "coin" },
+                amount: 25,
+            },
+            {
+                weigth: 0.5,
+                drop: { id: 3, type: "material" },
+                amount: 10,
+            },
+        ]
+    },
+
+    {
+        id: 15,
+        label: 'Lost Soul',
+        type: 'common',
+        stats: {
+            maxHealth: 250,
+            health: 250,
+            defense: 35,
+            strength: 40,
+            critChance: 40,
+            critDamageMultiplier: 2,
+            attackDelay: 3,
+        },
+        experience: 45,
+        drops: [
+            {
+                weigth: 1,
+                drop: { id: -1, type: "coin" },
+                amount: 30,
+            },
+        ]
+    },
 ]
 
 export const FISHING_LOOT_TABLE = [
@@ -895,6 +1296,7 @@ export const MATERIALS = [
         symbol: '🐟',
         price: 10,
         experience: 1,
+        currentlyUnavailable: true,
     },
 
     {
@@ -904,6 +1306,7 @@ export const MATERIALS = [
         symbol: '🐠',
         price: 20,
         experience: 3,
+        currentlyUnavailable: true,
     },
 
     {
@@ -913,6 +1316,7 @@ export const MATERIALS = [
         symbol: '🐠',
         price: 30,
         experience: 5,
+        currentlyUnavailable: true,
     },
 
     {
@@ -922,6 +1326,7 @@ export const MATERIALS = [
         symbol: '🐡',
         price: 50,
         experience: 10,
+        currentlyUnavailable: true,
     },
 
     {
@@ -931,6 +1336,7 @@ export const MATERIALS = [
         symbol: '🦷',
         price: 50,
         experience: 25,
+        currentlyUnavailable: true,
     },
 
     {
@@ -940,6 +1346,7 @@ export const MATERIALS = [
         symbol: '🦷',
         price: 50,
         experience: 50,
+        currentlyUnavailable: true,
     },
 
     {
@@ -949,6 +1356,7 @@ export const MATERIALS = [
         symbol: '🦷',
         price: 50,
         experience: 100,
+        currentlyUnavailable: true,
     },
 
     {
@@ -958,6 +1366,7 @@ export const MATERIALS = [
         symbol: '🦷',
         price: 50,
         experience: 500,
+        currentlyUnavailable: true,
     },
 
     {
@@ -968,6 +1377,7 @@ export const MATERIALS = [
         prize: 2000,
         prizeNumbers: [1, 2, 3, 4, 5], // In an actual dice -> 2, 3, 4, 5 and 6
         experience: 0,
+        currentlyUnavailable: true,
     },
 
     {
@@ -978,6 +1388,7 @@ export const MATERIALS = [
         prize: 4000,
         prizeNumbers: [2, 3, 4, 5], // In an actual dice -> 3, 4, 5 and 6
         experience: 0,
+        currentlyUnavailable: true,
     },
 
     {
@@ -988,6 +1399,7 @@ export const MATERIALS = [
         prize: 8000,
         prizeNumbers: [3, 4, 5], // In an actual dice -> 4, 5 and 6
         experience: 0,
+        currentlyUnavailable: true,
     },
 
     {
@@ -998,6 +1410,7 @@ export const MATERIALS = [
         prize: 15000,
         prizeNumbers: [5], // In an actual dice -> 6
         experience: 0,
+        currentlyUnavailable: true,
     },
 
     {
@@ -1005,6 +1418,7 @@ export const MATERIALS = [
         label: 'Enchanted String',
         type: '',
         symbol: '🧵',
+        currentlyUnavailable: true,
     },
 
     {
@@ -1012,6 +1426,7 @@ export const MATERIALS = [
         label: 'Werewolf Tooth',
         type: '',
         symbol: '🦷',
+        currentlyUnavailable: true,
     },
 
     {
@@ -1019,7 +1434,7 @@ export const MATERIALS = [
         label: 'Yellow Cheese',
         type: 'enemyDrop',
         symbol: '🧀',
-        price: 50,
+        price: 10,
     },
 
     {
@@ -1027,7 +1442,7 @@ export const MATERIALS = [
         label: 'Green Cheese',
         type: 'enemyDrop',
         symbol: '🟩',
-        price: 100,
+        price: 125,
     },
 
     {
@@ -1080,6 +1495,7 @@ export const MATERIALS = [
         label: 'Wheat Seed',
         type: 'farmingSeed',
         symbol: '🫘',
+        currentlyUnavailable: true,
     },
 
     {
@@ -1087,6 +1503,7 @@ export const MATERIALS = [
         label: 'Carrot Seed',
         type: 'farmingSeed',
         symbol: '🫘',
+        currentlyUnavailable: true,
     },
 
     {
@@ -1094,6 +1511,7 @@ export const MATERIALS = [
         label: 'Potato Sprout',
         type: 'farmingSeed',
         symbol: '🌱',
+        currentlyUnavailable: true,
     },
 
     {
@@ -1102,6 +1520,7 @@ export const MATERIALS = [
         type: 'farmingDrop',
         symbol: '🌾',
         price: 50,
+        currentlyUnavailable: true,
     },
 
     {
@@ -1110,6 +1529,7 @@ export const MATERIALS = [
         type: 'farmingDrop',
         symbol: '🥕',
         price: 98,
+        currentlyUnavailable: true,
     },
 
     {
@@ -1118,6 +1538,7 @@ export const MATERIALS = [
         type: 'farmingDrop',
         symbol: '🥔',
         price: 100,
+        currentlyUnavailable: true,
     },
 
     {
@@ -1125,6 +1546,7 @@ export const MATERIALS = [
         label: '',
         type: '',
         symbol: '',
+        currentlyUnavailable: true,
     },
 
     {
@@ -1193,6 +1615,26 @@ export const MILESTONES = {
 
         {
             id: 10,
+        },
+
+        {
+            id: 11,
+        },
+
+        {
+            id: 12,
+        },
+
+        {
+            id: 13,
+        },
+
+        {
+            id: 14,
+        },
+
+        {
+            id: 15,
         },
     ],
 
@@ -1402,12 +1844,12 @@ export const PLANTS = [
             id: 26,
             amount: 1
         },
-        experience: 2,
+        experience: 6,
         baseForagingCooldown: 15,
         minForagingCooldown: 4,
         requiredSkill: {
             skill: 'foraging',
-            level: 1,
+            level: 3,
         },
     },
 
@@ -1418,12 +1860,12 @@ export const PLANTS = [
             id: 27,
             amount: 1
         },
-        experience: 4,
+        experience: 15,
         baseForagingCooldown: 20,
         minForagingCooldown: 5,
         requiredSkill: {
             skill: 'foraging',
-            level: 3,
+            level: 7,
         },
     },
 ]
@@ -1590,10 +2032,6 @@ export const RECIPES = [
         materialCosts: [
             { id: 28, amount: 10 },
         ],
-        requiredCollection: {
-            collectionId: 1,
-            amount: 100,
-        }
     },
 
     {
@@ -1772,6 +2210,229 @@ export const RECIPES = [
         }
     },
 
+    {
+        id: 25,
+        result: { id: 29, type: 'equipment' }, // Smelly Cheese
+        materialCosts: [
+            { id: 23, amount: 10 }, // Yellow Cheese
+            { id: 0, amount: 25 },  // Worm Heart
+        ],
+        requiredCollection: {
+            collectionId: 3, // Yellow Cheese Collection
+            amount: 10,
+        }
+    },
+
+    {
+        id: 26,
+        result: { id: 24, type: 'material' }, // Green Cheese
+        materialCosts: [
+            { id: 23, amount: 10 }, // Yellow Cheese
+        ],
+        requiredCollection: {
+            collectionId: 3, // Yellow Cheese Collection
+            amount: 25,
+        }
+    },
+
+    {
+        id: 27,
+        result: { id: 30, type: 'equipment' }, // Stinky Cheese
+        materialCosts: [
+            { id: 24, amount: 4 }, // Green Cheese
+            { id: 0, amount: 100 }, // Worm Heart
+        ],
+        equipmentCosts: [{ id: 29, amount: 1, }], // Smelly Cheese
+        requiredCollection: {
+            collectionId: 3, // Yellow Cheese Collection
+            amount: 50,
+        }
+    },
+
+    {
+        id: 28,
+        result: { id: 31, type: 'equipment' }, // Wand of Healing
+        materialCosts: [
+            { id: 28, amount: 1 }, // Oak Stick
+            { id: 0, amount: 25 }, // Worm Heart
+        ],
+        requiredCollection: {
+            collectionId: 0, // Worm Heart Collection 
+            amount: 25,
+        }
+    },
+
+    {
+        id: 29,
+        result: { id: 32, type: 'equipment' }, // Wand of Mending 
+        materialCosts: [
+            { id: 0, amount: 50 }, // Worm Heart
+        ],
+        equipmentCosts: [{ id: 31, amount: 1, }], // Wand of Healing 
+        requiredCollection: {
+            collectionId: 0, // Worm Heart Collection
+            amount: 50,
+        }
+    },
+
+    {
+        id: 30,
+        result: { id: 33, type: 'equipment' }, // Healing Sword
+        materialCosts: [
+            { id: 0, amount: 100 }, // Worm Heart
+        ],
+        equipmentCosts: [{ id: 14, amount: 1, }], // Iron Sword
+        requiredCollection: {
+            collectionId: 0, // Worm Heart Collection 
+            amount: 150,
+        }
+    },
+
+    {
+        id: 31,
+        result: { id: 34, type: 'equipment' }, // Worm Skull
+        materialCosts: [
+            { id: 0, amount: 200 }, // Worm Heart
+        ],
+        equipmentCosts: [{ id: 0, amount: 1, }], // Leather Helmet
+        requiredCollection: {
+            collectionId: 0, // Worm Heart Collection
+            amount: 200,
+        }
+    },
+
+    {
+        id: 32,
+        result: { id: 35, type: 'equipment' }, // Wolf Boots
+        materialCosts: [
+            { id: 2, amount: 80 }, // Wolf Tooth
+        ],
+        equipmentCosts: [{ id: 7, amount: 1, }], // Chainmail Boots
+        requiredCollection: {
+            collectionId: 2, // Wolf Tooth Collection
+            amount: 100,
+        }
+    },
+
+    {
+        id: 33,
+        result: { id: 36, type: 'equipment' }, // Pack Shield
+        materialCosts: [
+            { id: 25, amount: 10 }, // Oak Log
+            { id: 28, amount: 5 }, // Oak Stick
+            { id: 2, amount: 200 }, // Wolf Tooth
+        ],
+        requiredCollection: {
+            collectionId: 2, // Wolf Tooth Collection
+            amount: 250,
+        }
+    },
+
+    // Predator's Armor
+
+    {
+        id: 34,
+        result: { id: 37, type: 'equipment' }, // Predator's Helmet
+        materialCosts: [
+            { id: 2, amount: 125 }, // Wolf Tooth
+        ],
+        equipmentCosts: [{ id: 8, amount: 1, }], // Iron Helmet
+        requiredCollection: {
+            collectionId: 2, // Wolf Tooth Collection
+            amount: 500,
+        }
+    },
+
+    {
+        id: 35,
+        result: { id: 38, type: 'equipment' }, // Predator's Chestplate
+        materialCosts: [
+            { id: 2, amount: 125 }, // Wolf Tooth
+        ],
+        equipmentCosts: [{ id: 9, amount: 1, }], // Iron Chestplate
+        requiredCollection: {
+            collectionId: 2, // Wolf Tooth Collection
+            amount: 500,
+        }
+    },
+
+    {
+        id: 36,
+        result: { id: 39, type: 'equipment' }, // Predator's Leggings
+        materialCosts: [
+            { id: 2, amount: 125 }, // Wolf Tooth
+        ],
+        equipmentCosts: [{ id: 10, amount: 1, }], // Iron Leggings
+        requiredCollection: {
+            collectionId: 2, // Wolf Tooth Collection
+            amount: 500,
+        }
+    },
+
+    {
+        id: 37,
+        result: { id: 40, type: 'equipment' }, // Predator's Boots
+        materialCosts: [
+            { id: 2, amount: 125 }, // Wolf Tooth
+        ],
+        equipmentCosts: [{ id: 11, amount: 1, }], // Iron Boots
+        requiredCollection: {
+            collectionId: 2, // Wolf Tooth Collection
+            amount: 500,
+        }
+    },
+
+    {
+        id: 38,
+        result: { id: 41, type: 'equipment' }, // Ancestral Strength
+        materialCosts: [
+            { id: 2, amount: 250 }, // Wolf Tooth
+        ],
+        equipmentCosts: [{ id: 36, amount: 1, }], // Pack Shield
+        requiredCollection: {
+            collectionId: 2, // Wolf Tooth Collection
+            amount: 750,
+        }
+    },
+
+    {
+        id: 39,
+        result: { id: 42, type: 'equipment' }, // Hunter's Bow
+        materialCosts: [
+            { id: 1, amount: 20 }, // String
+        ],
+        equipmentCosts: [{ id: 19, amount: 1, }], // Oak Bow
+        requiredCollection: {
+            collectionId: 1, // String Collection
+            amount: 25,
+        }
+    },
+
+    {
+        id: 40,
+        result: { id: 43, type: 'equipment' }, // Experienced Shortbow
+        materialCosts: [
+            { id: 1, amount: 80 }, // String
+        ],
+        equipmentCosts: [{ id: 42, amount: 1, }], // Hunter's Bow
+        requiredCollection: {
+            collectionId: 1, // String Collection
+            amount: 100,
+        }
+    },
+
+    {
+        id: 41,
+        result: { id: 44, type: 'equipment' }, // Sniper's Bow
+        materialCosts: [
+            { id: 1, amount: 500 }, // String
+        ],
+        equipmentCosts: [{ id: 42, amount: 1, }], // Hunter's Bow
+        requiredCollection: {
+            collectionId: 1, // String Collection
+            amount: 500,
+        }
+    },
 ]
 
 export const SHOP = [
@@ -2000,6 +2661,28 @@ export const SHOP = [
     },
 ]
 
+export const FORGE = [
+    {
+        id: 0,
+        result: { id: 38, type: 'material', amount: 1 }, // Iron Bar
+        materialCosts: [
+            { id: 5, amount: 10 }, // Iron
+        ],
+        baseForgingTime: 10,
+        minForgingTime: 1,
+    },
+
+    {
+        id: 1,
+        result: { id: 39, type: 'material', amount: 1 }, // Gold Bar
+        materialCosts: [
+            { id: 6, amount: 10 }, // Gold
+        ],
+        baseForgingTime: 15,
+        minForgingTime: 2,
+    },
+]
+
 export const WEAPON_TYPES = [
     {
         id: 0,
@@ -2064,6 +2747,11 @@ export const SKILLS = {
             19310,
             44310,
         ],
+        bonusPerLevel: {
+            foragingSpeedBonus: 1,
+            foragingLuckBonus: 5,
+            healthBonus: 2
+        }
     },
 
     farming: {
@@ -2094,6 +2782,31 @@ export const SKILLS = {
         ],
     },
 }
+
+export const LOCATIONS = [
+    {
+        id: 0,
+        label: "🌳 Calm Forest 🌳",
+        availableEnemies: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        availableOres: [0, 1, 2, 3, 4],
+        availablePlants: [0, 1, 2],
+    },
+    {
+        id: 1,
+        label: "🏔️ Dirt Mountains 🏔️",
+        availableEnemies: [10, 11, 12, 13],
+        availableOres: [0, 1, 2, 3, 4],
+        availablePlants: [0, 1, 2],
+    },
+    {
+        id: 2,
+        label: "🪨 The Caves 🪨",
+        availableEnemies: [14, 15],
+        availableOres: [0, 1, 2, 3, 4],
+        availablePlants: [],
+        hasForge: true,
+    },
+]
 
 export const ATTACK_PATTERNS = [
     {
@@ -2131,6 +2844,14 @@ export const ATTACK_PATTERNS = [
 
 export const SAVED_ITEMS_EFFECTS = [
     {
+        requiredCollection: {
+            collectionId: 1,
+            amount: 100,
+        }
+    },
+
+
+    {
         fullsetEffect: {
             effect: 'skipFishingTier',
             tier: 3
@@ -2143,26 +2864,6 @@ export const SAVED_ITEMS_EFFECTS = [
         specialEffect: 'ignoresEnemyDefense',
         effectLore: "Ignores the enemy's defense",
         slot: 'accessory',
-    },
-
-    // Wands
-
-    {
-        id: 12,
-        label: 'Wand of Healing',
-        slot: 'wand',
-        slotLabel: 'Wand',
-        manaCost: 1,
-        healing: 3,
-    },
-
-    {
-        id: 13,
-        label: 'Wand of Mending',
-        slot: 'wand',
-        slotLabel: 'Wand',
-        manaCost: 1,
-        healing: 5,
     },
 
     {
@@ -2220,4 +2921,30 @@ export const SAVED_ITEMS_EFFECTS = [
             amount: 1,
         }],
     },
+
+    {
+        manaCost: 3,
+        useEffect: {
+            effect: 'boostStats',
+            statsBonus: {
+                critChance: 25,
+                critDamageMultiplier: 0.50,
+                ignoreEnemyDefense: true
+            },
+            duration: 1,
+        },
+    },
+
+    {
+        specialEffect: "bonusPerMilestone",
+        specialEffectBonus: {
+            milestoneType: "enemies",
+            milestoneSubtype: 0,
+            amount: 1,
+            bonusCap: 10,
+            bonusPerLevel: {
+                maxHealth: 25,
+            }
+        }
+    }
 ]

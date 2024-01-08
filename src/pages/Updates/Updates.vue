@@ -7,7 +7,7 @@
     <div style="cursor: pointer" @click="popoutUpdate(0)">
       <br />
       <h2>Update 1.2</h2>
-      <p style="font-style: italic">Released January nºth, 2024</p>
+      <p style="font-style: italic">Released January 8th, 2024</p>
       <div v-if="popout[0]">
         <br />
         <br />
@@ -28,8 +28,10 @@
         <br />
 
         <p>- Added a New Skill to the game (Foraging)</p>
+        <p>- Added a New Locations System</p>
         <p>- Added Crit Bar Mechanic to Bosses, Mining & Foraging Skills</p>
-        <p>- Added 8 new items (2 Cheese Items & 6 Log Items)</p>
+        <p>- Reworked and added more materials</p>
+        <p>- Reworked and added more equipments</p>
         <p>- Added Colections System</p>
 
         <br />

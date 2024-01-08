@@ -1,5 +1,5 @@
 import {
-    ENEMIES, MATERIALS, ORE_VEINS, CROPS, SHOP, RECIPES, EQUIPMENTS, PLANTS, SKILLS, ATTACK_PATTERNS, MILESTONES, /*FISHING_LOOT_TABLE*/
+    ENEMIES, MATERIALS, ORE_VEINS, CROPS, SHOP, RECIPES, EQUIPMENTS, PLANTS, SKILLS, ATTACK_PATTERNS, MILESTONES, FORGE, /*FISHING_LOOT_TABLE*/
     COLLECTIONS
 } from './constants'
 
@@ -26,15 +26,6 @@ function calculateRolledDrop(possibleDrops) {
 
 }
 
-const LOG_LIMITS = {
-    COMBAT: 5,
-    MINING: 5,
-    FORAGING: 5,
-    FARMING: 5,
-    FISHING: 5
-}
-
-
 export const setState = (prevState, newState) => {
     Object.assign(prevState, newState)
     location.reload()
@@ -42,7 +33,12 @@ export const setState = (prevState, newState) => {
 
 export const setGameState = (state, newGameState) => Object.assign(state.gameState, newGameState)
 
-export const newEnemy = (state, index) => {
+export const changeLocation = (state, locationId) => {
+    state.gameState.player.currentLocationId = locationId
+    location.reload()
+}
+
+export const newEnemy = (state, id) => {
 
     // Resets Dodge Board
 
@@ -53,7 +49,7 @@ export const newEnemy = (state, index) => {
 
     // Generates new enemy for the player to battle
 
-    state.gameState.currentEnemy = clonedeep(ENEMIES[index])
+    state.gameState.currentEnemy = clonedeep(ENEMIES[id])
 
     if (state.gameState.currentEnemy.type === 'boss') {
         state.gameState.currentDodgeBoard.attackBoard = clonedeep(ATTACK_PATTERNS[state.gameState.currentEnemy.bossStats.startingPatternId].pattern)
@@ -63,10 +59,6 @@ export const newEnemy = (state, index) => {
 
 
     state.gameState.combatLog.unshift(`! Engaged combat with ${state.gameState.currentEnemy.label}!`)
-
-    while (state.gameState.combatLog.length > LOG_LIMITS.COMBAT) {
-        state.gameState.combatLog.splice(LOG_LIMITS.COMBAT, 1)
-    }
 }
 
 export const mineOre = (state, { amount, experienceAmount, oreId }) => {
@@ -86,10 +78,6 @@ export const mineOre = (state, { amount, experienceAmount, oreId }) => {
         state.gameState.collectionAmounts[collectionIndex] += amount
     }
     state.gameState.milestoneAmounts.mining[oreId]++
-
-    while (state.gameState.miningLog.length > LOG_LIMITS.MINING) {
-        state.gameState.miningLog.splice(LOG_LIMITS.MINING, 1)
-    }
 }
 
 export const foragePlant = (state, { amount, experienceAmount, plantId }) => {
@@ -109,10 +97,6 @@ export const foragePlant = (state, { amount, experienceAmount, plantId }) => {
         state.gameState.collectionAmounts[collectionIndex] += amount
     }
     state.gameState.milestoneAmounts.foraging[plantId]++
-
-    while (state.gameState.foragingLog.length > LOG_LIMITS.FORAGING) {
-        state.gameState.foragingLog.splice(LOG_LIMITS.FORAGING, 1)
-    }
 }
 
 export const plantCrop = (state, cropId) => {
@@ -127,10 +111,6 @@ export const plantCrop = (state, cropId) => {
         })
 
         state.gameState.farmingLog.unshift(`Planted a ${CROPS[cropId].label}`)
-
-        while (state.gameState.farmingLog.length > LOG_LIMITS.FARMING) {
-            state.gameState.farmingLog.splice(LOG_LIMITS.FARMING, 1)
-        }
     }
 }
 
@@ -155,10 +135,6 @@ export const harvestCrop = (state, { amountBuff, experienceAmount, cropId }) => 
         state.gameState.collectionAmounts[collectionIndex] += amount
     }
     state.gameState.milestoneAmounts.farming[cropId]++
-
-    while (state.gameState.farmingLog.length > LOG_LIMITS.FARMING) {
-        state.gameState.farmingLog.splice(LOG_LIMITS.FARMING, 1)
-    }
 }
 
 /* 
@@ -302,34 +278,34 @@ export const inflictDamage = (state, { inflictedDamage, target, crit: { wasCrit,
         state.gameState.player.stats.mana = playerStats.maxMana
         state.gameState.currentEnemy = {}
     }
-
-    while (state.gameState.combatLog.length > LOG_LIMITS.COMBAT) {
-        state.gameState.combatLog.splice(LOG_LIMITS.COMBAT, 1)
-    }
 }
 
 export const clearLog = (state, log) => {
     state.gameState[log] = []
 }
 
-export const healPlayer = (state, { healing, manaCost, maxHealth }) => {
+export const healPlayer = (state, { healing, maxHealth }) => {
 
-    // Heals the player for some amount of health, costing mana
+    // Heals the player for some amount of health
 
-    state.gameState.combatLog.unshift(`${state.gameState.player.label} was healed for ${healing}!`)
-
-    state.gameState.player.stats.mana -= manaCost
-
+    state.gameState.combatLog.unshift(`${state.gameState.player.label} was healed for ${healing} ❤️!`)
 
     if (state.gameState.player.stats.health + healing > maxHealth) {
         state.gameState.player.stats.health = maxHealth
     } else {
         state.gameState.player.stats.health += healing
     }
+}
 
-    while (state.gameState.combatLog.length > LOG_LIMITS.COMBAT) {
-        state.gameState.combatLog.splice(LOG_LIMITS.COMBAT, 1)
-    }
+export const temporaryBuffPlayer = (state, { stats, numberOfRounds }) => {
+
+    // Temporary give a stat buff advantage to the player
+
+    console.log(stats)
+
+    state.gameState.player.stats.temporaryStats.push({ ...stats, duration: numberOfRounds })
+
+    state.gameState.combatLog.unshift(`${state.gameState.player.label} was buffed for ${numberOfRounds} round(s)!`)
 }
 
 export const equipItem = (state, { index, setupIndex }) => {
@@ -445,6 +421,80 @@ export const buyItem = (state, { itemIndex, numberOfEquipment }) => {
         state.gameState.player.coins -= SHOP[itemIndex].goldPrice
         state.gameState.player.inventory.push(SHOP[itemIndex].equipmentId)
     }
+}
+
+export const forgeCraft = (state, { craftingIndex, numberOfEquipment }) => {
+    let canCraft = true;
+
+    if (FORGE[craftingIndex].materialCosts) {
+        FORGE[craftingIndex].materialCosts.forEach((materialCost) => {
+            if (state.gameState.materialAmounts[materialCost.id] < materialCost.amount) {
+                canCraft = false;
+            }
+        });
+    }
+
+    if (FORGE[craftingIndex].equipmentCosts) {
+        FORGE[craftingIndex].equipmentCosts.forEach((equipmentCost) => {
+            if (
+                numberOfEquipment[equipmentCost.id] < equipmentCost.amount
+            ) {
+                canCraft = false;
+            }
+        });
+    }
+
+    if (FORGE[craftingIndex].goldCost > state.gameState.player.coins) {
+        canCraft = false;
+    }
+
+    if (canCraft) {
+        if (FORGE[craftingIndex].materialCosts) {
+            FORGE[craftingIndex].materialCosts.forEach(materialCost => {
+                state.gameState.materialAmounts[materialCost.id] -= materialCost.amount
+            });
+        }
+
+        if (FORGE[craftingIndex].equipmentCosts) {
+            FORGE[craftingIndex].equipmentCosts.forEach(equipmentCost => {
+                for (let costAmount = 0; costAmount < equipmentCost.amount; costAmount++) {
+                    state.gameState.player.inventory.splice(state.gameState.player.inventory.findIndex((equipmentFind) => equipmentFind === equipmentCost.id), 1)
+                }
+            });
+        }
+
+        if (FORGE[craftingIndex].goldCost) {
+            state.gameState.player.coins -= FORGE[craftingIndex].goldCost
+        }
+
+        let crafting = {
+            result: FORGE[craftingIndex].result,
+            timer: FORGE[craftingIndex].baseForgingTime,
+        }
+
+        state.gameState.player.forgingCraftings.push(clonedeep(crafting))
+
+        state.gameState.materialAmounts.push()
+    }
+}
+
+export const collectForge = (state, index) => {
+    let crafting = state.gameState.player.forgingCraftings[index]
+
+    if (crafting.timer <= 0) {
+        if (crafting.result.type === 'material') {
+            state.gameState.materialAmounts[crafting.result.id] += crafting.result.amount
+            state.gameState.materialAmounts.push()
+        }
+
+        if (crafting.result.type === 'equipment') {
+            for (let amount = 0; amount < crafting.result.amount; amount++) {
+                state.gameState.player.inventory.push(clonedeep(crafting.result.id))
+            }
+        }
+    }
+
+    state.gameState.player.forgingCraftings.splice(index, 1)
 }
 
 export const sellItem = (state, materialId) => {
@@ -582,6 +632,14 @@ export const updateGame = (state) => {
     if (state.gameState.currentDodgeBoard.passiveCooldown > 0) {
         state.gameState.currentDodgeBoard.passiveCooldown--
     }
+
+    // Forging
+
+    state.gameState.player.forgingCraftings.forEach((crafting) => {
+        if (crafting.timer > 0) {
+            crafting.timer--
+        }
+    })
 
     // Raise timeElapsed by 1
 

@@ -1,5 +1,8 @@
 <template>
   <div class="text-center">
+    <locations />
+    <br />
+    <br />
     <div class="container">
       <div class="row">
         <div class="col-6">
@@ -22,6 +25,7 @@
 </template>
 
 <script>
+import Locations from "./components/Locations/Locations.vue";
 import Battle from "./components/Grinding/Battle.vue";
 import Mining from "./components/Grinding/Mining.vue";
 import Foraging from "./components/Grinding/Foraging.vue";
@@ -36,6 +40,7 @@ export default {
   }),
 
   components: {
+    Locations,
     Battle,
     Mining,
     Foraging,

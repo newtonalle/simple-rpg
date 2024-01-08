@@ -1,15 +1,18 @@
 <template>
   <div>
-    <h2>Battle</h2>
+    <h2>Combat</h2>
+    <p class="fs-5">
+      Combat Lvl. {{ playerSkills.combat + 1 }} ({{ player.skills.combat }}
+      XP)
+    </p>
 
     <!-- Player Stats -->
 
     <div>
       <h4 class="fw-bold">{{ player.label }}</h4>
-      <p class="fs-5">
-        Combat Lvl. {{ playerSkills.combat + 1 }} ({{ player.skills.combat }}
-        XP)
-      </p>
+
+      <br />
+
       <div class="row">
         <div class="col">
           <p>{{ player.stats.health }}/{{ equippedPlayer.maxHealth }} ❤️</p>
@@ -17,7 +20,12 @@
           <p>{{ player.coins }} 🪙</p>
         </div>
         <div class="col">
-          <p>{{ equippedPlayer.strength }} 👊</p>
+          <p>
+            {{ equippedPlayer.strength }} 👊<span
+              v-if="equippedPlayer.trueDamage"
+              >💔</span
+            >
+          </p>
           <p>{{ equippedPlayer.defense.toFixed(1) }} 🛡️</p>
           <p>{{ equippedPlayer.attackSpeed }}⚡👊</p>
         </div>
@@ -59,22 +67,12 @@
           >
         </button>
 
-        <!-- Healing -->
+        <!-- Use Effects -->
 
-        <div v-if="playerEquipments.wand">
-          <br />
-          <button
-            :disabled="
-              player.stats.mana - playerEquipments.wand.manaCost < 0 ||
-              player.stats.health >= equippedPlayer.maxHealth
-            "
-            class="btn btn-success"
-            @click="heal"
-          >
-            Heal
-            <span>({{ playerEquipments.wand.manaCost }}🪄)</span>
-          </button>
-        </div>
+        <div
+          v-for="(equipment, index) in Object.values(playerEquipments)"
+          :key="`battleItemUseEffectIndex-${index}`"
+        ></div>
       </div>
     </div>
 
@@ -93,19 +91,27 @@
       <br />
       <br />
     </div>
-
-    <div v-for="(enemy, index) in enemies" :key="`${enemy.label}-${index}`">
-      <div v-if="enemyUnlocks[enemy.id]">
+    <div class="row">
+      <div
+        v-for="(enemy, index) in locationEnemies"
+        :key="`${enemy.label}-${index}`"
+        class="col-4"
+      >
         <button
           :class="`btn btn-${enemyButtonColor(enemy.type)}`"
-          @click="fight(index)"
-          :disabled="currentEnemy.label"
+          @click="fight(enemy.id)"
+          :disabled="currentEnemy.label || !enemyUnlocks[enemy.id]"
+          style="width: 100%"
         >
           Fight {{ enemy.label }}
         </button>
         <br />
         <br />
       </div>
+    </div>
+
+    <div v-if="locationEnemies.length <= 0">
+      <p>There is nothing to fight here!</p>
     </div>
 
     <div v-if="combatLog.length > 0">
@@ -124,16 +130,14 @@
 <script>
 export default {
   methods: {
-    fight(index) {
-      this.$store.dispatch("newEnemy", index);
-      if (this.enemies[index].type === "boss") {
+    fight(id) {
+      this.$store.dispatch("newEnemy", id);
+      if (this.enemies[id].type === "boss") {
         this.$router.push({ name: "bossFight" });
       }
     },
 
     attack() {
-      this.$store.dispatch("playerPassive");
-
       this.$store.dispatch("attack", {
         user: "player",
         target: "currentEnemy",
@@ -145,10 +149,8 @@ export default {
           target: "player",
         });
       }
-    },
 
-    heal() {
-      this.$store.dispatch("healPlayer");
+      this.$store.dispatch("playerPassive");
     },
 
     clearLog() {
@@ -198,6 +200,10 @@ export default {
       return this.$store.getters.getEnemies;
     },
 
+    locationEnemies() {
+      return this.$store.getters.getLocationEnemies;
+    },
+
     enemyUnlocks() {
       return this.$store.getters.getEnemyUnlocks;
     },
@@ -216,6 +222,6 @@ export default {
 <style 
 scoped>
 button {
-  width: 175px;
+  width: 150px;
 }
 </style>

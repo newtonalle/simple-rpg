@@ -54,6 +54,17 @@
     <br />
 
     <equipment-stats :itemId="itemId" />
+
+    <div v-if="equipments[itemId].useEffect && inBattle && itemEquippedStatus">
+      <br />
+      <button
+        :disabled="player.stats.mana < equipments[itemId].manaCost"
+        class="btn btn-success"
+        @click="useEffect(itemId)"
+      >
+        Use ({{ equipments[itemId].manaCost }}🪄)
+      </button>
+    </div>
   </div>
 </template>
 
@@ -109,6 +120,10 @@ export default {
       if (confirm("Are you sure you want to delete this item?")) {
         this.$emit("removeEquipment");
       }
+    },
+
+    useEffect(id) {
+      this.$store.dispatch("useEffect", id);
     },
 
     canEquip(setupIndex) {

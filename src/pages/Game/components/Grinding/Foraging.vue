@@ -15,9 +15,12 @@
       <p>{{ equippedPlayer.foragingLuck }} 🍀</p>
 
       <!-- Forage Plant Actions -->
-
-      <div v-for="(plant, index) in plants" :key="`${plant.name}-${index}`">
-        <div v-if="plantUnlocks[plant.id]">
+      <div class="row">
+        <div
+          v-for="(plant, index) in locationPlants"
+          :key="`${plant.name}-${index}`"
+          class="col-4"
+        >
           <!-- NON CRIT DESIGN -->
 
           <!-- <button
@@ -33,21 +36,30 @@
 
           <!-- CRIT DESIGN -->
 
-          <button class="btn btn-success" @click="selectPlant(plant.id)">
+          <button
+            :disabled="!plantUnlocks[plant.id]"
+            class="btn btn-success"
+            @click="selectPlant(plant.id)"
+          >
             {{ plant.label }}
           </button>
           <br />
           <br />
         </div>
       </div>
+      <div v-if="locationPlants.length <= 0">
+        <p>There is nothing to forage here!</p>
+      </div>
 
-      <crit-bar
-        :speed="17.539999"
-        :cooldown="player.currentForagingCooldown"
-        :hitText="`Forage ${plants[selectedPlantId].label}`"
-        :markerId="`foraging-0`"
-        @critHit="critBarForage"
-      />
+      <div v-if="locationPlants.length > 0 && selectedPlantId > -1">
+        <crit-bar
+          :speed="17.539999"
+          :cooldown="player.currentForagingCooldown"
+          :hitText="`Forage ${plants[selectedPlantId].label}`"
+          :markerId="`foraging-0`"
+          @critHit="critBarForage"
+        />
+      </div>
     </div>
 
     <!-- Message for missing axe -->
@@ -75,7 +87,7 @@ import CritBar from "./components/CritBar.vue";
 export default {
   data: () => ({
     setIntervalId: 0,
-    selectedPlantId: 0,
+    selectedPlantId: -1,
   }),
 
   components: { CritBar },
@@ -130,6 +142,10 @@ export default {
       return this.$store.getters.getPlants;
     },
 
+    locationPlants() {
+      return this.$store.getters.getLocationPlants;
+    },
+
     plantUnlocks() {
       return this.$store.getters.getPlantUnlocks;
     },
@@ -144,7 +160,7 @@ export default {
 <style 
 scoped>
 button {
-  width: 150px;
+  width: 100%;
 }
 </style>
 

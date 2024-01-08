@@ -24,7 +24,12 @@
                   <p>{{ player.coins }} 🪙</p>
                 </div>
                 <div class="col">
-                  <p>{{ equippedPlayer.strength }} 👊</p>
+                  <p>
+                    {{ equippedPlayer.strength }} 👊<span
+                      v-if="equippedPlayer.trueDamage"
+                      >💔</span
+                    >
+                  </p>
                   <p>{{ equippedPlayer.defense }} 🛡️</p>
                   <p>{{ equippedPlayer.attackSpeed }}⚡👊</p>
                 </div>

@@ -1,7 +1,15 @@
-import { ENEMIES, ORE_VEINS, PLANTS, CROPS, RECIPES, SHOP, WEAPON_TYPES } from './constants'
+import { ENEMIES, ORE_VEINS, PLANTS, CROPS, RECIPES, SHOP, WEAPON_TYPES, EQUIPMENTS } from './constants'
 import defaultState from './state'
 
 const BASE_PASSIVE_COOLDOWN = 5
+
+const LOG_LIMITS = {
+    COMBAT: 5,
+    MINING: 5,
+    FORAGING: 5,
+    FARMING: 5,
+    FISHING: 5
+}
 
 const CRIT_ACCURACY = {
     extreme: 0,
@@ -30,7 +38,9 @@ export const versionUpdate = (context) => {
 
 export const importGame = (context, gameState) => context.commit('setGameState', gameState)
 
-export const newEnemy = (context, index) => context.commit('newEnemy', index)
+export const changeLocation = (context, locationId) => context.commit('changeLocation', locationId)
+
+export const newEnemy = (context, id) => context.commit('newEnemy', id)
 
 export const mineOre = (context, index) => {
     if (context.state.gameState.player.currentMiningCooldown <= 0) {
@@ -247,16 +257,14 @@ export const attack = (context, { user, target }) => {
             }
             context.state.gameState.player.currentAttackCooldown = attackCooldown
 
-            // Apply the damage
+            // Check for true damage
 
-            // First case = Player has a piercing item
-
-            // Second case = It doesn't
-
-            if (context.state.gameState.player.equippedItems.findIndex((equipment) => equipment.specialEffect === 'ignoresEnemyDefense') <= -1) {
-                inflictedDamage = baseDamage - context.state.gameState.currentEnemy.stats.defense
-            } else {
+            if (context.state.gameState.player.equippedItems.findIndex((equipment) => equipment.specialEffect === 'ignoresEnemyDefense') > -1 || playerStats.trueDamage) {
+                // Deal true damage
                 inflictedDamage = baseDamage
+            } else {
+                // Deal common damage
+                inflictedDamage = baseDamage - context.state.gameState.currentEnemy.stats.defense
             }
 
             let randomChance = Math.floor(Math.random() * 100)
@@ -269,8 +277,6 @@ export const attack = (context, { user, target }) => {
 
 
         } else {
-
-            // Apply the damage
 
             inflictedDamage = context.state.gameState.currentEnemy.stats.strength - Math.floor(playerStats.defense)
             let randomChance = Math.floor(Math.random() * 100)
@@ -308,6 +314,9 @@ export const attack = (context, { user, target }) => {
 
         context.commit('inflictDamage', { inflictedDamage, target, crit: { wasCrit, critType }, playerStats })
     }
+
+    const equippedPlayer = context.getters.getEquippedPlayer
+    context.commit('resetPlayerStats', { maxHealth: equippedPlayer.maxHealth, maxMana: equippedPlayer.maxMana })
 }
 
 export const attackGridHit = (context) => {
@@ -440,20 +449,68 @@ export const critBarAttack = (context, hitAccuracy) => {
     }
 }
 
-export const clearLog = (context, log) => context.commit('clearLog', log)
+export const useEffect = (context, id) => {
 
-export const healPlayer = (context) => {
-    const wand = context.getters.getPlayerEquipment.wand
-    context.commit('healPlayer', { healing: wand.healing, manaCost: wand.manaCost, maxHealth: context.getters.getEquippedPlayer.maxHealth })
+    const itemUsed = EQUIPMENTS[id]
+    const equippedPlayer = context.getters.getEquippedPlayer
+
+    if (context.state.gameState.player.stats.mana >= itemUsed.manaCost) {
+        context.state.gameState.player.stats.mana -= itemUsed.manaCost
+
+        context.state.gameState.combatLog.unshift(`${context.state.gameState.player.label} used ${itemUsed.label}!`)
+        context.state.gameState.combatLog.unshift(`-${itemUsed.manaCost} 🪄`)
+
+
+        switch (itemUsed.useEffect.effect) {
+            case 'healing':
+                context.commit("healPlayer", { healing: itemUsed.useEffect.healing, maxHealth: equippedPlayer.maxHealth })
+                break;
+
+            case 'boostStats':
+                context.commit("temporaryBuffPlayer", { stats: itemUsed.useEffect.statsBonus, numberOfRounds: itemUsed.useEffect.duration })
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    context.commit('resetPlayerStats', { maxHealth: equippedPlayer.maxHealth, maxMana: equippedPlayer.maxMana })
 }
+
+export const clearLog = (context, log) => context.commit('clearLog', log)
 
 export const playerPassive = (context) => {
     const playerEquipment = context.getters.getPlayerEquipment
+
     Object.values(playerEquipment).forEach(equipment => {
         if (equipment.regeneration > 0) {
-            context.commit('healPlayer', { healing: equipment.regeneration, manaCost: 0, maxHealth: context.getters.getEquippedPlayer.maxHealth })
+            context.commit('healPlayer', { healing: equipment.regeneration, maxHealth: context.getters.getEquippedPlayer.maxHealth })
         }
     });
+
+    // Lower Durations of temporary stats
+
+    context.state.gameState.player.stats.temporaryStats.forEach((tempStat) => {
+        tempStat.duration--
+    });
+
+    if (context.state.gameState.player.stats.temporaryStats.length > 0) {
+        let loopActive = true
+
+        while (loopActive) {
+            let index = context.state.gameState.player.stats.temporaryStats.findIndex((stat) => stat.duration <= 0)
+
+            if (index < 0) {
+                loopActive = false
+            } else {
+                context.state.gameState.player.stats.temporaryStats.splice(index, 1)
+            }
+        }
+    }
+
+    const equippedPlayer = context.getters.getEquippedPlayer
+    context.commit('resetPlayerStats', { maxHealth: equippedPlayer.maxHealth, maxMana: equippedPlayer.maxMana })
 }
 
 export const equipItem = (context, { index, setupIndex }) => {
@@ -477,6 +534,10 @@ export const chooseEquippedSetup = (context, setupIndex) => {
 export const craftItem = (context, recipeIndex) => context.commit('craftItem', { recipeIndex, numberOfEquipment: context.getters.getNumberOfEquipment })
 
 export const buyItem = (context, itemIndex) => context.commit('buyItem', { itemIndex, numberOfEquipment: context.getters.getNumberOfEquipment })
+
+export const forgeCraft = (context, craftingIndex) => context.commit('forgeCraft', { craftingIndex, numberOfEquipment: context.getters.getNumberOfEquipment })
+
+export const collectForge = (context, index) => context.commit('collectForge', index)
 
 export const sellItem = (context, materialId) => context.commit('sellItem', materialId)
 
@@ -504,9 +565,30 @@ export const updateGame = ({ state, getters, commit }) => {
         const playerEquipment = getters.getPlayerEquipment
         Object.values(playerEquipment).forEach(equipment => {
             if (equipment.regeneration > 0) {
-                commit('healPlayer', { healing: equipment.regeneration, manaCost: 0, maxHealth: getters.getEquippedPlayer.maxHealth })
+                commit('healPlayer', { healing: equipment.regeneration, maxHealth: getters.getEquippedPlayer.maxHealth })
             }
         });
+
+
+        // Lower Durations of temporary stats
+
+        state.gameState.player.stats.temporaryStats.forEach((tempStat) => {
+            tempStat.duration--
+        });
+
+        if (state.gameState.player.stats.temporaryStats.length > 0) {
+            let loopActive = true
+
+            while (loopActive) {
+                let index = state.gameState.player.stats.temporaryStats.findIndex((stat) => stat.duration <= 0)
+
+                if (index < 0) {
+                    loopActive = false
+                } else {
+                    state.gameState.player.stats.temporaryStats.splice(index, 1)
+                }
+            }
+        }
     }
 
     // Enemies
@@ -754,6 +836,39 @@ export const updateGame = ({ state, getters, commit }) => {
 
 export const speedyUpdate = (context) => {
     context.commit('speedyUpdate')
+
+    // Remove Extra Lines at the logs
+
+
+    // Combat log
+
+    while (context.state.gameState.combatLog.length > LOG_LIMITS.COMBAT) {
+        context.state.gameState.combatLog.splice(LOG_LIMITS.COMBAT, 1)
+    }
+
+    // Mining log
+
+    while (context.state.gameState.miningLog.length > LOG_LIMITS.MINING) {
+        context.state.gameState.miningLog.splice(LOG_LIMITS.MINING, 1)
+    }
+
+    // Foraging log
+
+    while (context.state.gameState.foragingLog.length > LOG_LIMITS.FORAGING) {
+        context.state.gameState.foragingLog.splice(LOG_LIMITS.FORAGING, 1)
+    }
+
+    // Farming log
+
+    while (context.state.gameState.farmingLog.length > LOG_LIMITS.FARMING) {
+        context.state.gameState.farmingLog.splice(LOG_LIMITS.FARMING, 1)
+    }
+
+    // Fishing log
+
+    while (context.state.gameState.fishingLog.length > LOG_LIMITS.FISHING) {
+        context.state.gameState.fishingLog.splice(LOG_LIMITS.FISHING, 1)
+    }
 }
 
 export const debugGiveXp = (context, { type, amount }) => {

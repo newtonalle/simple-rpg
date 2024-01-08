@@ -45,6 +45,7 @@ export default () => ({
 
                 fishingLuck: 0,
                 maxFishingTier: 4,
+                temporaryStats: [],
             },
 
             skills: {
@@ -58,6 +59,11 @@ export default () => ({
 
                 fishing: 0,
             },
+
+
+            forgingCraftings: [],
+
+            currentLocationId: 0,
 
             inventory: [],
 

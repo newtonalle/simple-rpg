@@ -1195,7 +1195,7 @@ export const MATERIALS = [
         label: 'String',
         type: 'enemyDrop',
         symbol: '➰',
-        price: 5
+        price: 10
     },
 
     {
@@ -1385,7 +1385,7 @@ export const MATERIALS = [
         label: 'Yellow Cheese',
         type: 'enemyDrop',
         symbol: '🧀',
-        price: 50,
+        price: 10,
     },
 
     {
@@ -1393,7 +1393,7 @@ export const MATERIALS = [
         label: 'Green Cheese',
         type: 'enemyDrop',
         symbol: '🟩',
-        price: 100,
+        price: 120,
     },
 
     {

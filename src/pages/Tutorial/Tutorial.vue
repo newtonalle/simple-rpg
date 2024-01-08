@@ -3,8 +3,8 @@
     <h1>Tutorial & Introduction 🖥️</h1>
     <br />
     <h4>
-      The simple tasks in this game are currently fighting, mining and fishing,
-      so you can make as much money and collections as possible!
+      The simple tasks in this game are currently fighting, mining and foraging,
+      so you can make as much money, collections & milestones as possible!
     </h4>
     <br />
     <h4>Click the buttons to their labeled actions!</h4>

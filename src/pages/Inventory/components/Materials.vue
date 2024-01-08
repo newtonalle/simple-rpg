@@ -14,7 +14,11 @@
           v-for="(material, index) in materials"
           :key="`enemyMaterials-${material.id}-index-${index}`"
         >
-          <div v-if="material.type === 'enemyDrop'">
+          <div
+            v-if="
+              material.type === 'enemyDrop' && !material.currentlyUnavailable
+            "
+          >
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
                 materialAmounts[material.id]
@@ -42,7 +46,11 @@
           v-for="(material, index) in materials"
           :key="`miningMaterials-${material.id}-index-${index}`"
         >
-          <div v-if="material.type === 'miningDrop'">
+          <div
+            v-if="
+              material.type === 'miningDrop' && !material.currentlyUnavailable
+            "
+          >
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
                 materialAmounts[material.id]
@@ -70,7 +78,11 @@
           v-for="(material, index) in materials"
           :key="`foragingMaterials-${material.id}-index-${index}`"
         >
-          <div v-if="material.type === 'foragingDrop'">
+          <div
+            v-if="
+              material.type === 'foragingDrop' && !material.currentlyUnavailable
+            "
+          >
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
                 materialAmounts[material.id]
@@ -98,7 +110,12 @@
           v-for="(material, index) in materials"
           :key="`specialCraftingMaterials-${material.id}-index-${index}`"
         >
-          <div v-if="material.type === 'specialCrafting'">
+          <div
+            v-if="
+              material.type === 'specialCrafting' &&
+              !material.currentlyUnavailable
+            "
+          >
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
                 materialAmounts[material.id]
@@ -119,7 +136,7 @@
           v-for="(material, index) in materials"
           :key="`farmingMaterialsAndSeeds-${material.id}-index-${index}`"
         >
-          <div v-if="material.type === 'farmingDrop'">
+          <div v-if="material.type === 'farmingDrop' && !material.currentlyUnavailable">
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
                 materialAmounts[material.id]
@@ -165,7 +182,7 @@
           v-for="(material, index) in materials"
           :key="`fishingMaterials-${material.id}-index-${index}`"
         >
-          <div v-if="material.type === 'fishingDrop'">
+          <div v-if="material.type === 'fishingDrop' && !material.currentlyUnavailable">
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
                 materialAmounts[material.id]
@@ -193,7 +210,7 @@
           v-for="(material, index) in materials"
           :key="`treasureMaterials-${material.id}-index-${index}`"
         >
-          <div v-if="material.type === 'fishingTreasure'">
+          <div v-if="material.type === 'fishingTreasure' && !material.currentlyUnavailable">
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
                 materialAmounts[material.id]
@@ -229,7 +246,7 @@
       v-for="(material, index) in materials"
       :key="`specialFishingMaterials-${material.id}-index-${index}`"
     >
-      <div v-if="material.type === 'specialFishingDrop'">
+      <div v-if="material.type === 'specialFishingDrop' && !material.currentlyUnavailable">
         <h5>
           {{ material.label }}{{ material.symbol }} x{{
             materialAmounts[material.id]

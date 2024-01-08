@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1>Inventory & Shop 👜</h1>
+    <h1>Inventory 👜</h1>
     <br />
     <div class="container">
       <div class="row">
@@ -9,6 +9,10 @@
         <div class="col-sm"><shop /></div>
       </div>
     </div>
+
+    <div v-if="locations[player.currentLocationId].hasForge">
+      <forge />
+    </div>
   </div>
 </template>
 
@@ -16,6 +20,7 @@
 import Crafting from "./components/Crafting.vue";
 import Materials from "./components/Materials.vue";
 import Shop from "./components/Shop.vue";
+import Forge from "./components/Forge.vue";
 
 export default {
   data: () => ({
@@ -23,7 +28,17 @@ export default {
     speedSetIntervalId: 1,
   }),
 
-  components: { Crafting, Materials, Shop },
+  components: { Crafting, Materials, Shop, Forge },
+
+  computed: {
+    player() {
+      return this.$store.getters.getPlayer;
+    },
+
+    locations() {
+      return this.$store.getters.getLocations;
+    },
+  },
 
   methods: {
     updateGame() {

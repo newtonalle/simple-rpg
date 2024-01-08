@@ -12,9 +12,12 @@
       <p>{{ equippedPlayer.miningLuck }} 🍀</p>
 
       <!-- Mine Ore Actions -->
-
-      <div v-for="(ore, index) in ores" :key="`${ore.name}-${index}`">
-        <div v-if="oreUnlocks[ore.id]">
+      <div class="row">
+        <div
+          v-for="(ore, index) in locationOres"
+          :key="`${ore.name}-${index}`"
+          class="col-4"
+        >
           <!-- NON CRIT DESIGN -->
 
           <!-- <button
@@ -30,7 +33,11 @@
 
           <!-- CRIT DESIGN -->
 
-          <button class="btn btn-secondary" @click="selectOreId(index)">
+          <button
+            :disabled="!oreUnlocks[ore.id]"
+            class="btn btn-secondary"
+            @click="selectOreId(index)"
+          >
             {{ ore.label }}
           </button>
           <br />
@@ -38,13 +45,19 @@
         </div>
       </div>
 
-      <crit-bar
-        :speed="17.539999"
-        :cooldown="player.currentMiningCooldown"
-        :hitText="`Mine ${ores[selectedOreId].label}`"
-        :markerId="`mining-0`"
-        @critHit="critBarMine"
-      />
+      <div v-if="locationOres.length <= 0">
+        <p>There is nothing to mine here!</p>
+      </div>
+
+      <div v-if="locationOres.length > 0 && selectedOreId > -1">
+        <crit-bar
+          :speed="17.539999"
+          :cooldown="player.currentMiningCooldown"
+          :hitText="`Mine ${ores[selectedOreId].label}`"
+          :markerId="`mining-0`"
+          @critHit="critBarMine"
+        />
+      </div>
     </div>
 
     <!-- Message for missing pickaxe -->
@@ -72,7 +85,7 @@ import CritBar from "./components/CritBar.vue";
 export default {
   data: () => ({
     setIntervalId: 0,
-    selectedOreId: 0,
+    selectedOreId: -1,
   }),
 
   components: { CritBar },
@@ -127,6 +140,10 @@ export default {
       return this.$store.getters.getOres;
     },
 
+    locationOres() {
+      return this.$store.getters.getLocationOres;
+    },
+
     oreUnlocks() {
       return this.$store.getters.getOreUnlocks;
     },
@@ -141,7 +158,7 @@ export default {
 <style 
 scoped>
 button {
-  width: 150px;
+  width: 100%;
 }
 </style>
 
