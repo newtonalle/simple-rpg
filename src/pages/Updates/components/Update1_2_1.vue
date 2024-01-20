@@ -3,7 +3,7 @@
     <div style="cursor: pointer" @click="popout = !popout">
       <br />
       <h2>Update 1.2.1</h2>
-      <p style="font-style: italic">Released January n°th, 2024</p>
+      <p style="font-style: italic">Released January 20th, 2024</p>
       <div v-if="popout">
         <br />
         <br />
