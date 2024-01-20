@@ -3,7 +3,7 @@
     <h2>Fishing</h2>
 
     <p class="fs-5">
-      Fishing Lvl. {{ playerSkills.fishing + 1 }} ({{ player.skills.fishing }}
+      Fishing Lvl. {{ playerSkills.fishing }} ({{ player.skills.fishing }}
       XP)
     </p>
 

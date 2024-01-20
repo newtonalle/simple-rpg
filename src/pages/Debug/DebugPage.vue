@@ -154,6 +154,56 @@
     <br />
     <br />
 
+    <hr />
+
+    <br />
+
+    <h3>Quick Base Player Status</h3>
+
+    <br />
+
+    <p>Status Names (click to select):</p>
+    <div class="row">
+      <div
+        v-for="(status, index) in Object.keys(gameState.player.stats)"
+        :key="`debugPageStats-${status}-index-${index}`"
+        class="col-3"
+      >
+        <p
+          style="cursor: pointer"
+          @click="playerStatus = status"
+          v-if="status != 'maxFishingTier' && status != 'temporaryStats'"
+        >
+          {{ status }}
+        </p>
+      </div>
+    </div>
+
+    <button
+      style="margin-left: 20px"
+      class="btn btn-success"
+      @click="debugChangePlayerStatus"
+    >
+      Change Status
+    </button>
+
+    <br />
+    <br />
+
+    <input v-model="playerStatus" placeholder="Player Status" />
+
+    <br />
+    <br />
+
+    <input
+      v-model="playerStatusAmount"
+      type="number"
+      placeholder="Status Amount"
+    />
+
+    <br />
+    <br />
+
     <br />
   </div>
 </template>
@@ -170,6 +220,8 @@ export default {
     itemId: "",
     materialId: "",
     materialsAmount: "",
+    playerStatus: "",
+    playerStatusAmount: "",
   }),
 
   components: { AttackPatternBuilder },
@@ -208,6 +260,13 @@ export default {
       this.$store.dispatch("debugGiveMaterialById", {
         materialId: Number(this.materialId),
         materialsAmount: Number(this.materialsAmount),
+      });
+    },
+
+    debugChangePlayerStatus() {
+      this.$store.dispatch("debugChangePlayerStatus", {
+        status: this.playerStatus,
+        amount: Number(this.playerStatusAmount),
       });
     },
   },

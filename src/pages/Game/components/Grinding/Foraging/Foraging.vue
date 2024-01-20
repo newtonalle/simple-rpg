@@ -2,9 +2,7 @@
   <div>
     <h2>Foraging</h2>
     <p class="fs-5">
-      Foraging Lvl. {{ playerSkills.foraging + 1 }} ({{
-        player.skills.foraging
-      }}
+      Foraging Lvl. {{ playerSkills.foraging }} ({{ player.skills.foraging }}
       XP)
     </p>
 
@@ -83,7 +81,7 @@
 </template>
 
 <script>
-import CritBar from "./components/CritBar.vue";
+import CritBar from "../components/CritBar.vue";
 export default {
   data: () => ({
     setIntervalId: 0,

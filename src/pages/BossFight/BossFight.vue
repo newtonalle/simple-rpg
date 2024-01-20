@@ -15,33 +15,13 @@
                 }}
                 XP)
               </p>
-              <div class="row">
-                <div class="col">
-                  <p>
-                    {{ player.stats.health }}/{{ equippedPlayer.maxHealth }} ❤️
-                  </p>
-                  <p>{{ player.stats.mana }}/{{ equippedPlayer.maxMana }} 🪄</p>
-                  <p>{{ player.coins }} 🪙</p>
-                </div>
-                <div class="col">
-                  <p>
-                    {{ equippedPlayer.strength }} 👊<span
-                      v-if="equippedPlayer.trueDamage"
-                      >💔</span
-                    >
-                  </p>
-                  <p>{{ equippedPlayer.defense }} 🛡️</p>
-                  <p>{{ equippedPlayer.attackSpeed }}⚡👊</p>
-                </div>
-                <div class="col">
-                  <p>{{ equippedPlayer.critChance }}% 💥🍀</p>
-                  <p>{{ equippedPlayer.critDamageMultiplier }}x 💥👊</p>
-                  <p>{{ equippedPlayer.moveSpeed }}🦶💨</p>
-                </div>
-              </div>
+              <player-status
+                :player="player"
+                :equippedPlayer="equippedPlayer"
+              />
             </div>
 
-            <inventory
+            <equipments
               :showUnequippedItems="true"
               :deleteButtonAppear="false"
             />
@@ -57,62 +37,22 @@
             <crit-bar
               :speed="17.539999"
               :cooldown="player.currentAttackCooldown"
+              :specialDisabled="
+                playerEquipments.weapon &&
+                weaponTypes[playerEquipments.weapon.typeId].damageType ===
+                  'ranged' &&
+                player.quiverInventory.equippedAmount <= 0
+              "
               :hitText="`Attack`"
               :markerId="`bossbattle-0`"
               @critHit="critBarAttack"
             />
-            <div v-if="playerEquipments.wand">
-              <br />
-              <button
-                :disabled="
-                  player.stats.mana - playerEquipments.wand.manaCost < 0 ||
-                  player.stats.health >= equippedPlayer.maxHealth
-                "
-                class="btn btn-success"
-                @click="heal"
-              >
-                Heal
-                <span>({{ playerEquipments.wand.manaCost }}🪄)</span>
-              </button>
-            </div>
           </div>
 
           <div class="col-4">
             <h2 class="fw-bold">{{ currentEnemy.label }}</h2>
-            <div>
-              <!-- Current Boss Stats -->
 
-              <p class="fw-bold">
-                {{ currentEnemy.stats.health }}/{{
-                  currentEnemy.stats.maxHealth
-                }}
-                ❤️
-              </p>
-              <p>{{ currentEnemy.stats.strength }} 👊</p>
-
-              <p>{{ currentEnemy.stats.defense }} 🛡️</p>
-
-              <p>
-                {{ currentEnemy.bossStats.gridAttackDamage.amount }}
-                <span
-                  v-if="
-                    currentEnemy.bossStats.gridAttackDamage.type.includes(
-                      'percentage'
-                    )
-                  "
-                  >%</span
-                >
-                👊
-                <span
-                  v-if="
-                    currentEnemy.bossStats.gridAttackDamage.type.includes(
-                      'true'
-                    )
-                  "
-                  >(💔)</span
-                >
-              </p>
-            </div>
+            <enemy-status :currentEnemy="currentEnemy" />
           </div>
         </div>
 
@@ -152,11 +92,13 @@
 </template>
 
 <script>
-import Inventory from "../Game/components/MainInventory/Inventory.vue";
+import Equipments from "../Game/components/Equipments/Equipments.vue";
 import CritBar from "../Game/components/Grinding/components/CritBar.vue";
-import DodgeBoard from "../Game/components/Grinding/components/DodgeBoard.vue";
+import DodgeBoard from "./components/DodgeBoard.vue";
+import PlayerStatus from "../components/PlayerStatus.vue";
+import EnemyStatus from "../components/EnemyStatus.vue";
 export default {
-  components: { CritBar, DodgeBoard, Inventory },
+  components: { CritBar, DodgeBoard, Equipments, PlayerStatus, EnemyStatus },
 
   methods: {
     updateGame() {
@@ -165,6 +107,10 @@ export default {
 
     speedyUpdate() {
       this.$store.dispatch("speedyUpdate");
+    },
+
+    enteredBossScreen() {
+      this.$store.dispatch("changeInBossScreenStatus", true);
     },
 
     critBarAttack(hitAccuracy) {
@@ -179,6 +125,8 @@ export default {
           target: "player",
         });
       }
+
+      this.$store.dispatch("playerActive");
     },
 
     heal() {
@@ -227,6 +175,10 @@ export default {
       return this.$store.getters.getMilestones;
     },
 
+    weaponTypes() {
+      return this.$store.getters.getWeaponTypes;
+    },
+
     combatLog() {
       return this.$store.getters.getCombatLog;
     },
@@ -240,6 +192,8 @@ export default {
     this.speedSetIntervalId = setInterval(() => {
       this.speedyUpdate();
     }, 100);
+
+    this.enteredBossScreen();
   },
 
   destroyed() {

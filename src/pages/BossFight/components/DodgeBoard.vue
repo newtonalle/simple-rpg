@@ -19,6 +19,7 @@
       Move Unavailable ({{ currentDodgeBoard.moveCooldown.toFixed(1) }}s)
     </p>
     <p v-else>Move Available</p>
+    <p>{{ currentDodgeBoard.passiveCooldown }}s to Passive</p>
     <canvas id="dodgeBoardCanvas" :width="300" :height="300" />
   </div>
 </template>

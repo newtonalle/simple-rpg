@@ -31,6 +31,10 @@ export default {
       this.$store.dispatch("speedyUpdate");
     },
 
+    leftBossScreen() {
+      this.$store.dispatch("changeInBossScreenStatus", false);
+    },
+
     versionUpdate() {
       this.$store.dispatch("versionUpdate");
     },
@@ -38,6 +42,7 @@ export default {
 
   created() {
     this.versionUpdate();
+    this.leftBossScreen();
 
     this.setIntervalId = setInterval(() => {
       this.updateGame();

@@ -1,10 +1,10 @@
 import {
-    ENEMIES, MATERIALS, ORE_VEINS, CROPS, SHOP, RECIPES, EQUIPMENTS, PLANTS, SKILLS, ATTACK_PATTERNS, MILESTONES, FORGE, /*FISHING_LOOT_TABLE*/
+    ENEMIES, MATERIALS, ORE_VEINS, CROPS, SHOP, RECIPES, EQUIPMENTS, PLANTS, SKILLS, ATTACK_PATTERNS, MILESTONES, FORGE, ARROWS, /*FISHING_LOOT_TABLE*/
     COLLECTIONS
 } from './constants'
 
 const clonedeep = require('lodash.clonedeep')
-const BASE_PASSIVE_COOLDOWN = 5
+const BASE_PASSIVE_COOLDOWN = 10
 
 function calculateRolledDrop(possibleDrops) {
 
@@ -46,6 +46,21 @@ export const newEnemy = (state, id) => {
     state.gameState.currentDodgeBoard.currentAttackStep = 0
     state.gameState.currentDodgeBoard.moveCooldown = 0
     state.gameState.currentDodgeBoard.passiveCooldown = BASE_PASSIVE_COOLDOWN
+
+    // Reset use timers
+
+
+    state.gameState.player.inventory.forEach(item => {
+        item.useTimer = 0
+    });
+
+    state.gameState.player.setups[0].forEach(item => {
+        item.useTimer = 0
+    });
+
+    state.gameState.player.setups[1].forEach(item => {
+        item.useTimer = 0
+    });
 
     // Generates new enemy for the player to battle
 
@@ -192,6 +207,28 @@ export const fish = (state, { fishingLuck, startingDropTier }) => {
 }
 */
 
+export const turnPass = (state) => {
+    // Lower Durations of temporary stats
+
+    state.gameState.player.stats.temporaryStats.forEach((tempStat) => {
+        tempStat.duration--
+    });
+
+    if (state.gameState.player.stats.temporaryStats.length > 0) {
+        let loopActive = true
+
+        while (loopActive) {
+            let index = state.gameState.player.stats.temporaryStats.findIndex((stat) => stat.duration <= 0)
+
+            if (index < 0) {
+                loopActive = false
+            } else {
+                state.gameState.player.stats.temporaryStats.splice(index, 1)
+            }
+        }
+    }
+}
+
 export const inflictDamage = (state, { inflictedDamage, target, crit: { wasCrit, critType }, playerStats }) => {
 
     // Deal the amount of damage
@@ -249,7 +286,7 @@ export const inflictDamage = (state, { inflictedDamage, target, crit: { wasCrit,
 
             } else if (receivedDrop.drop.type === "equipment") {
 
-                state.gameState.player.inventory.push(receivedDrop.drop.id)
+                state.gameState.player.inventory.push({ id: receivedDrop.drop.id, useTimer: -1 })
                 state.gameState.combatLog.unshift(`Received ${receivedDrop.amount}x ${EQUIPMENTS[receivedDrop.drop.id].label}!`)
 
             } else if (receivedDrop.drop.type === "coin") {
@@ -308,15 +345,45 @@ export const temporaryBuffPlayer = (state, { stats, numberOfRounds }) => {
     state.gameState.combatLog.unshift(`${state.gameState.player.label} was buffed for ${numberOfRounds} round(s)!`)
 }
 
-export const equipItem = (state, { index, setupIndex }) => {
+export const equipSetItem = (state, { index, setupIndex }) => {
     state.gameState.player.setups[setupIndex].push(clonedeep(state.gameState.player.inventory[index]))
     state.gameState.player.inventory.splice(index, 1)
 }
 
-export const unequipItem = (state, { index, setupIndex }) => {
+export const unequipSetItem = (state, { index, setupIndex }) => {
     state.gameState.player.inventory.push(clonedeep(state.gameState.player.setups[setupIndex][index]))
     state.gameState.player.setups[setupIndex].splice(index, 1)
+}
 
+export const equipItem = (state, index) => {
+    state.gameState.player.equippedItems.push(clonedeep(state.gameState.player.inventory[index]))
+    state.gameState.player.inventory.splice(index, 1)
+}
+
+export const unequipItem = (state, index) => {
+    state.gameState.player.inventory.push(clonedeep(state.gameState.player.equippedItems[index]))
+    if (EQUIPMENTS[state.gameState.player.equippedItems[index].id].slot === 'quiver') {
+        state.gameState.arrowAmounts[state.gameState.player.quiverInventory.arrowId] += state.gameState.player.quiverInventory.equippedAmount
+        state.gameState.arrowAmounts.push()
+        state.gameState.player.quiverInventory.equippedAmount = 0
+    }
+    state.gameState.player.equippedItems.splice(index, 1)
+}
+
+export const equipArrow = (state, id) => {
+    state.gameState.arrowAmounts[state.gameState.player.quiverInventory.arrowId] += state.gameState.player.quiverInventory.equippedAmount
+    state.gameState.arrowAmounts.push()
+    state.gameState.player.quiverInventory.equippedAmount = 0
+
+    state.gameState.player.quiverInventory.arrowId = id
+}
+
+export const addArrowToQuiver = (state, { id, quiver }) => {
+    if (state.gameState.arrowAmounts[id] > 0 && (state.gameState.player.quiverInventory.equippedAmount + 1 <= quiver.maxEquippedArrows)) {
+        state.gameState.arrowAmounts[id]--
+        state.gameState.arrowAmounts.push()
+        state.gameState.player.quiverInventory.equippedAmount++
+    }
 }
 
 export const chooseEquippedSetup = (state, setupIndex) => {
@@ -326,71 +393,80 @@ export const chooseEquippedSetup = (state, setupIndex) => {
 
 export const craftItem = (state, { recipeIndex, numberOfEquipment }) => {
     let canCraft = true;
+    const recipeItem = RECIPES[recipeIndex]
 
-    if (RECIPES[recipeIndex].materialCosts) {
-        RECIPES[recipeIndex].materialCosts.forEach((materialCost) => {
+    if (recipeItem.materialCosts) {
+        recipeItem.materialCosts.forEach((materialCost) => {
             if (state.gameState.materialAmounts[materialCost.id] < materialCost.amount) {
                 canCraft = false;
             }
         });
     }
 
-    if (RECIPES[recipeIndex].equipmentCosts) {
-        RECIPES[recipeIndex].equipmentCosts.forEach((equipmentCost) => {
+    if (recipeItem.equipmentCosts) {
+        recipeItem.equipmentCosts.forEach((equipmentCost) => {
             if (numberOfEquipment[equipmentCost.id] < equipmentCost.amount) {
                 canCraft = false;
             }
         });
     }
 
-    if (RECIPES[recipeIndex].goldCost > state.gameState.player.coins) {
+    if (recipeItem.goldCost > state.gameState.player.coins) {
         canCraft = false;
     }
 
     if (canCraft) {
-        if (RECIPES[recipeIndex].materialCosts) {
-            RECIPES[recipeIndex].materialCosts.forEach(materialCost => {
+        if (recipeItem.materialCosts) {
+            recipeItem.materialCosts.forEach(materialCost => {
                 state.gameState.materialAmounts[materialCost.id] -= materialCost.amount
             });
         }
 
-        if (RECIPES[recipeIndex].equipmentCosts) {
-            RECIPES[recipeIndex].equipmentCosts.forEach(equipmentCost => {
+        if (recipeItem.equipmentCosts) {
+            recipeItem.equipmentCosts.forEach(equipmentCost => {
                 for (let costAmount = 0; costAmount < equipmentCost.amount; costAmount++) {
                     state.gameState.player.inventory.splice(state.gameState.player.inventory.findIndex((equipmentFind) => equipmentFind === equipmentCost.id), 1)
                 }
             });
         }
 
-        if (RECIPES[recipeIndex].goldCost) {
-            state.gameState.player.coins -= RECIPES[recipeIndex].goldCost
+        if (recipeItem.goldCost) {
+            state.gameState.player.coins -= recipeItem.goldCost
         }
 
-        if (RECIPES[recipeIndex].result.type === 'equipment') {
-            state.gameState.player.inventory.push(RECIPES[recipeIndex].result.id)
+        if (recipeItem.result.type === 'equipment') {
+            for (let amount = 0; amount < recipeItem.result.amount; amount++) {
+                state.gameState.player.inventory.push({ id: recipeItem.result.id, useTimer: -1 })
+            }
         }
 
-        if (RECIPES[recipeIndex].result.type === 'material') {
-            state.gameState.materialAmounts[RECIPES[recipeIndex].result.id]++
+        if (recipeItem.result.type === 'material') {
+            state.gameState.materialAmounts[recipeItem.result.id] += recipeItem.result.amount
+        }
+
+        if (recipeItem.result.type === 'arrow') {
+            state.gameState.arrowAmounts[recipeItem.result.id] += recipeItem.result.amount
         }
 
         state.gameState.materialAmounts.push()
+        state.gameState.arrowAmounts.push()
     }
 }
 
 export const buyItem = (state, { itemIndex, numberOfEquipment }) => {
     let canBuy = true;
+    const shopItem = SHOP[itemIndex]
 
-    if (SHOP[itemIndex].materialPrices) {
-        SHOP[itemIndex].materialPrices.forEach((materialPrice) => {
+    if (shopItem.materialPrices) {
+        shopItem.materialPrices.forEach((materialPrice) => {
             if (state.gameState.materialAmounts[materialPrice.id] < materialPrice.amount) {
                 canBuy = false;
             }
         });
     }
 
-    if (SHOP[itemIndex].equipmentPrices) {
-        SHOP[itemIndex].equipmentPrices.forEach((equipmentPrice) => {
+    if (shopItem.equipmentPrices) {
+        shopItem.equipmentPrices.forEach((equipmentPrice) => {
             if (
                 numberOfEquipment[equipmentPrice.id] < equipmentPrice.amount
             ) {
@@ -399,43 +475,62 @@ export const buyItem = (state, { itemIndex, numberOfEquipment }) => {
         });
     }
 
-    if (SHOP[itemIndex].goldPrice > state.gameState.player.coins) {
+    if (shopItem.goldPrice > state.gameState.player.coins) {
         canBuy = false;
     }
 
     if (canBuy) {
-        if (SHOP[itemIndex].materialPrices) {
-            SHOP[itemIndex].materialPrices.forEach(materialPrice => {
+        if (shopItem.materialPrices) {
+            shopItem.materialPrices.forEach(materialPrice => {
                 state.gameState.materialAmounts[materialPrice.id] -= materialPrice.amount
             });
         }
 
-        if (SHOP[itemIndex].equipmentPrices) {
-            SHOP[itemIndex].equipmentPrices.forEach(equipmentPrice => {
+        if (shopItem.equipmentPrices) {
+            shopItem.equipmentPrices.forEach(equipmentPrice => {
                 for (let costAmount = 0; costAmount < equipmentPrice.amount; costAmount++) {
                     state.gameState.player.inventory.splice(state.gameState.player.inventory.findIndex((equipmentFind) => equipmentFind === equipmentPrice.id), 1)
                 }
             });
         }
 
-        state.gameState.player.coins -= SHOP[itemIndex].goldPrice
-        state.gameState.player.inventory.push(SHOP[itemIndex].equipmentId)
+        if (shopItem.goldPrice) {
+            state.gameState.player.coins -= shopItem.goldPrice
+        }
+
+        if (shopItem.result.type === 'equipment') {
+            for (let amount = 0; amount < shopItem.result.amount; amount++) {
+                state.gameState.player.inventory.push({ id: shopItem.result.id, useTimer: -1 })
+            }
+        }
+
+        if (shopItem.result.type === 'material') {
+            state.gameState.materialAmounts[shopItem.result.id] += shopItem.result.amount
+        }
+
+        if (shopItem.result.type === 'arrow') {
+            state.gameState.arrowAmounts[shopItem.result.id] += shopItem.result.amount
+        }
+
+        state.gameState.materialAmounts.push()
+        state.gameState.arrowAmounts.push()
     }
 }
 
 export const forgeCraft = (state, { craftingIndex, numberOfEquipment }) => {
     let canCraft = true;
+    const forgeItem = FORGE[craftingIndex]
 
-    if (FORGE[craftingIndex].materialCosts) {
-        FORGE[craftingIndex].materialCosts.forEach((materialCost) => {
+    if (forgeItem.materialCosts) {
+        forgeItem.materialCosts.forEach((materialCost) => {
             if (state.gameState.materialAmounts[materialCost.id] < materialCost.amount) {
                 canCraft = false;
             }
         });
     }
 
-    if (FORGE[craftingIndex].equipmentCosts) {
-        FORGE[craftingIndex].equipmentCosts.forEach((equipmentCost) => {
+    if (forgeItem.equipmentCosts) {
+        forgeItem.equipmentCosts.forEach((equipmentCost) => {
             if (
                 numberOfEquipment[equipmentCost.id] < equipmentCost.amount
             ) {
@@ -444,32 +539,32 @@ export const forgeCraft = (state, { craftingIndex, numberOfEquipment }) => {
         });
     }
 
-    if (FORGE[craftingIndex].goldCost > state.gameState.player.coins) {
+    if (forgeItem.goldCost > state.gameState.player.coins) {
         canCraft = false;
     }
 
     if (canCraft) {
-        if (FORGE[craftingIndex].materialCosts) {
-            FORGE[craftingIndex].materialCosts.forEach(materialCost => {
+        if (forgeItem.materialCosts) {
+            forgeItem.materialCosts.forEach(materialCost => {
                 state.gameState.materialAmounts[materialCost.id] -= materialCost.amount
             });
         }
 
-        if (FORGE[craftingIndex].equipmentCosts) {
-            FORGE[craftingIndex].equipmentCosts.forEach(equipmentCost => {
+        if (forgeItem.equipmentCosts) {
+            forgeItem.equipmentCosts.forEach(equipmentCost => {
                 for (let costAmount = 0; costAmount < equipmentCost.amount; costAmount++) {
                     state.gameState.player.inventory.splice(state.gameState.player.inventory.findIndex((equipmentFind) => equipmentFind === equipmentCost.id), 1)
                 }
             });
         }
 
-        if (FORGE[craftingIndex].goldCost) {
-            state.gameState.player.coins -= FORGE[craftingIndex].goldCost
+        if (forgeItem.goldCost) {
+            state.gameState.player.coins -= forgeItem.goldCost
         }
 
         let crafting = {
-            result: FORGE[craftingIndex].result,
-            timer: FORGE[craftingIndex].baseForgingTime,
+            result: forgeItem.result,
+            timer: forgeItem.baseForgingTime,
         }
 
         state.gameState.player.forgingCraftings.push(clonedeep(crafting))
@@ -489,7 +584,7 @@ export const collectForge = (state, index) => {
 
         if (crafting.result.type === 'equipment') {
             for (let amount = 0; amount < crafting.result.amount; amount++) {
-                state.gameState.player.inventory.push(clonedeep(crafting.result.id))
+                state.gameState.player.inventory.push({ id: clonedeep(crafting.result.id), useTimer: -1 })
             }
         }
     }
@@ -585,6 +680,10 @@ export const resetPlayerStats = (state, { maxHealth, maxMana }) => {
     }
 }
 
+export const changeInBossScreenStatus = (state, inBossScreenStatus) => {
+    state.gameState.player.inBossScreen = inBossScreenStatus
+}
+
 export const updateGame = (state) => {
 
 
@@ -607,7 +706,13 @@ export const updateGame = (state) => {
 
 
     if (state.gameState.player.currentAttackCooldown > 0) {
-        state.gameState.player.currentAttackCooldown--
+        if (state.gameState.currentEnemy.type === "boss") {
+            if (state.gameState.player.inBossScreen) {
+                state.gameState.player.currentAttackCooldown--
+            }
+        } else {
+            state.gameState.player.currentAttackCooldown--
+        }
     }
 
     if (state.gameState.player.currentMiningCooldown > 0) {
@@ -629,7 +734,7 @@ export const updateGame = (state) => {
         state.gameState.player.currentFishingCooldown--
     }
 
-    if (state.gameState.currentDodgeBoard.passiveCooldown > 0) {
+    if (state.gameState.currentDodgeBoard.passiveCooldown > 0 && state.gameState.player.inBossScreen) {
         state.gameState.currentDodgeBoard.passiveCooldown--
     }
 
@@ -640,6 +745,29 @@ export const updateGame = (state) => {
             crafting.timer--
         }
     })
+
+    // Use Timers
+
+    if (state.gameState.currentEnemy.type === "boss") {
+        state.gameState.player.setups[0].forEach(item => {
+            if (item.useTimer > 0) {
+                item.useTimer--
+            }
+        });
+
+
+        state.gameState.player.setups[1].forEach(item => {
+            if (item.useTimer > 0) {
+                item.useTimer--
+            }
+        });
+
+        state.gameState.player.equippedItems.forEach(item => {
+            if (item.useTimer > 0) {
+                item.useTimer--
+            }
+        });
+    }
 
     // Raise timeElapsed by 1
 
@@ -660,6 +788,16 @@ export const versionUpdate = (state) => {
 
     while (state.gameState.materialAmounts.length > MATERIALS.length) {
         state.gameState.materialAmounts.pop()
+    }
+
+    // Arrow Amounts
+
+    while (state.gameState.arrowAmounts.length < ARROWS.length) {
+        state.gameState.arrowAmounts.push(0)
+    }
+
+    while (state.gameState.arrowAmounts.length > ARROWS.length) {
+        state.gameState.arrowAmounts.pop()
     }
 
     // Milestone Amounts
@@ -743,6 +881,15 @@ export const versionUpdate = (state) => {
     while (state.gameState.shopUnlocks.length > SHOP.length) {
         state.gameState.shopUnlocks.pop()
     }
+
+    // Equipment convert to new model {id: NUMBER, useTimer: NUMBER}
+
+    state.gameState.player.inventory.forEach(item => {
+        if ((item.id != 0 && !item.id) || (item.useTimer != 0 && !item.useTimer)) {
+            let itemId = clonedeep(item)
+            item = { id: itemId, useTimer: -999 }
+        }
+    });
 }
 
 export const debugGiveXp = (state, { type, amount }) => {
@@ -754,7 +901,7 @@ export const debugGiveCoins = (state, amount) => {
 }
 
 export const debugGiveItemById = (state, itemId) => {
-    state.gameState.player.inventory.push(itemId)
+    state.gameState.player.inventory.push({ id: itemId, useTimer: -1 })
 }
 
 export const debugGiveMaterialById = (state, { materialId, materialsAmount }) => {
@@ -763,4 +910,8 @@ export const debugGiveMaterialById = (state, { materialId, materialsAmount }) =>
     if (collectionIndex >= 0) {
         state.gameState.collectionAmounts[collectionIndex] += materialsAmount
     }
+}
+
+export const debugChangePlayerStatus = (state, { status, amount }) => {
+    state.gameState.player.stats[status] = amount
 }

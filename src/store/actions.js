@@ -1,7 +1,7 @@
-import { ENEMIES, ORE_VEINS, PLANTS, CROPS, RECIPES, SHOP, WEAPON_TYPES, EQUIPMENTS } from './constants'
+import { ENEMIES, ORE_VEINS, PLANTS, CROPS, RECIPES, SHOP, WEAPON_TYPES, EQUIPMENTS, ARROWS } from './constants'
 import defaultState from './state'
 
-const BASE_PASSIVE_COOLDOWN = 5
+const BASE_PASSIVE_COOLDOWN = 10
 
 const LOG_LIMITS = {
     COMBAT: 5,
@@ -243,11 +243,20 @@ export const attack = (context, { user, target }) => {
         const baseDamage = playerStats.strength
 
 
+
         // The target recieves damaged based in its own defense and enemy strength
 
         // Current Enemy & Player are the options for user/target
 
         if (user === 'player') {
+
+            if (playerWeapon && WEAPON_TYPES[playerWeapon.typeId].damageType === "ranged") {
+                if (context.state.gameState.player.quiverInventory.equippedAmount <= 0) {
+                    return;
+                }
+                context.state.gameState.player.quiverInventory.equippedAmount--
+                inflictedDamage += ARROWS[context.state.gameState.player.quiverInventory.arrowId].strength
+            }
 
             // Reset the attack cooldown to its base value
 
@@ -307,7 +316,6 @@ export const attack = (context, { user, target }) => {
                 wasCrit = false
                 critType = "arrowMissed"
             }
-
         }
 
         inflictedDamage = Math.round(inflictedDamage)
@@ -449,13 +457,19 @@ export const critBarAttack = (context, hitAccuracy) => {
     }
 }
 
-export const useEffect = (context, id) => {
+export const useEffect = (context, { id, index }) => {
 
     const itemUsed = EQUIPMENTS[id]
     const equippedPlayer = context.getters.getEquippedPlayer
 
-    if (context.state.gameState.player.stats.mana >= itemUsed.manaCost) {
+    if (context.state.gameState.player.stats.mana >= itemUsed.manaCost && (context.state.gameState.player.setups[context.state.gameState.player.equippedSetup][index].useTimer <= 0 && context.state.gameState.player.setups[context.state.gameState.player.equippedSetup][index].useTimer != -999)) {
         context.state.gameState.player.stats.mana -= itemUsed.manaCost
+
+        if (context.state.gameState.currentEnemy.type === 'boss' && itemUsed.useEffect.bossFightRechargeCooldown) {
+            context.state.gameState.player.setups[context.state.gameState.player.equippedSetup][index].useTimer = itemUsed.useEffect.bossFightRechargeCooldown
+        } else if (itemUsed.useEffect.oncePerCommonBattle) {
+            context.state.gameState.player.setups[context.state.gameState.player.equippedSetup][index].useTimer = -999
+        }
 
         context.state.gameState.combatLog.unshift(`${context.state.gameState.player.label} used ${itemUsed.label}!`)
         context.state.gameState.combatLog.unshift(`-${itemUsed.manaCost} 🪄`)
@@ -481,48 +495,63 @@ export const useEffect = (context, id) => {
 export const clearLog = (context, log) => context.commit('clearLog', log)
 
 export const playerPassive = (context) => {
-    const playerEquipment = context.getters.getPlayerEquipment
+    let healAmount = context.getters.getEquippedPlayer.passiveRegeneration
 
-    Object.values(playerEquipment).forEach(equipment => {
-        if (equipment.regeneration > 0) {
-            context.commit('healPlayer', { healing: equipment.regeneration, maxHealth: context.getters.getEquippedPlayer.maxHealth })
-        }
-    });
-
-    // Lower Durations of temporary stats
-
-    context.state.gameState.player.stats.temporaryStats.forEach((tempStat) => {
-        tempStat.duration--
-    });
-
-    if (context.state.gameState.player.stats.temporaryStats.length > 0) {
-        let loopActive = true
-
-        while (loopActive) {
-            let index = context.state.gameState.player.stats.temporaryStats.findIndex((stat) => stat.duration <= 0)
-
-            if (index < 0) {
-                loopActive = false
-            } else {
-                context.state.gameState.player.stats.temporaryStats.splice(index, 1)
-            }
-        }
+    if (healAmount != 0) {
+        context.commit('healPlayer', { healing: healAmount, maxHealth: context.getters.getEquippedPlayer.maxHealth })
     }
 
     const equippedPlayer = context.getters.getEquippedPlayer
     context.commit('resetPlayerStats', { maxHealth: equippedPlayer.maxHealth, maxMana: equippedPlayer.maxMana })
 }
 
-export const equipItem = (context, { index, setupIndex }) => {
-    context.commit('equipItem', { index, setupIndex })
+export const playerActive = (context) => {
+    let healAmount = context.getters.getEquippedPlayer.activeRegeneration
+
+    if (healAmount != 0) {
+        context.commit('healPlayer', { healing: healAmount, maxHealth: context.getters.getEquippedPlayer.maxHealth })
+    }
+
+    context.commit('turnPass')
+
     const equippedPlayer = context.getters.getEquippedPlayer
     context.commit('resetPlayerStats', { maxHealth: equippedPlayer.maxHealth, maxMana: equippedPlayer.maxMana })
 }
 
-export const unequipItem = (context, { index, setupIndex }) => {
-    context.commit('unequipItem', { index, setupIndex })
+export const equipSetItem = (context, { index, setupIndex }) => {
+    context.commit('equipSetItem', { index, setupIndex })
     const equippedPlayer = context.getters.getEquippedPlayer
     context.commit('resetPlayerStats', { maxHealth: equippedPlayer.maxHealth, maxMana: equippedPlayer.maxMana })
+}
+
+export const unequipSetItem = (context, { index, setupIndex }) => {
+    context.commit('unequipSetItem', { index, setupIndex })
+    const equippedPlayer = context.getters.getEquippedPlayer
+    context.commit('resetPlayerStats', { maxHealth: equippedPlayer.maxHealth, maxMana: equippedPlayer.maxMana })
+}
+
+export const equipItem = (context, index) => {
+    context.commit('equipItem', index)
+    const equippedPlayer = context.getters.getEquippedPlayer
+    context.commit('resetPlayerStats', { maxHealth: equippedPlayer.maxHealth, maxMana: equippedPlayer.maxMana })
+}
+
+export const unequipItem = (context, index) => {
+    context.commit('unequipItem', index)
+    const equippedPlayer = context.getters.getEquippedPlayer
+    context.commit('resetPlayerStats', { maxHealth: equippedPlayer.maxHealth, maxMana: equippedPlayer.maxMana })
+}
+
+export const equipArrow = (context, id) => {
+    context.commit('equipArrow', id)
+}
+
+export const addArrowToQuiver = (context, id) => {
+    let playerEquipment = context.getters.getPlayerEquipment
+
+    if (playerEquipment.quiver) {
+        context.commit('addArrowToQuiver', { id, quiver: playerEquipment.quiver })
+    }
 }
 
 export const chooseEquippedSetup = (context, setupIndex) => {
@@ -553,41 +582,21 @@ export const playerMove = (context, direction) => {
     context.commit('playerMove', { direction, moveSpeed })
 }
 
+export const changeInBossScreenStatus = (context, inBossScreenStatus) => {
+    context.commit('changeInBossScreenStatus', inBossScreenStatus)
+}
+
 export const updateGame = ({ state, getters, commit }) => {
-
-
 
     // Player Passive (if in Boss Fight)
 
     if (state.gameState.currentEnemy && state.gameState.currentEnemy.type === 'boss' && state.gameState.currentDodgeBoard.passiveCooldown <= 0) {
         state.gameState.currentDodgeBoard.passiveCooldown = BASE_PASSIVE_COOLDOWN
 
-        const playerEquipment = getters.getPlayerEquipment
-        Object.values(playerEquipment).forEach(equipment => {
-            if (equipment.regeneration > 0) {
-                commit('healPlayer', { healing: equipment.regeneration, maxHealth: getters.getEquippedPlayer.maxHealth })
-            }
-        });
+        let healAmount = getters.getEquippedPlayer.passiveRegeneration
 
-
-        // Lower Durations of temporary stats
-
-        state.gameState.player.stats.temporaryStats.forEach((tempStat) => {
-            tempStat.duration--
-        });
-
-        if (state.gameState.player.stats.temporaryStats.length > 0) {
-            let loopActive = true
-
-            while (loopActive) {
-                let index = state.gameState.player.stats.temporaryStats.findIndex((stat) => stat.duration <= 0)
-
-                if (index < 0) {
-                    loopActive = false
-                } else {
-                    state.gameState.player.stats.temporaryStats.splice(index, 1)
-                }
-            }
+        if (healAmount != 0) {
+            commit('healPlayer', { healing: healAmount, maxHealth: getters.getEquippedPlayer.maxHealth })
         }
     }
 
@@ -885,6 +894,10 @@ export const debugGiveItemById = (context, itemId) => {
 
 export const debugGiveMaterialById = (context, { materialId, materialsAmount }) => {
     context.commit('debugGiveMaterialById', { materialId, materialsAmount })
+}
+
+export const debugChangePlayerStatus = (context, { status, amount }) => {
+    context.commit('debugChangePlayerStatus', { status, amount })
 }
 
 

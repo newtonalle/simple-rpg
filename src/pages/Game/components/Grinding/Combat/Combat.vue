@@ -2,7 +2,7 @@
   <div>
     <h2>Combat</h2>
     <p class="fs-5">
-      Combat Lvl. {{ playerSkills.combat + 1 }} ({{ player.skills.combat }}
+      Combat Lvl. {{ playerSkills.combat }} ({{ player.skills.combat }}
       XP)
     </p>
 
@@ -13,28 +13,7 @@
 
       <br />
 
-      <div class="row">
-        <div class="col">
-          <p>{{ player.stats.health }}/{{ equippedPlayer.maxHealth }} ❤️</p>
-          <p>{{ player.stats.mana }}/{{ equippedPlayer.maxMana }} 🪄</p>
-          <p>{{ player.coins }} 🪙</p>
-        </div>
-        <div class="col">
-          <p>
-            {{ equippedPlayer.strength }} 👊<span
-              v-if="equippedPlayer.trueDamage"
-              >💔</span
-            >
-          </p>
-          <p>{{ equippedPlayer.defense.toFixed(1) }} 🛡️</p>
-          <p>{{ equippedPlayer.attackSpeed }}⚡👊</p>
-        </div>
-        <div class="col">
-          <p>{{ equippedPlayer.critChance.toFixed(2) }}% 💥🍀</p>
-          <p>{{ equippedPlayer.critDamageMultiplier.toFixed(2) }}x 💥👊</p>
-          <p>{{ equippedPlayer.moveSpeed }}🦶💨</p>
-        </div>
-      </div>
+      <player-status :player="player" :equippedPlayer="equippedPlayer" />
     </div>
 
     <br />
@@ -43,11 +22,8 @@
 
     <div v-if="currentEnemy.label">
       <h3>{{ currentEnemy.label }}</h3>
-      <p>
-        {{ currentEnemy.stats.health }}/{{ currentEnemy.stats.maxHealth }} ❤️
-      </p>
-      <p>{{ currentEnemy.stats.strength }} 👊</p>
-      <p>{{ currentEnemy.stats.defense }} 🛡️</p>
+
+      <enemy-status :currentEnemy="currentEnemy" />
 
       <div v-if="currentEnemy.type === 'common'">
         <!-- Common Battle -->
@@ -57,22 +33,31 @@
         <!-- Attacking -->
 
         <button
-          :disabled="player.currentAttackCooldown > 0"
+          :disabled="
+            player.currentAttackCooldown > 0 ||
+            (playerEquipments.weapon &&
+              weaponTypes[playerEquipments.weapon.typeId].damageType ===
+                'ranged' &&
+              player.quiverInventory.equippedAmount <= 0)
+          "
           class="btn btn-danger"
           @click="attack"
         >
           Attack
           <span v-if="player.currentAttackCooldown > 0"
-            >({{ player.currentAttackCooldown }}s)</span
+            >({{ player.currentAttackCooldown }}s)
+          </span>
+          <span
+            v-if="
+              playerEquipments.weapon &&
+              weaponTypes[playerEquipments.weapon.typeId].damageType ===
+                'ranged' &&
+              player.quiverInventory.equippedAmount <= 0
+            "
+          >
+            (No Arrows!)</span
           >
         </button>
-
-        <!-- Use Effects -->
-
-        <div
-          v-for="(equipment, index) in Object.values(playerEquipments)"
-          :key="`battleItemUseEffectIndex-${index}`"
-        ></div>
       </div>
     </div>
 
@@ -128,7 +113,10 @@
 </template>
 
 <script>
+import PlayerStatus from "../../../../components/PlayerStatus.vue";
+import EnemyStatus from "../../../../components/EnemyStatus.vue";
 export default {
+  components: { PlayerStatus, EnemyStatus },
   methods: {
     fight(id) {
       this.$store.dispatch("newEnemy", id);
@@ -150,6 +138,7 @@ export default {
         });
       }
 
+      this.$store.dispatch("playerActive");
       this.$store.dispatch("playerPassive");
     },
 
@@ -190,6 +179,10 @@ export default {
 
     playerEquipments() {
       return this.$store.getters.getPlayerEquipment;
+    },
+
+    weaponTypes() {
+      return this.$store.getters.getWeaponTypes;
     },
 
     currentEnemy() {

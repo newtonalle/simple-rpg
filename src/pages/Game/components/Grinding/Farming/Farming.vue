@@ -2,7 +2,7 @@
   <div>
     <h2>Farming</h2>
     <p class="fs-5">
-      Farming Lvl. {{ playerSkills.farming + 1 }} ({{ player.skills.farming }}
+      Farming Lvl. {{ playerSkills.farming }} ({{ player.skills.farming }}
       XP)
     </p>
 

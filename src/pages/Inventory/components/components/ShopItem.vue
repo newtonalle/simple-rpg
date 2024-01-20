@@ -1,6 +1,15 @@
 <template>
   <div @mouseenter="hovering = true" @mouseleave="hovering = false">
-    <h4 class="fw-bold">{{ equipments[item.equipmentId].label }}</h4>
+    <h4 v-if="item.result.type === 'equipment'" class="fw-bold">
+      {{ item.result.amount }}x {{ equipments[item.result.id].label }}
+    </h4>
+    <h4 v-else-if="item.result.type === 'material'" class="fw-bold">
+      {{ item.result.amount }} {{ materials[item.result.id].symbol }}
+      {{ materials[item.result.id].label }}
+    </h4>
+    <h4 v-else-if="item.result.type === 'arrow'" class="fw-bold">
+      {{ item.result.amount }}x {{ arrows[item.result.id].label }}
+    </h4>
 
     <div v-if="item.materialPrices">
       <div
@@ -37,7 +46,12 @@
     <br />
 
     <div v-if="hovering">
-      <equipment-stats :itemId="item.equipmentId" />
+      <div v-if="item.result.type === 'equipment'">
+        <equipment-stats :itemId="item.result.id" />
+      </div>
+      <div v-else-if="item.result.type === 'arrow'">
+        <arrow-stats :itemId="item.result.id" />
+      </div>
     </div>
 
     <br />
@@ -49,12 +63,14 @@
 
 <script>
 import EquipmentStats from "../../../components/EquipmentStats.vue";
+import ArrowStats from "../../../components/ArrowStats.vue";
+
 export default {
   data: () => ({
     hovering: false,
   }),
 
-  components: { EquipmentStats },
+  components: { EquipmentStats, ArrowStats },
 
   props: { item: Object, index: Number },
 
@@ -99,6 +115,10 @@ export default {
 
     materials() {
       return this.$store.getters.getMaterials;
+    },
+
+    arrows() {
+      return this.$store.getters.getArrows;
     },
 
     materialAmounts() {

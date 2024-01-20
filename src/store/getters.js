@@ -1,4 +1,4 @@
-import { COLLECTIONS, CROPS, ENEMIES, EQUIPMENTS, FORGE, LOCATIONS, MATERIALS, MILESTONES, ORE_VEINS, PLANTS, RECIPES, SHOP, SKILLS } from './constants'
+import { ARROWS, COLLECTIONS, CROPS, ENEMIES, EQUIPMENTS, FORGE, LOCATIONS, MATERIALS, MILESTONES, ORE_VEINS, PLANTS, RECIPES, SHOP, SKILLS, WEAPON_TYPES } from './constants'
 
 export const getGameState = (state) => state.gameState
 
@@ -7,6 +7,8 @@ export const getTimeElapsed = (state) => state.gameState.timeElapsed
 export const getLocations = () => LOCATIONS
 
 export const getPlayer = (state) => state.gameState.player
+
+export const getWeaponTypes = () => WEAPON_TYPES
 
 export const getEquipments = () => EQUIPMENTS
 
@@ -86,6 +88,10 @@ export const getAvailableMaterials = () => {
 
 export const getMaterialAmounts = (state) => state.gameState.materialAmounts
 
+export const getArrows = () => ARROWS
+
+export const getArrowAmounts = (state) => state.gameState.arrowAmounts
+
 export const getMilestones = () => MILESTONES
 
 export const getMilestoneAmounts = (state) => state.gameState.milestoneAmounts
@@ -114,8 +120,8 @@ export const getNumberOfEquipment = (state) => {
         equipmentAmounts.push(0)
     }
 
-    state.gameState.player.inventory.forEach(equipmentId => {
-        equipmentAmounts[equipmentId]++
+    state.gameState.player.inventory.forEach(equipment => {
+        equipmentAmounts[equipment.id]++
     });
 
     return equipmentAmounts
@@ -151,148 +157,292 @@ export const getEquippedPlayer = (state) => {
 
     let equippedPlayer = {
         maxHealth: state.gameState.player.stats.maxHealth + state.gameState.player.setups[equippedSetup].reduce(
-            (healthBonus, itemId) => {
-                if (EQUIPMENTS[itemId].healthBonus) {
-                    return healthBonus + EQUIPMENTS[itemId].healthBonus
+            (healthBonus, item) => {
+                if (EQUIPMENTS[item.id].healthBonus) {
+                    return healthBonus + EQUIPMENTS[item.id].healthBonus
                 } else {
                     return healthBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (healthBonus, item) => {
+                    if (EQUIPMENTS[item.id].healthBonus) {
+                        return healthBonus + EQUIPMENTS[item.id].healthBonus
+                    } else {
+                        return healthBonus
+                    }
+                }, 0),
 
         maxMana: state.gameState.player.stats.maxMana + state.gameState.player.setups[equippedSetup].reduce(
-            (manaBonus, itemId) => {
-                if (EQUIPMENTS[itemId].manaBonus) {
-                    return manaBonus + EQUIPMENTS[itemId].manaBonus
+            (manaBonus, item) => {
+                if (EQUIPMENTS[item.id].manaBonus) {
+                    return manaBonus + EQUIPMENTS[item.id].manaBonus
                 } else {
                     return manaBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (manaBonus, item) => {
+                    if (EQUIPMENTS[item.id].manaBonus) {
+                        return manaBonus + EQUIPMENTS[item.id].manaBonus
+                    } else {
+                        return manaBonus
+                    }
+                }, 0),
 
         defense: state.gameState.player.stats.defense + (SKILLS.mining.bonusPerLevel.defenseBonus * getPlayerSkillLevel(state).mining) + state.gameState.player.setups[equippedSetup].reduce(
-            (defenseBonus, itemId) => {
-                if (EQUIPMENTS[itemId].defenseBonus) {
-                    return defenseBonus + EQUIPMENTS[itemId].defenseBonus
+            (defenseBonus, item) => {
+                if (EQUIPMENTS[item.id].defenseBonus) {
+                    return defenseBonus + EQUIPMENTS[item.id].defenseBonus
                 } else {
                     return defenseBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (defenseBonus, item) => {
+                    if (EQUIPMENTS[item.id].defenseBonus) {
+                        return defenseBonus + EQUIPMENTS[item.id].defenseBonus
+                    } else {
+                        return defenseBonus
+                    }
+                }, 0),
 
         strength: state.gameState.player.stats.strength + (SKILLS.combat.bonusPerLevel.strengthBonus * getPlayerSkillLevel(state).combat) + state.gameState.player.setups[equippedSetup].reduce(
-            (strengthBonus, itemId) => {
-                if (EQUIPMENTS[itemId].strengthBonus) {
-                    return strengthBonus + EQUIPMENTS[itemId].strengthBonus
+            (strengthBonus, item) => {
+                if (EQUIPMENTS[item.id].strengthBonus) {
+                    return strengthBonus + EQUIPMENTS[item.id].strengthBonus
                 } else {
                     return strengthBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (strengthBonus, item) => {
+                    if (EQUIPMENTS[item.id].strengthBonus) {
+                        return strengthBonus + EQUIPMENTS[item.id].strengthBonus
+                    } else {
+                        return strengthBonus
+                    }
+                }, 0),
+
+        activeRegeneration: state.gameState.player.stats.activeRegeneration + state.gameState.player.setups[equippedSetup].reduce(
+            (activeRegenerationBonus, item) => {
+                if (EQUIPMENTS[item.id].activeRegenerationBonus) {
+                    return activeRegenerationBonus + EQUIPMENTS[item.id].activeRegenerationBonus
+                } else {
+                    return activeRegenerationBonus
+                }
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (activeRegenerationBonus, item) => {
+                    if (EQUIPMENTS[item.id].activeRegenerationBonus) {
+                        return activeRegenerationBonus + EQUIPMENTS[item.id].activeRegenerationBonus
+                    } else {
+                        return activeRegenerationBonus
+                    }
+                }, 0),
+
+        passiveRegeneration: state.gameState.player.stats.passiveRegeneration + state.gameState.player.setups[equippedSetup].reduce(
+            (passiveRegenerationBonus, item) => {
+                if (EQUIPMENTS[item.id].passiveRegenerationBonus) {
+                    return passiveRegenerationBonus + EQUIPMENTS[item.id].passiveRegenerationBonus
+                } else {
+                    return passiveRegenerationBonus
+                }
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (passiveRegenerationBonus, item) => {
+                    if (EQUIPMENTS[item.id].passiveRegenerationBonus) {
+                        return passiveRegenerationBonus + EQUIPMENTS[item.id].passiveRegenerationBonus
+                    } else {
+                        return passiveRegenerationBonus
+                    }
+                }, 0),
 
         attackSpeed: state.gameState.player.stats.attackSpeed + state.gameState.player.setups[equippedSetup].reduce(
-            (attackSpeedBonus, itemId) => {
-                if (EQUIPMENTS[itemId].attackSpeedBonus) {
-                    return attackSpeedBonus + EQUIPMENTS[itemId].attackSpeedBonus
+            (attackSpeedBonus, item) => {
+                if (EQUIPMENTS[item.id].attackSpeedBonus) {
+                    return attackSpeedBonus + EQUIPMENTS[item.id].attackSpeedBonus
                 } else {
                     return attackSpeedBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (attackSpeedBonus, item) => {
+                    if (EQUIPMENTS[item.id].attackSpeedBonus) {
+                        return attackSpeedBonus + EQUIPMENTS[item.id].attackSpeedBonus
+                    } else {
+                        return attackSpeedBonus
+                    }
+                }, 0),
 
         magicDamage: state.gameState.player.stats.magicDamage + state.gameState.player.setups[equippedSetup].reduce(
-            (magicDamageBonus, itemId) => {
-                if (EQUIPMENTS[itemId].magicDamageBonus) {
-                    return magicDamageBonus + EQUIPMENTS[itemId].magicDamageBonus
+            (magicDamageBonus, item) => {
+                if (EQUIPMENTS[item.id].magicDamageBonus) {
+                    return magicDamageBonus + EQUIPMENTS[item.id].magicDamageBonus
                 } else {
                     return magicDamageBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (magicDamageBonus, item) => {
+                    if (EQUIPMENTS[item.id].magicDamageBonus) {
+                        return magicDamageBonus + EQUIPMENTS[item.id].magicDamageBonus
+                    } else {
+                        return magicDamageBonus
+                    }
+                }, 0),
 
         aimingAccuracy: state.gameState.player.stats.aimingAccuracy + state.gameState.player.setups[equippedSetup].reduce(
-            (aimingAccuracyBonus, itemId) => {
-                if (EQUIPMENTS[itemId].aimingAccuracyBonus) {
-                    return aimingAccuracyBonus + EQUIPMENTS[itemId].aimingAccuracyBonus
+            (aimingAccuracyBonus, item) => {
+                if (EQUIPMENTS[item.id].aimingAccuracyBonus) {
+                    return aimingAccuracyBonus + EQUIPMENTS[item.id].aimingAccuracyBonus
                 } else {
                     return aimingAccuracyBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (aimingAccuracyBonus, item) => {
+                    if (EQUIPMENTS[item.id].aimingAccuracyBonus) {
+                        return aimingAccuracyBonus + EQUIPMENTS[item.id].aimingAccuracyBonus
+                    } else {
+                        return aimingAccuracyBonus
+                    }
+                }, 0),
 
         miningLuck: state.gameState.player.stats.miningLuck + (SKILLS.mining.bonusPerLevel.miningLuckBonus * getPlayerSkillLevel(state).mining) + state.gameState.player.setups[equippedSetup].reduce(
-            (miningLuckBonus, itemId) => {
-                if (EQUIPMENTS[itemId].miningLuckBonus) {
-                    return miningLuckBonus + EQUIPMENTS[itemId].miningLuckBonus
+            (miningLuckBonus, item) => {
+                if (EQUIPMENTS[item.id].miningLuckBonus) {
+                    return miningLuckBonus + EQUIPMENTS[item.id].miningLuckBonus
                 } else {
                     return miningLuckBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (miningLuckBonus, item) => {
+                    if (EQUIPMENTS[item.id].miningLuckBonus) {
+                        return miningLuckBonus + EQUIPMENTS[item.id].miningLuckBonus
+                    } else {
+                        return miningLuckBonus
+                    }
+                }, 0),
 
         miningSpeed: state.gameState.player.stats.miningSpeed + (SKILLS.mining.bonusPerLevel.miningSpeedBonus * getPlayerSkillLevel(state).mining) + state.gameState.player.setups[equippedSetup].reduce(
-            (miningSpeedBonus, itemId) => {
-                if (EQUIPMENTS[itemId].miningSpeedBonus) {
-                    return miningSpeedBonus + EQUIPMENTS[itemId].miningSpeedBonus
+            (miningSpeedBonus, item) => {
+                if (EQUIPMENTS[item.id].miningSpeedBonus) {
+                    return miningSpeedBonus + EQUIPMENTS[item.id].miningSpeedBonus
                 } else {
                     return miningSpeedBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (miningSpeedBonus, item) => {
+                    if (EQUIPMENTS[item.id].miningSpeedBonus) {
+                        return miningSpeedBonus + EQUIPMENTS[item.id].miningSpeedBonus
+                    } else {
+                        return miningSpeedBonus
+                    }
+                }, 0),
 
         foragingLuck: state.gameState.player.stats.foragingLuck + state.gameState.player.setups[equippedSetup].reduce(
-            (foragingLuckBonus, itemId) => {
-                if (EQUIPMENTS[itemId].foragingLuckBonus) {
-                    return foragingLuckBonus + EQUIPMENTS[itemId].foragingLuckBonus
+            (foragingLuckBonus, item) => {
+                if (EQUIPMENTS[item.id].foragingLuckBonus) {
+                    return foragingLuckBonus + EQUIPMENTS[item.id].foragingLuckBonus
                 } else {
                     return foragingLuckBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (foragingLuckBonus, item) => {
+                    if (EQUIPMENTS[item.id].foragingLuckBonus) {
+                        return foragingLuckBonus + EQUIPMENTS[item.id].foragingLuckBonus
+                    } else {
+                        return foragingLuckBonus
+                    }
+                }, 0),
 
         foragingSpeed: state.gameState.player.stats.foragingSpeed + state.gameState.player.setups[equippedSetup].reduce(
-            (foragingSpeedBonus, itemId) => {
-                if (EQUIPMENTS[itemId].foragingSpeedBonus) {
-                    return foragingSpeedBonus + EQUIPMENTS[itemId].foragingSpeedBonus
+            (foragingSpeedBonus, item) => {
+                if (EQUIPMENTS[item.id].foragingSpeedBonus) {
+                    return foragingSpeedBonus + EQUIPMENTS[item.id].foragingSpeedBonus
                 } else {
                     return foragingSpeedBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (foragingSpeedBonus, item) => {
+                    if (EQUIPMENTS[item.id].foragingSpeedBonus) {
+                        return foragingSpeedBonus + EQUIPMENTS[item.id].foragingSpeedBonus
+                    } else {
+                        return foragingSpeedBonus
+                    }
+                }, 0),
 
         farmingLuck: state.gameState.player.stats.farmingLuck + state.gameState.player.setups[equippedSetup].reduce(
-            (farmingLuckBonus, itemId) => {
-                if (EQUIPMENTS[itemId].farmingLuckBonus) {
-                    return farmingLuckBonus + EQUIPMENTS[itemId].farmingLuckBonus
+            (farmingLuckBonus, item) => {
+                if (EQUIPMENTS[item.id].farmingLuckBonus) {
+                    return farmingLuckBonus + EQUIPMENTS[item.id].farmingLuckBonus
                 } else {
                     return farmingLuckBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (farmingLuckBonus, item) => {
+                    if (EQUIPMENTS[item.id].farmingLuckBonus) {
+                        return farmingLuckBonus + EQUIPMENTS[item.id].farmingLuckBonus
+                    } else {
+                        return farmingLuckBonus
+                    }
+                }, 0),
 
         fishingLuck: state.gameState.player.stats.fishingLuck + state.gameState.player.setups[equippedSetup].reduce(
-            (fishingLuckBonus, itemId) => {
-                if (EQUIPMENTS[itemId].fishingLuckBonus) {
-                    return fishingLuckBonus + EQUIPMENTS[itemId].fishingLuckBonus
+            (fishingLuckBonus, item) => {
+                if (EQUIPMENTS[item.id].fishingLuckBonus) {
+                    return fishingLuckBonus + EQUIPMENTS[item.id].fishingLuckBonus
                 } else {
                     return fishingLuckBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (fishingLuckBonus, item) => {
+                    if (EQUIPMENTS[item.id].fishingLuckBonus) {
+                        return fishingLuckBonus + EQUIPMENTS[item.id].fishingLuckBonus
+                    } else {
+                        return fishingLuckBonus
+                    }
+                }, 0),
 
         critChance: state.gameState.player.stats.critChance + (SKILLS.combat.bonusPerLevel.critChanceBonus * getPlayerSkillLevel(state).combat) + state.gameState.player.setups[equippedSetup].reduce(
-            (critChanceBonus, itemId) => {
-                if (EQUIPMENTS[itemId].critChanceBonus) {
-                    return critChanceBonus + EQUIPMENTS[itemId].critChanceBonus
+            (critChanceBonus, item) => {
+                if (EQUIPMENTS[item.id].critChanceBonus) {
+                    return critChanceBonus + EQUIPMENTS[item.id].critChanceBonus
                 } else {
                     return critChanceBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (critChanceBonus, item) => {
+                    if (EQUIPMENTS[item.id].critChanceBonus) {
+                        return critChanceBonus + EQUIPMENTS[item.id].critChanceBonus
+                    } else {
+                        return critChanceBonus
+                    }
+                }, 0),
 
         critDamageMultiplier: state.gameState.player.stats.critDamageMultiplier + (SKILLS.combat.bonusPerLevel.critDamageMultiplierBonus * getPlayerSkillLevel(state).combat) + state.gameState.player.setups[equippedSetup].reduce(
-            (critDamageMultiplierBonus, itemId) => {
-                if (EQUIPMENTS[itemId].critDamageMultiplierBonus) {
-                    return critDamageMultiplierBonus + EQUIPMENTS[itemId].critDamageMultiplierBonus
+            (critDamageMultiplierBonus, item) => {
+                if (EQUIPMENTS[item.id].critDamageMultiplierBonus) {
+                    return critDamageMultiplierBonus + EQUIPMENTS[item.id].critDamageMultiplierBonus
                 } else {
                     return critDamageMultiplierBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (critDamageMultiplierBonus, item) => {
+                    if (EQUIPMENTS[item.id].critDamageMultiplierBonus) {
+                        return critDamageMultiplierBonus + EQUIPMENTS[item.id].critDamageMultiplierBonus
+                    } else {
+                        return critDamageMultiplierBonus
+                    }
+                }, 0),
 
         moveSpeed: state.gameState.player.stats.moveSpeed + state.gameState.player.setups[equippedSetup].reduce(
-            (moveSpeedBonus, itemId) => {
-                if (EQUIPMENTS[itemId].moveSpeedBonus) {
-                    return moveSpeedBonus + EQUIPMENTS[itemId].moveSpeedBonus
+            (moveSpeedBonus, item) => {
+                if (EQUIPMENTS[item.id].moveSpeedBonus) {
+                    return moveSpeedBonus + EQUIPMENTS[item.id].moveSpeedBonus
                 } else {
                     return moveSpeedBonus
                 }
-            }, 0),
+            }, 0) + state.gameState.player.equippedItems.reduce(
+                (moveSpeedBonus, item) => {
+                    if (EQUIPMENTS[item.id].moveSpeedBonus) {
+                        return moveSpeedBonus + EQUIPMENTS[item.id].moveSpeedBonus
+                    } else {
+                        return moveSpeedBonus
+                    }
+                }, 0),
 
         trueDamage: false,
 
@@ -313,10 +463,12 @@ export const getEquippedPlayer = (state) => {
         })
     })
 
-    // Milestone Equipment Bonuses
+    // Setup Bonuses
 
-    state.gameState.player.setups[equippedSetup].forEach(equipmentId => {
-        let equipment = EQUIPMENTS[equipmentId]
+    state.gameState.player.setups[equippedSetup].forEach(equipmentBonus => {
+        let equipment = EQUIPMENTS[equipmentBonus.id]
+
+        // Milestone Bonuses
 
         if (equipment.specialEffect && equipment.specialEffect === "bonusPerMilestone") {
             let bonusLevels = Math.floor(state.gameState.milestoneAmounts[equipment.specialEffectBonus.milestoneType][equipment.specialEffectBonus.milestoneSubtype] / equipment.specialEffectBonus.amount)
@@ -329,8 +481,43 @@ export const getEquippedPlayer = (state) => {
                 equippedPlayer[stat[0]] += (stat[1] * bonusLevels)
             })
         }
+
+        // Boss-fight Only Bonuses
+
+        if (equipment.duringBossFightBonus && state.gameState.currentEnemy.type === 'boss') {
+            Object.entries(equipment.duringBossFightBonus).forEach(stat => {
+                equippedPlayer[stat[0]] += stat[1]
+            })
+        }
     });
 
+    // Equipment Bonuses
+
+    state.gameState.player.equippedItems.forEach(equipmentBonus => {
+        let equipment = EQUIPMENTS[equipmentBonus.id]
+
+        // Milestone Bonuses
+
+        if (equipment.specialEffect && equipment.specialEffect === "bonusPerMilestone") {
+            let bonusLevels = Math.floor(state.gameState.milestoneAmounts[equipment.specialEffectBonus.milestoneType][equipment.specialEffectBonus.milestoneSubtype] / equipment.specialEffectBonus.amount)
+
+            if (bonusLevels > equipment.specialEffectBonus.bonusCap) {
+                bonusLevels = equipment.specialEffectBonus.bonusCap
+            }
+
+            Object.entries(equipment.specialEffectBonus.bonusPerLevel).forEach(stat => {
+                equippedPlayer[stat[0]] += (stat[1] * bonusLevels)
+            })
+        }
+
+        // Boss-fight Only Bonuses
+
+        if (equipment.duringBossFightBonus && state.gameState.currentEnemy.type === 'boss') {
+            Object.entries(equipment.duringBossFightBonus).forEach(stat => {
+                equippedPlayer[stat[0]] += stat[1]
+            })
+        }
+    });
 
     return equippedPlayer
 }
@@ -340,8 +527,12 @@ export const getPlayerEquipment = (state) => {
     let playerEquipments = {}
     const equippedSetup = state.gameState.player.equippedSetup
 
-    state.gameState.player.setups[equippedSetup].forEach(itemId => {
-        playerEquipments[EQUIPMENTS[itemId].slot] = EQUIPMENTS[itemId]
+    state.gameState.player.setups[equippedSetup].forEach(item => {
+        playerEquipments[EQUIPMENTS[item.id].slot] = EQUIPMENTS[item.id]
+    });
+
+    state.gameState.player.equippedItems.forEach(item => {
+        playerEquipments[EQUIPMENTS[item.id].slot] = EQUIPMENTS[item.id]
     });
 
 

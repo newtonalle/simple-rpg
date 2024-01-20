@@ -1,10 +1,14 @@
 <template>
   <div @mouseenter="hovering = true" @mouseleave="hovering = false">
     <h4 v-if="recipe.result.type === 'equipment'" class="fw-bold">
-      {{ equipments[recipe.result.id].label }}
+      {{ recipe.result.amount }}x {{ equipments[recipe.result.id].label }}
     </h4>
     <h4 v-else-if="recipe.result.type === 'material'" class="fw-bold">
+      {{ recipe.result.amount }} {{ materials[recipe.result.id].symbol }}
       {{ materials[recipe.result.id].label }}
+    </h4>
+    <h4 v-else-if="recipe.result.type === 'arrow'" class="fw-bold">
+      {{ recipe.result.amount }}x {{ arrows[recipe.result.id].label }}
     </h4>
 
     <div
@@ -40,8 +44,13 @@
     <br />
     <br />
 
-    <div v-if="hovering && recipe.result.type === 'equipment'">
-      <equipment-stats :itemId="recipe.result.id" />
+    <div v-if="hovering">
+      <div v-if="recipe.result.type === 'equipment'">
+        <equipment-stats :itemId="recipe.result.id" />
+      </div>
+      <div v-else-if="recipe.result.type === 'arrow'">
+        <arrow-stats :itemId="recipe.result.id" />
+      </div>
     </div>
 
     <br />
@@ -53,12 +62,13 @@
 
 <script>
 import EquipmentStats from "../../../components/EquipmentStats.vue";
+import ArrowStats from "../../../components/ArrowStats.vue";
 export default {
   data: () => ({
     hovering: false,
   }),
 
-  components: { EquipmentStats },
+  components: { EquipmentStats, ArrowStats },
 
   props: { recipe: Object, index: Number },
 
@@ -115,6 +125,10 @@ export default {
       return this.$store.getters.getRecipes;
     },
 
+    arrows() {
+      return this.$store.getters.getArrows;
+    },
+
     recipesUnlocked() {
       return this.$store.getters.getRecipeUnlocks;
     },
@@ -133,3 +147,4 @@ button {
   width: 150px;
 }
 </style>
+

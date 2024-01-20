@@ -16,6 +16,9 @@ export default () => ({
 
                 defense: 0,
 
+                activeRegeneration: 0,
+                passiveRegeneration: 0,
+
                 strength: 1,
                 critChance: 10,
                 critDamageMultiplier: 2,
@@ -60,6 +63,7 @@ export default () => ({
                 fishing: 0,
             },
 
+            inBossScreen: false,
 
             forgingCraftings: [],
 
@@ -68,7 +72,6 @@ export default () => ({
             inventory: [],
 
             equippedItems: [],
-
             setups: [[], []],
             equippedSetup: 0,
 
@@ -81,6 +84,11 @@ export default () => ({
             currentMiningCooldown: 0,
             currentForagingCooldown: 0,
             currentFishingCooldown: 0,
+
+            quiverInventory: {
+                arrowId: 0,
+                equippedAmount: 0,
+            },
         },
 
         farming: {
@@ -112,6 +120,8 @@ export default () => ({
         cropUnlocks: [],
 
         materialAmounts: [],
+
+        arrowAmounts: [],
 
         milestoneAmounts: {
             enemies: [],

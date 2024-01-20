@@ -17,7 +17,7 @@
           <!--<fishing />-->
         </div>
         <div class="col-6">
-          <inventory :showUnequippedItems="true" :deleteButtonAppear="true" />
+          <equipments :showUnequippedItems="true" :deleteButtonAppear="true" />
         </div>
       </div>
     </div>
@@ -26,12 +26,12 @@
 
 <script>
 import Locations from "./components/Locations/Locations.vue";
-import Battle from "./components/Grinding/Battle.vue";
-import Mining from "./components/Grinding/Mining.vue";
-import Foraging from "./components/Grinding/Foraging.vue";
-//import Farming from "./components/Grinding/Farming.vue";
-import Inventory from "./components/MainInventory/Inventory.vue";
-// import Fishing from "./components/Grinding/Fishing.vue";
+import Battle from "./components/Grinding/Combat/Combat.vue";
+import Mining from "./components/Grinding/Mining/Mining.vue";
+import Foraging from "./components/Grinding/Foraging/Foraging.vue";
+//import Farming from "./components/Grinding/Farming/Farming.vue";
+import Equipments from "./components/Equipments/Equipments.vue";
+// import Fishing from "./components/Grinding/Fishing/Fishing.vue";
 
 export default {
   data: () => ({
@@ -46,7 +46,7 @@ export default {
     Foraging,
     /*Farming, */
     /*Fishing,*/
-    Inventory,
+    Equipments,
   },
 
   methods: {
@@ -58,6 +58,10 @@ export default {
       this.$store.dispatch("speedyUpdate");
     },
 
+    leftBossScreen() {
+      this.$store.dispatch("changeInBossScreenStatus", false);
+    },
+
     versionUpdate() {
       this.$store.dispatch("versionUpdate");
     },
@@ -65,6 +69,7 @@ export default {
 
   created() {
     this.versionUpdate();
+    this.leftBossScreen();
 
     this.setIntervalId = setInterval(() => {
       this.updateGame();

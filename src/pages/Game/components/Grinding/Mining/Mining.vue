@@ -2,7 +2,7 @@
   <div>
     <h2>Mining</h2>
     <p class="fs-5">
-      Mining Lvl. {{ playerSkills.mining + 1 }} ({{ player.skills.mining }} XP)
+      Mining Lvl. {{ playerSkills.mining }} ({{ player.skills.mining }} XP)
     </p>
 
     <!-- Menu with Current Pickaxe Stats -->
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import CritBar from "./components/CritBar.vue";
+import CritBar from "../components/CritBar.vue";
 export default {
   data: () => ({
     setIntervalId: 0,

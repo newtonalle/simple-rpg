@@ -326,7 +326,7 @@ export const EQUIPMENTS = [
         label: "Wooden Axe",
         slot: 'axe',
         slotLabel: 'Axe',
-        foragingLuckBonus: 1,
+        foragingLuckBonus: 10,
         foragingSpeedBonus: 1,
     },
 
@@ -335,7 +335,7 @@ export const EQUIPMENTS = [
         label: "Stone Axe",
         slot: 'axe',
         slotLabel: 'Axe',
-        foragingLuckBonus: 2,
+        foragingLuckBonus: 20,
         foragingSpeedBonus: 1,
         equipSkillRequirement: {
             foraging: 1
@@ -347,7 +347,7 @@ export const EQUIPMENTS = [
         label: "Iron Axe",
         slot: 'axe',
         slotLabel: 'Axe',
-        foragingLuckBonus: 3,
+        foragingLuckBonus: 30,
         foragingSpeedBonus: 2,
         equipSkillRequirement: {
             foraging: 1
@@ -397,6 +397,8 @@ export const EQUIPMENTS = [
         slotLabel: 'Wand',
         manaCost: 1,
         useEffect: {
+            oncePerCommonBattle: true,
+            bossFightRechargeCooldown: 5,
             effect: 'healing',
             healing: 2
         },
@@ -409,8 +411,10 @@ export const EQUIPMENTS = [
         slotLabel: 'Wand',
         manaCost: 2,
         useEffect: {
+            oncePerCommonBattle: true,
+            bossFightRechargeCooldown: 5,
             effect: 'healing',
-            healing: 3
+            healing: 4
         },
     },
 
@@ -421,7 +425,7 @@ export const EQUIPMENTS = [
         slotLabel: 'Weapon',
         typeId: 0,
         strengthBonus: 3,
-        regeneration: 2,
+        activeRegenerationBonus: 2,
     },
 
     {
@@ -430,7 +434,10 @@ export const EQUIPMENTS = [
         slot: 'accessory',
         slotLabel: 'Accessory',
         healthBonus: 15,
-        regeneration: 5,
+        activeRegenerationBonus: 5,
+        duringBossFightBonus: {
+            passiveRegeneration: 4,
+        }
     },
 
     {
@@ -607,6 +614,38 @@ export const EQUIPMENTS = [
         critDamageMultiplierBonus: 1,
         attackSpeedBonus: -2,
         aimingAccuracyBonus: 100,
+    },
+
+    {
+        id: 45,
+        label: "Small Quiver",
+        slot: 'quiver',
+        slotLabel: 'Quiver',
+        maxEquippedArrows: 5,
+    },
+
+    {
+        id: 46,
+        label: "Medium Quiver",
+        slot: 'quiver',
+        slotLabel: 'Quiver',
+        maxEquippedArrows: 10,
+    },
+
+    {
+        id: 47,
+        label: "Large Quiver",
+        slot: 'quiver',
+        slotLabel: 'Quiver',
+        maxEquippedArrows: 25,
+    },
+
+    {
+        id: 48,
+        label: "Giant Quiver",
+        slot: 'quiver',
+        slotLabel: 'Quiver',
+        maxEquippedArrows: 50,
     },
 ]
 
@@ -1571,6 +1610,26 @@ export const MATERIALS = [
     },
 ]
 
+export const ARROWS = [
+    {
+        id: 0,
+        label: "Basic Arrow",
+        strength: 1,
+    },
+
+    {
+        id: 1,
+        label: "Pointy Arrow",
+        strength: 3,
+    },
+
+    {
+        id: 2,
+        label: "Sharp Arrow",
+        strength: 5,
+    }
+]
+
 export const MILESTONES = {
     enemies: [
         {
@@ -1930,9 +1989,9 @@ export const RECIPES = [
 
     {
         id: 0,
-        result: { id: 4, type: 'equipment' },
+        result: { id: 4, type: 'equipment', amount: 1 },
         materialCosts: [
-            { id: 38, amount: 10 },
+            { id: 38, amount: 2 },
         ],
         requiredSkill: {
             skill: "combat",
@@ -1942,9 +2001,9 @@ export const RECIPES = [
 
     {
         id: 1,
-        result: { id: 5, type: 'equipment' },
+        result: { id: 5, type: 'equipment', amount: 1 },
         materialCosts: [
-            { id: 38, amount: 10 },
+            { id: 38, amount: 2 },
         ],
         requiredSkill: {
             skill: "combat",
@@ -1954,9 +2013,9 @@ export const RECIPES = [
 
     {
         id: 2,
-        result: { id: 6, type: 'equipment' },
+        result: { id: 6, type: 'equipment', amount: 1 },
         materialCosts: [
-            { id: 38, amount: 10 },
+            { id: 38, amount: 2 },
         ],
         requiredSkill: {
             skill: "combat",
@@ -1966,9 +2025,9 @@ export const RECIPES = [
 
     {
         id: 3,
-        result: { id: 7, type: 'equipment' },
+        result: { id: 7, type: 'equipment', amount: 1 },
         materialCosts: [
-            { id: 38, amount: 10 },
+            { id: 38, amount: 2 },
         ],
         requiredSkill: {
             skill: "combat",
@@ -1980,9 +2039,9 @@ export const RECIPES = [
 
     {
         id: 4,
-        result: { id: 8, type: 'equipment' },
+        result: { id: 8, type: 'equipment', amount: 1 },
         materialCosts: [
-            { id: 38, amount: 20 },
+            { id: 38, amount: 4 },
         ],
         requiredSkill: {
             skill: "combat",
@@ -1992,9 +2051,9 @@ export const RECIPES = [
 
     {
         id: 5,
-        result: { id: 9, type: 'equipment' },
+        result: { id: 9, type: 'equipment', amount: 1 },
         materialCosts: [
-            { id: 38, amount: 20 },
+            { id: 38, amount: 4 },
         ],
         requiredSkill: {
             skill: "combat",
@@ -2004,9 +2063,9 @@ export const RECIPES = [
 
     {
         id: 6,
-        result: { id: 10, type: 'equipment' },
+        result: { id: 10, type: 'equipment', amount: 1 },
         materialCosts: [
-            { id: 38, amount: 20 },
+            { id: 38, amount: 4 },
         ],
         requiredSkill: {
             skill: "combat",
@@ -2016,9 +2075,9 @@ export const RECIPES = [
 
     {
         id: 7,
-        result: { id: 11, type: 'equipment' },
+        result: { id: 11, type: 'equipment', amount: 1 },
         materialCosts: [
-            { id: 38, amount: 20 },
+            { id: 38, amount: 4 },
         ],
         requiredSkill: {
             skill: "combat",
@@ -2028,7 +2087,7 @@ export const RECIPES = [
 
     {
         id: 8,
-        result: { id: 12, type: 'equipment' },
+        result: { id: 12, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 10 },
         ],
@@ -2036,7 +2095,7 @@ export const RECIPES = [
 
     {
         id: 9,
-        result: { id: 13, type: 'equipment' },
+        result: { id: 13, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 2 },
             { id: 3, amount: 5 },
@@ -2045,7 +2104,7 @@ export const RECIPES = [
 
     {
         id: 10,
-        result: { id: 14, type: 'equipment' },
+        result: { id: 14, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 2 },
             { id: 38, amount: 5 },
@@ -2058,7 +2117,7 @@ export const RECIPES = [
 
     {
         id: 11,
-        result: { id: 15, type: 'equipment' },
+        result: { id: 15, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 2 },
             { id: 7, amount: 5 },
@@ -2071,7 +2130,7 @@ export const RECIPES = [
 
     {
         id: 12,
-        result: { id: 16, type: 'equipment' },
+        result: { id: 16, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 2 },
             { id: 3, amount: 10 },
@@ -2080,7 +2139,7 @@ export const RECIPES = [
 
     {
         id: 13,
-        result: { id: 17, type: 'equipment' },
+        result: { id: 17, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 2 },
             { id: 38, amount: 10 },
@@ -2093,7 +2152,7 @@ export const RECIPES = [
 
     {
         id: 14,
-        result: { id: 18, type: 'equipment' },
+        result: { id: 18, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 1 },
             { id: 38, amount: 5 },
@@ -2106,7 +2165,7 @@ export const RECIPES = [
 
     {
         id: 15,
-        result: { id: 19, type: 'equipment' },
+        result: { id: 19, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 3 },
             { id: 1, amount: 5 },
@@ -2119,7 +2178,7 @@ export const RECIPES = [
 
     {
         id: 16,
-        result: { id: 20, type: 'equipment' },
+        result: { id: 20, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 2 },
             { id: 1, amount: 10 },
@@ -2132,7 +2191,7 @@ export const RECIPES = [
 
     {
         id: 17,
-        result: { id: 21, type: 'equipment' },
+        result: { id: 21, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 5 },
             { id: 25, amount: 5 },
@@ -2141,7 +2200,7 @@ export const RECIPES = [
 
     {
         id: 18,
-        result: { id: 22, type: 'equipment' },
+        result: { id: 22, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 5 },
             { id: 3, amount: 50 },
@@ -2150,7 +2209,7 @@ export const RECIPES = [
 
     {
         id: 19,
-        result: { id: 23, type: 'equipment' },
+        result: { id: 23, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 5 },
             { id: 38, amount: 25 },
@@ -2159,7 +2218,7 @@ export const RECIPES = [
 
     {
         id: 20,
-        result: { id: 24, type: 'equipment' },
+        result: { id: 24, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 5 },
             { id: 39, amount: 50 },
@@ -2168,7 +2227,7 @@ export const RECIPES = [
 
     {
         id: 21,
-        result: { id: 25, type: 'equipment' },
+        result: { id: 25, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 5 },
             { id: 7, amount: 1000 },
@@ -2177,7 +2236,7 @@ export const RECIPES = [
 
     {
         id: 22,
-        result: { id: 26, type: 'equipment' },
+        result: { id: 26, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 2 },
             { id: 25, amount: 5 },
@@ -2186,7 +2245,7 @@ export const RECIPES = [
 
     {
         id: 23,
-        result: { id: 27, type: 'equipment' },
+        result: { id: 27, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 28, amount: 2 },
             { id: 3, amount: 5 },
@@ -2199,7 +2258,7 @@ export const RECIPES = [
 
     {
         id: 24,
-        result: { id: 28, type: 'equipment' },
+        result: { id: 28, type: 'equipment', amount: 1 },
         materialCosts: [
             { id: 40, amount: 2 },
             { id: 38, amount: 5 },
@@ -2212,7 +2271,7 @@ export const RECIPES = [
 
     {
         id: 25,
-        result: { id: 29, type: 'equipment' }, // Smelly Cheese
+        result: { id: 29, type: 'equipment', amount: 1 }, // Smelly Cheese
         materialCosts: [
             { id: 23, amount: 10 }, // Yellow Cheese
             { id: 0, amount: 25 },  // Worm Heart
@@ -2225,7 +2284,7 @@ export const RECIPES = [
 
     {
         id: 26,
-        result: { id: 24, type: 'material' }, // Green Cheese
+        result: { id: 24, type: 'material', amount: 1 }, // Green Cheese
         materialCosts: [
             { id: 23, amount: 10 }, // Yellow Cheese
         ],
@@ -2237,7 +2296,7 @@ export const RECIPES = [
 
     {
         id: 27,
-        result: { id: 30, type: 'equipment' }, // Stinky Cheese
+        result: { id: 30, type: 'equipment', amount: 1 }, // Stinky Cheese
         materialCosts: [
             { id: 24, amount: 4 }, // Green Cheese
             { id: 0, amount: 100 }, // Worm Heart
@@ -2251,7 +2310,7 @@ export const RECIPES = [
 
     {
         id: 28,
-        result: { id: 31, type: 'equipment' }, // Wand of Healing
+        result: { id: 31, type: 'equipment', amount: 1 }, // Wand of Healing
         materialCosts: [
             { id: 28, amount: 1 }, // Oak Stick
             { id: 0, amount: 25 }, // Worm Heart
@@ -2264,7 +2323,7 @@ export const RECIPES = [
 
     {
         id: 29,
-        result: { id: 32, type: 'equipment' }, // Wand of Mending 
+        result: { id: 32, type: 'equipment', amount: 1 }, // Wand of Mending 
         materialCosts: [
             { id: 0, amount: 50 }, // Worm Heart
         ],
@@ -2277,7 +2336,7 @@ export const RECIPES = [
 
     {
         id: 30,
-        result: { id: 33, type: 'equipment' }, // Healing Sword
+        result: { id: 33, type: 'equipment', amount: 1 }, // Healing Sword
         materialCosts: [
             { id: 0, amount: 100 }, // Worm Heart
         ],
@@ -2290,7 +2349,7 @@ export const RECIPES = [
 
     {
         id: 31,
-        result: { id: 34, type: 'equipment' }, // Worm Skull
+        result: { id: 34, type: 'equipment', amount: 1 }, // Worm Skull
         materialCosts: [
             { id: 0, amount: 200 }, // Worm Heart
         ],
@@ -2303,7 +2362,7 @@ export const RECIPES = [
 
     {
         id: 32,
-        result: { id: 35, type: 'equipment' }, // Wolf Boots
+        result: { id: 35, type: 'equipment', amount: 1 }, // Wolf Boots
         materialCosts: [
             { id: 2, amount: 80 }, // Wolf Tooth
         ],
@@ -2316,7 +2375,7 @@ export const RECIPES = [
 
     {
         id: 33,
-        result: { id: 36, type: 'equipment' }, // Pack Shield
+        result: { id: 36, type: 'equipment', amount: 1 }, // Pack Shield
         materialCosts: [
             { id: 25, amount: 10 }, // Oak Log
             { id: 28, amount: 5 }, // Oak Stick
@@ -2332,7 +2391,7 @@ export const RECIPES = [
 
     {
         id: 34,
-        result: { id: 37, type: 'equipment' }, // Predator's Helmet
+        result: { id: 37, type: 'equipment', amount: 1 }, // Predator's Helmet
         materialCosts: [
             { id: 2, amount: 125 }, // Wolf Tooth
         ],
@@ -2345,7 +2404,7 @@ export const RECIPES = [
 
     {
         id: 35,
-        result: { id: 38, type: 'equipment' }, // Predator's Chestplate
+        result: { id: 38, type: 'equipment', amount: 1 }, // Predator's Chestplate
         materialCosts: [
             { id: 2, amount: 125 }, // Wolf Tooth
         ],
@@ -2358,7 +2417,7 @@ export const RECIPES = [
 
     {
         id: 36,
-        result: { id: 39, type: 'equipment' }, // Predator's Leggings
+        result: { id: 39, type: 'equipment', amount: 1 }, // Predator's Leggings
         materialCosts: [
             { id: 2, amount: 125 }, // Wolf Tooth
         ],
@@ -2371,7 +2430,7 @@ export const RECIPES = [
 
     {
         id: 37,
-        result: { id: 40, type: 'equipment' }, // Predator's Boots
+        result: { id: 40, type: 'equipment', amount: 1 }, // Predator's Boots
         materialCosts: [
             { id: 2, amount: 125 }, // Wolf Tooth
         ],
@@ -2384,7 +2443,7 @@ export const RECIPES = [
 
     {
         id: 38,
-        result: { id: 41, type: 'equipment' }, // Ancestral Strength
+        result: { id: 41, type: 'equipment', amount: 1, }, // Ancestral Strength
         materialCosts: [
             { id: 2, amount: 250 }, // Wolf Tooth
         ],
@@ -2397,7 +2456,7 @@ export const RECIPES = [
 
     {
         id: 39,
-        result: { id: 42, type: 'equipment' }, // Hunter's Bow
+        result: { id: 42, type: 'equipment', amount: 1, }, // Hunter's Bow
         materialCosts: [
             { id: 1, amount: 20 }, // String
         ],
@@ -2410,7 +2469,7 @@ export const RECIPES = [
 
     {
         id: 40,
-        result: { id: 43, type: 'equipment' }, // Experienced Shortbow
+        result: { id: 43, type: 'equipment', amount: 1, }, // Experienced Shortbow
         materialCosts: [
             { id: 1, amount: 80 }, // String
         ],
@@ -2423,7 +2482,7 @@ export const RECIPES = [
 
     {
         id: 41,
-        result: { id: 44, type: 'equipment' }, // Sniper's Bow
+        result: { id: 44, type: 'equipment', amount: 1, }, // Sniper's Bow
         materialCosts: [
             { id: 1, amount: 500 }, // String
         ],
@@ -2431,6 +2490,81 @@ export const RECIPES = [
         requiredCollection: {
             collectionId: 1, // String Collection
             amount: 500,
+        }
+    },
+
+    {
+        id: 42,
+        result: { id: 28, type: 'material', amount: 2 }, // Oak Stick
+        materialCosts: [
+            { id: 25, amount: 1 }, // Oak Log
+        ],
+    },
+
+    {
+        id: 43,
+        result: { id: 29, type: 'material', amount: 2 }, // Willow Stick
+        materialCosts: [
+            { id: 26, amount: 1 }, // Willow Log
+        ],
+    },
+
+    {
+        id: 44,
+        result: { id: 30, type: 'material', amount: 2 }, // Ash Stick
+        materialCosts: [
+            { id: 27, amount: 1 }, // Ash Log
+        ],
+    },
+
+    {
+        id: 45,
+        result: { id: 45, type: 'equipment', amount: 1 }, // Small Quiver
+        materialCosts: [
+            { id: 1, amount: 8 }, // String
+        ],
+        requiredCollection: {
+            collectionId: 1, // String Collection
+            amount: 10,
+        }
+    },
+
+    {
+        id: 46,
+        result: { id: 46, type: 'equipment', amount: 1 }, // Medium Quiver
+        materialCosts: [
+            { id: 1, amount: 50 }, // String
+        ],
+        equipmentCosts: [{ id: 45, amount: 1, }], // Small Quiver
+        requiredCollection: {
+            collectionId: 1, // String Collection
+            amount: 50,
+        }
+    },
+
+    {
+        id: 47,
+        result: { id: 47, type: 'equipment', amount: 1 }, // Large Quiver
+        materialCosts: [
+            { id: 1, amount: 100 }, // String
+        ],
+        equipmentCosts: [{ id: 46, amount: 1, }], // Medium Quiver
+        requiredCollection: {
+            collectionId: 1, // String Collection
+            amount: 150,
+        }
+    },
+
+    {
+        id: 48,
+        result: { id: 48, type: 'equipment', amount: 1 }, // Giant Quiver
+        materialCosts: [
+            { id: 1, amount: 200 }, // String
+        ],
+        equipmentCosts: [{ id: 47, amount: 1, }], // Large Quiver
+        requiredCollection: {
+            collectionId: 1, // String Collection
+            amount: 250,
         }
     },
 ]
@@ -2441,18 +2575,21 @@ export const SHOP = [
 
     {
         id: 0,
+        result: { id: 0, type: 'equipment', amount: 1 },
         equipmentId: 0,
         goldPrice: 50,
     },
 
     {
         id: 1,
+        result: { id: 1, type: 'equipment', amount: 1 },
         equipmentId: 1,
         goldPrice: 50,
     },
 
     {
         id: 2,
+        result: { id: 2, type: 'equipment', amount: 1 },
         equipmentId: 2,
         goldPrice: 50,
     },
@@ -2460,6 +2597,7 @@ export const SHOP = [
 
     {
         id: 3,
+        result: { id: 3, type: 'equipment', amount: 1 },
         equipmentId: 3,
         goldPrice: 50,
     },
@@ -2468,6 +2606,7 @@ export const SHOP = [
 
     {
         id: 4,
+        result: { id: 4, type: 'equipment', amount: 1 },
         equipmentId: 4,
         goldPrice: 100,
         requiredSkill: {
@@ -2478,6 +2617,7 @@ export const SHOP = [
 
     {
         id: 5,
+        result: { id: 5, type: 'equipment', amount: 1 },
         equipmentId: 5,
         goldPrice: 100,
         requiredSkill: {
@@ -2488,6 +2628,7 @@ export const SHOP = [
 
     {
         id: 6,
+        result: { id: 6, type: 'equipment', amount: 1 },
         equipmentId: 6,
         goldPrice: 100,
         requiredSkill: {
@@ -2499,6 +2640,7 @@ export const SHOP = [
 
     {
         id: 7,
+        result: { id: 7, type: 'equipment', amount: 1 },
         equipmentId: 7,
         goldPrice: 100,
         requiredSkill: {
@@ -2511,6 +2653,7 @@ export const SHOP = [
 
     {
         id: 8,
+        result: { id: 8, type: 'equipment', amount: 1 },
         equipmentId: 8,
         goldPrice: 250,
         requiredSkill: {
@@ -2521,6 +2664,7 @@ export const SHOP = [
 
     {
         id: 9,
+        result: { id: 9, type: 'equipment', amount: 1 },
         equipmentId: 9,
         goldPrice: 250,
         requiredSkill: {
@@ -2531,6 +2675,7 @@ export const SHOP = [
 
     {
         id: 10,
+        result: { id: 10, type: 'equipment', amount: 1 },
         equipmentId: 10,
         goldPrice: 250,
         requiredSkill: {
@@ -2542,6 +2687,7 @@ export const SHOP = [
 
     {
         id: 11,
+        result: { id: 11, type: 'equipment', amount: 1 },
         equipmentId: 11,
         goldPrice: 250,
         requiredSkill: {
@@ -2552,18 +2698,21 @@ export const SHOP = [
 
     {
         id: 12,
+        result: { id: 12, type: 'equipment', amount: 1 },
         equipmentId: 12,
         goldPrice: 10,
     },
 
     {
         id: 13,
+        result: { id: 13, type: 'equipment', amount: 1 },
         equipmentId: 13,
         goldPrice: 25,
     },
 
     {
         id: 14,
+        result: { id: 14, type: 'equipment', amount: 1 },
         equipmentId: 14,
         goldPrice: 100,
         requiredSkill: {
@@ -2574,6 +2723,7 @@ export const SHOP = [
 
     {
         id: 15,
+        result: { id: 15, type: 'equipment', amount: 1 },
         equipmentId: 15,
         goldPrice: 250,
         requiredSkill: {
@@ -2584,12 +2734,14 @@ export const SHOP = [
 
     {
         id: 16,
+        result: { id: 16, type: 'equipment', amount: 1 },
         equipmentId: 16,
         goldPrice: 100,
     },
 
     {
         id: 17,
+        result: { id: 17, type: 'equipment', amount: 1 },
         equipmentId: 17,
         goldPrice: 250,
         requiredSkill: {
@@ -2600,6 +2752,7 @@ export const SHOP = [
 
     {
         id: 18,
+        result: { id: 18, type: 'equipment', amount: 1 },
         equipmentId: 18,
         goldPrice: 250,
         requiredSkill: {
@@ -2610,6 +2763,7 @@ export const SHOP = [
 
     {
         id: 19,
+        result: { id: 19, type: 'equipment', amount: 1 },
         equipmentId: 19,
         goldPrice: 100,
         requiredSkill: {
@@ -2620,7 +2774,8 @@ export const SHOP = [
 
     {
         id: 20,
-        equipmentId: 19,
+        result: { id: 20, type: 'equipment', amount: 1 },
+        equipmentId: 20,
         goldPrice: 250,
         requiredSkill: {
             skill: 'combat',
@@ -2630,18 +2785,21 @@ export const SHOP = [
 
     {
         id: 21,
+        result: { id: 22, type: 'equipment', amount: 1 },
         equipmentId: 22,
         goldPrice: 100,
     },
 
     {
         id: 22,
+        result: { id: 26, type: 'equipment', amount: 1 },
         equipmentId: 26,
         goldPrice: 25,
     },
 
     {
         id: 23,
+        result: { id: 27, type: 'equipment', amount: 1 },
         equipmentId: 27,
         goldPrice: 100,
         requiredSkill: {
@@ -2652,12 +2810,34 @@ export const SHOP = [
 
     {
         id: 24,
+        result: { id: 28, type: 'equipment', amount: 1 },
         equipmentId: 28,
         goldPrice: 250,
         requiredSkill: {
             skill: 'foraging',
             level: 1,
         }
+    },
+
+    {
+        id: 25,
+        result: { id: 0, type: 'arrow', amount: 1 },
+        equipmentId: 28,
+        goldPrice: 5,
+    },
+
+    {
+        id: 26,
+        result: { id: 1, type: 'arrow', amount: 1 },
+        equipmentId: 28,
+        goldPrice: 7,
+    },
+
+    {
+        id: 27,
+        result: { id: 2, type: 'arrow', amount: 1 },
+        equipmentId: 28,
+        goldPrice: 10,
     },
 ]
 
@@ -2708,6 +2888,7 @@ export const SKILLS = {
             9310,
             19310,
             44310,
+            74310,
         ],
         bonusPerLevel: {
             strengthBonus: 1,
@@ -2727,6 +2908,7 @@ export const SKILLS = {
             9310,
             19310,
             44310,
+            74310,
         ],
         bonusPerLevel: {
             miningSpeedBonus: 1,
@@ -2746,6 +2928,7 @@ export const SKILLS = {
             9310,
             19310,
             44310,
+            74310,
         ],
         bonusPerLevel: {
             foragingSpeedBonus: 1,
@@ -2765,6 +2948,7 @@ export const SKILLS = {
             9310,
             19310,
             44310,
+            74310,
         ],
     },
 
@@ -2779,6 +2963,7 @@ export const SKILLS = {
             9310,
             19310,
             44310,
+            74310,
         ],
     },
 }

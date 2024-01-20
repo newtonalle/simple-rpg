@@ -18,9 +18,14 @@
     <br />
     <br />
 
-    <button class="btn btn-danger" :disabled="cooldown > 0" @click="critHit">
+    <button
+      class="btn btn-danger"
+      :disabled="cooldown > 0 || specialDisabled"
+      @click="critHit"
+    >
       {{ hitText }}
       <span v-if="cooldown > 0">({{ cooldown }}s)</span>
+      <span v-if="specialDisabled">(No Arrows!)</span>
     </button>
   </div>
 </template>
@@ -35,7 +40,13 @@ export default {
     // (-1) - going left
   }),
 
-  props: { speed: Number, cooldown: Number, hitText: String, markerId: Number },
+  props: {
+    speed: Number,
+    cooldown: Number,
+    hitText: String,
+    markerId: Number,
+    specialDisabled: Boolean,
+  },
 
   methods: {
     critHit() {
