@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h1>{{ locations[player.currentLocationId].label }}</h1>
+    <h1>
+      {{
+        locations.find((location) => location.id === player.currentLocationId)
+          .label
+      }}
+    </h1>
     <p class="fs-5">Travel to:</p>
     <div class="row">
       <div

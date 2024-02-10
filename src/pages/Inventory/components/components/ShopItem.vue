@@ -1,24 +1,29 @@
 <template>
   <div @mouseenter="hovering = true" @mouseleave="hovering = false">
     <h4 v-if="item.result.type === 'equipment'" class="fw-bold">
-      {{ item.result.amount }}x {{ equipments[item.result.id].label }}
+      {{ item.result.amount }}x
+      {{
+        equipments.find((equipment) => equipment.id === item.result.id).label
+      }}
     </h4>
     <h4 v-else-if="item.result.type === 'material'" class="fw-bold">
-      {{ item.result.amount }} {{ materials[item.result.id].symbol }}
-      {{ materials[item.result.id].label }}
+      {{ item.result.amount }}
+      {{ materials.find((material) => material.id === item.result.id).symbol }}
+      {{ materials.find((material) => material.id === item.result.id).label }}
     </h4>
     <h4 v-else-if="item.result.type === 'arrow'" class="fw-bold">
-      {{ item.result.amount }}x {{ arrows[item.result.id].label }}
+      {{ item.result.amount }}x
+      {{ arrows.find((arrow) => arrow.id === item.result.id).label }}
     </h4>
 
     <div v-if="item.materialPrices">
       <div
         v-for="(cost, indexMCost) in item.materialPrices"
-        :key="`costMaterialId-${cost}-indexCost-${indexMCost}-index-${index}`"
+        :key="`costMaterialId-${cost}-indexCost-${indexMCost}-shopItemId-${item.id}`"
       >
         <h5>
-          {{ materials[cost.id].label }}
-          {{ materials[cost.id].symbol }}
+          {{ materials.find((material) => material.id === cost.id).label }}
+          {{ materials.find((material) => material.id === cost.id).symbol }}
           x{{ cost.amount }}
         </h5>
       </div>
@@ -27,9 +32,12 @@
 
     <div
       v-for="(cost, indexECost) in item.equipmentPrices"
-      :key="`costEquipId-${cost}-indexCost-${indexECost}-index-${index}`"
+      :key="`costEquipId-${cost.id}-indexCost-${indexECost}-shopItemId-${item.id}`"
     >
-      <h5>{{ equipments[cost.id].label }} x{{ cost.amount }}</h5>
+      <h5>
+        {{ equipments.find((equipment) => equipment.id === cost.id).label }}
+        x{{ cost.amount }}
+      </h5>
     </div>
 
     <br />
@@ -72,35 +80,41 @@ export default {
 
   components: { EquipmentStats, ArrowStats },
 
-  props: { item: Object, index: Number },
+  props: { item: Object },
 
   methods: {
     buyItem() {
-      this.$store.dispatch("buyItem", this.index);
+      this.$store.dispatch("buyItem", this.item.id);
     },
 
     affordableItem() {
       let result = true;
 
-      if (this.shop[this.index].materialPrices) {
-        this.shop[this.index].materialPrices.forEach((materialPrice) => {
-          if (this.materialAmounts[materialPrice.id] < materialPrice.amount) {
-            result = false;
-          }
-        });
-      }
-
-      if (this.shop[this.index].equipmentPrices) {
-        this.shop[this.index].equipmentPrices.forEach((equipmentPrice) => {
+      if (this.item.materialPrices) {
+        this.item.materialPrices.forEach((materialPrice) => {
           if (
-            this.numberOfEquipment[equipmentPrice.id] < equipmentPrice.amount
+            this.materialAmounts.find(
+              (materialAmount) => materialAmount.id === materialPrice.id
+            ).amount < materialPrice.amount
           ) {
             result = false;
           }
         });
       }
 
-      if (this.shop[this.index].goldPrice > this.player.coins) {
+      if (this.item.equipmentPrices) {
+        this.item.equipmentPrices.forEach((equipmentPrice) => {
+          if (
+            this.numberOfEquipment.find(
+              (equipmentAmount) => equipmentAmount.id === equipmentPrice.id
+            ).amount < equipmentPrice.amount
+          ) {
+            result = false;
+          }
+        });
+      }
+
+      if (this.item.goldPrice > this.player.coins) {
         result = false;
       }
 

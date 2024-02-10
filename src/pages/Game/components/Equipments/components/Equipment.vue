@@ -11,7 +11,7 @@
         <button
           :disabled="inBattle"
           :class="`btn btn-${buttonLabel.color}`"
-          @click="unequipSetItem"
+          @click="unequipSetItem(itemSetupIndex)"
         >
           {{ buttonLabel.text }}
         </button>
@@ -70,19 +70,27 @@
 
     <br />
 
-    <div v-if="equipments[itemId].useEffect && inBattle && itemEquippedStatus">
+    <div
+      v-if="
+        equipments.find((equipment) => equipment.id === itemId).useEffect &&
+        inBattle &&
+        itemEquippedStatus
+      "
+    >
       <br />
       <button
         :disabled="
-          player.stats.mana < equipments[itemId].manaCost ||
-          itemSetupIndex != player.equippedSetup ||
+          player.stats.mana <
+            equipments.find((equipment) => equipment.id === itemId).manaCost ||
           useEffectTimer > 0 ||
           useEffectTimer === -999
         "
         class="btn btn-success"
         @click="useEffect(itemId)"
       >
-        Use ({{ equipments[itemId].manaCost }}🪄)
+        Use ({{
+          equipments.find((equipment) => equipment.id === itemId).manaCost
+        }}🪄)
         <span v-if="useEffectTimer > 0">({{ useEffectTimer }}s)</span>
         <span v-if="useEffectTimer === -999">(Used)</span>
       </button>
@@ -171,37 +179,48 @@ export default {
       if (setupIndex === -1) {
         slotOccuppied = this.player.equippedItems.findIndex(
           (equipingItem) =>
-            this.equipments[equipingItem.id].slot ===
-            this.equipments[this.itemId].slot
+            this.equipments.find(
+              (equipment) => equipment.id === equipingItem.id
+            ).slot ===
+            this.equipments.find((equipment) => equipment.id === this.itemId)
+              .slot
         );
       } else {
         slotOccuppied = this.player.setups[setupIndex].findIndex(
           (equipingItem) =>
-            this.equipments[equipingItem.id].slot ===
-            this.equipments[this.itemId].slot
+            this.equipments.find(
+              (equipment) => equipment.id === equipingItem.id
+            ).slot ===
+            this.equipments.find((equipment) => equipment.id === this.itemId)
+              .slot
         );
       }
 
       let skillRequirementMet = true;
 
-      if (this.equipments[this.itemId].equipSkillRequirement) {
+      if (
+        this.equipments.find((equipment) => equipment.id === this.itemId)
+          .equipSkillRequirement
+      ) {
         // First verify if there is a skill requirement
 
         // If there is one, run through each one of them
 
-        Object.keys(this.equipments[this.itemId].equipSkillRequirement).forEach(
-          (skill) => {
-            // Verify if the requirement is met
-            if (
-              this.playerSkillLevel[skill] <
-              this.equipments[this.itemId].equipSkillRequirement[skill]
-            ) {
-              // If not, set the variable to false
+        Object.keys(
+          this.equipments.find((equipment) => equipment.id === this.itemId)
+            .equipSkillRequirement
+        ).forEach((skill) => {
+          // Verify if the requirement is met
+          if (
+            this.playerSkillLevel[skill] <
+            this.equipments.find((equipment) => equipment.id === this.itemId)
+              .equipSkillRequirement[skill]
+          ) {
+            // If not, set the variable to false
 
-              skillRequirementMet = false;
-            }
+            skillRequirementMet = false;
           }
-        );
+        });
       }
 
       if (

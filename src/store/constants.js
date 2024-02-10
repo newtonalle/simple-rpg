@@ -1489,7 +1489,7 @@ export const MATERIALS = [
         label: 'Oak Log',
         type: 'foragingDrop',
         symbol: '🪵',
-        price: 10,
+        price: 2,
     },
 
     {
@@ -1497,7 +1497,7 @@ export const MATERIALS = [
         label: 'Willow Log',
         type: 'foragingDrop',
         symbol: '🪵',
-        price: 20,
+        price: 3,
     },
 
     {
@@ -1505,7 +1505,7 @@ export const MATERIALS = [
         label: 'Ash Log',
         type: 'foragingDrop',
         symbol: '🪵',
-        price: 30,
+        price: 5,
     },
 
     {
@@ -1634,66 +1634,82 @@ export const MILESTONES = {
     enemies: [
         {
             id: 0,
+            enemyId: 0,
         },
 
         {
             id: 1,
+            enemyId: 1,
         },
 
         {
             id: 2,
+            enemyId: 2,
         },
 
         {
             id: 3,
+            enemyId: 3,
         },
 
         {
             id: 4,
+            enemyId: 4,
         },
 
         {
             id: 5,
+            enemyId: 5,
         },
 
         {
             id: 6,
+            enemyId: 6,
         },
 
         {
             id: 7,
+            enemyId: 7,
         },
 
         {
             id: 8,
+            enemyId: 8,
         },
 
         {
             id: 9,
+            enemyId: 9,
         },
 
         {
             id: 10,
+            enemyId: 10,
         },
 
         {
             id: 11,
+            enemyId: 11,
         },
 
         {
             id: 12,
+            enemyId: 12,
         },
 
         {
             id: 13,
+            enemyId: 13,
         },
 
         {
             id: 14,
+            enemyId: 14,
         },
 
         {
             id: 15,
+            enemyId: 15,
         },
     ],
 
@@ -1701,22 +1717,27 @@ export const MILESTONES = {
 
         {
             id: 0,
+            oreId: 0,
         },
 
         {
             id: 1,
+            oreId: 1,
         },
 
         {
             id: 2,
+            oreId: 2,
         },
 
         {
             id: 3,
+            oreId: 3,
         },
 
         {
             id: 4,
+            oreId: 4,
         },
 
     ],
@@ -1725,42 +1746,35 @@ export const MILESTONES = {
 
         {
             id: 0,
+            plantId: 0,
         },
 
         {
             id: 1,
+            plantId: 1,
         },
 
         {
             id: 2,
+            plantId: 2,
         },
-
-        {
-            id: 3,
-        },
-
-        {
-            id: 4,
-        },
-
-        {
-            id: 5,
-        }
-
     ],
 
     farming: [
 
         {
             id: 0,
+            cropId: 0,
         },
 
         {
             id: 1,
+            cropId: 1,
         },
 
         {
             id: 2,
+            cropId: 2,
         },
 
     ],
@@ -1769,18 +1783,22 @@ export const MILESTONES = {
 
         {
             id: 0,
+            fishId: 0,
         },
 
         {
             id: 1,
+            fishId: 1,
         },
 
         {
             id: 2,
+            fishId: 2,
         },
 
         {
             id: 3,
+            fishId: 3,
         },
 
     ],

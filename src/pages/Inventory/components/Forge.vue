@@ -10,7 +10,7 @@
           v-for="(forgeCrafting, index) in forge"
           :key="`forgeResultId-${forgeCrafting.result.id}-index-${index}`"
         >
-          <forge-item :forgeCrafting="forgeCrafting" :index="index" />
+          <forge-item :forgeCrafting="forgeCrafting" />
         </div>
       </div>
       <div class="col-6">
@@ -21,13 +21,25 @@
         >
           <p v-if="currentForgeCrafting.result.type === 'material'">
             {{ currentForgeCrafting.result.amount }}x
-            {{ materials[currentForgeCrafting.result.id].symbol }}
-            {{ materials[currentForgeCrafting.result.id].label }}
+            {{
+              materials.find(
+                (material) => material.id === currentForgeCrafting.result.id
+              ).symbol
+            }}
+            {{
+              materials.find(
+                (material) => material.id === currentForgeCrafting.result.id
+              ).label
+            }}
           </p>
 
           <p v-if="currentForgeCrafting.result.type === 'equipment'">
             {{ currentForgeCrafting.result.amount }}
-            {{ equipments[currentForgeCrafting.result.id].label }}
+            {{
+              equipments.find(
+                (equipment) => equipment.id === currentForgeCrafting.result.id
+              ).label
+            }}
           </p>
 
           <button

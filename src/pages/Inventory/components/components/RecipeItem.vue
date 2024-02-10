@@ -1,22 +1,30 @@
 <template>
   <div @mouseenter="hovering = true" @mouseleave="hovering = false">
     <h4 v-if="recipe.result.type === 'equipment'" class="fw-bold">
-      {{ recipe.result.amount }}x {{ equipments[recipe.result.id].label }}
+      {{ recipe.result.amount }}x
+      {{
+        equipments.find((equipment) => equipment.id === recipe.result.id).label
+      }}
     </h4>
     <h4 v-else-if="recipe.result.type === 'material'" class="fw-bold">
-      {{ recipe.result.amount }} {{ materials[recipe.result.id].symbol }}
-      {{ materials[recipe.result.id].label }}
+      {{ recipe.result.amount }}
+      {{
+        materials.find((material) => material.id === recipe.result.id).symbol
+      }}
+      {{ materials.find((material) => material.id === recipe.result.id).label }}
     </h4>
     <h4 v-else-if="recipe.result.type === 'arrow'" class="fw-bold">
-      {{ recipe.result.amount }}x {{ arrows[recipe.result.id].label }}
+      {{ recipe.result.amount }}x
+      {{ arrows.find((arrow) => arrow.id === recipe.result.id).label }}
     </h4>
 
     <div
       v-for="(cost, indexMCost) in recipe.materialCosts"
-      :key="`recipeMaterialCostId-${cost.id}-indexMaterialCost-${indexMCost}-index-${index}`"
+      :key="`recipeMaterialCostId-${cost.id}-indexMaterialCost-${indexMCost}-recipeId-${recipe.id}`"
     >
       <h5>
-        {{ materials[cost.id].label }}{{ materials[cost.id].symbol }} x{{
+        {{ materials.find((material) => material.id === cost.id).label
+        }}{{ materials.find((material) => material.id === cost.id).symbol }} x{{
           cost.amount
         }}
       </h5>
@@ -26,9 +34,13 @@
 
     <div
       v-for="(cost, indexECost) in recipe.equipmentCosts"
-      :key="`recipeEquipmentCostId-${cost.id}-indexEquipmentCost-${indexECost}-index-${index}`"
+      :key="`recipeEquipmentCostId-${cost.id}-indexEquipmentCost-${indexECost}-recipeId-${recipe.id}`"
     >
-      <h5>{{ equipments[cost.id].label }} x{{ cost.amount }}</h5>
+      <h5>
+        {{ equipments.find((equipment) => equipment.id === cost.id).label }} x{{
+          cost.amount
+        }}
+      </h5>
     </div>
 
     <br />
@@ -70,33 +82,41 @@ export default {
 
   components: { EquipmentStats, ArrowStats },
 
-  props: { recipe: Object, index: Number },
+  props: { recipe: Object },
 
   methods: {
     craftItem() {
-      this.$store.dispatch("craftItem", this.index);
+      this.$store.dispatch("craftItem", this.recipe.id);
     },
 
     affordableRecipe() {
       let result = true;
 
-      if (this.recipes[this.index].materialCosts) {
-        this.recipes[this.index].materialCosts.forEach((materialCost) => {
-          if (this.materialAmounts[materialCost.id] < materialCost.amount) {
+      if (this.recipe.materialCosts) {
+        this.recipe.materialCosts.forEach((materialCost) => {
+          if (
+            this.materialAmounts.find(
+              (materialAmount) => materialAmount.id === materialCost.id
+            ).amount < materialCost.amount
+          ) {
             result = false;
           }
         });
       }
 
-      if (this.recipes[this.index].equipmentCosts) {
-        this.recipes[this.index].equipmentCosts.forEach((equipmentCost) => {
-          if (this.numberOfEquipment[equipmentCost.id] < equipmentCost.amount) {
+      if (this.recipe.equipmentCosts) {
+        this.recipe.equipmentCosts.forEach((equipmentCost) => {
+          if (
+            this.numberOfEquipment.find(
+              (equipmentAmount) => equipmentAmount.id === equipmentCost.id
+            ).amount < equipmentCost.amount
+          ) {
             result = false;
           }
         });
       }
 
-      if (this.recipes[this.index].goldCost > this.player.coins) {
+      if (this.recipe.goldCost > this.player.coins) {
         result = false;
       }
 
@@ -129,7 +149,7 @@ export default {
       return this.$store.getters.getArrows;
     },
 
-    recipesUnlocked() {
+    recipeUnlocks() {
       return this.$store.getters.getRecipeUnlocks;
     },
 

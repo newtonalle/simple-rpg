@@ -14,7 +14,13 @@
           :key="`ArrowsArrowId-${arrow.id}-index-${index}`"
           class="col-4"
         >
-          <p>{{ arrowAmounts[arrow.id] }}x {{ arrow.label }}</p>
+          <p>
+            {{
+              arrowAmounts.find((arrowAmount) => arrowAmount.id === arrow.id)
+                .amount
+            }}x
+            {{ arrow.label }}
+          </p>
           <div v-if="playerEquipment.quiver">
             <p v-if="player.quiverInventory.arrowId === arrow.id">
               ({{ player.quiverInventory.equippedAmount }}x equipped)
@@ -37,7 +43,8 @@
 
             <button
               :disabled="
-                arrowAmounts[arrow.id] <= 0 ||
+                arrowAmounts.find((arrowAmount) => arrowAmount.id === arrow.id)
+                  .amount <= 0 ||
                 !!currentEnemy.label ||
                 player.quiverInventory.equippedAmount + 1 >
                   playerEquipment.quiver.maxEquippedArrows

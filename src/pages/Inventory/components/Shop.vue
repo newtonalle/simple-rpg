@@ -14,18 +14,36 @@
       <div
         class="col-12"
         v-for="(item, index) in shop"
-        :key="`${item.name}-index-${index}`"
+        :key="`shopResultId-${item.result.id}-index-${index}`"
       >
-        <div v-if="shopUnlocks[item.id]">
+        <div
+          v-if="
+            shopUnlocks.find((shopUnlock) => shopUnlock.id === item.id).unlocked
+          "
+        >
           <div
             v-if="
-              equipments[item.equipmentId].label
-                .toLowerCase()
-                .replace(/\s/g, '')
-                .includes(searchText.toLowerCase().replace(/\s/g, ''))
+              (item.result.type === 'equipment' &&
+                equipments
+                  .find((equipment) => equipment.id === item.result.id)
+                  .label.toLowerCase()
+                  .replace(/\s/g, '')
+                  .includes(searchText.toLowerCase().replace(/\s/g, ''))) ||
+              (item.result.type === 'material' &&
+                materials
+                  .find((material) => material.id === item.result.id)
+                  .label.toLowerCase()
+                  .replace(/\s/g, '')
+                  .includes(searchText.toLowerCase().replace(/\s/g, ''))) ||
+              (item.result.type === 'arrow' &&
+                arrows
+                  .find((arrow) => arrow.id === item.result.id)
+                  .label.toLowerCase()
+                  .replace(/\s/g, '')
+                  .includes(searchText.toLowerCase().replace(/\s/g, '')))
             "
           >
-            <shop-item :item="item" :index="index" />
+            <shop-item :item="item" />
           </div>
         </div>
       </div>
@@ -61,6 +79,14 @@ export default {
 
     equipments() {
       return this.$store.getters.getEquipments;
+    },
+
+    materials() {
+      return this.$store.getters.getMaterials;
+    },
+
+    arrows() {
+      return this.$store.getters.getArrows;
     },
   },
 };

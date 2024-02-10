@@ -23,7 +23,7 @@
           <!-- <button
             :disabled="player.currentMiningCooldown > 0"
             class="btn btn-secondary"
-            @click="mine(index)"
+            @click="mine(ore.id)"
           >
             Mine {{ ore.label }}
             <span v-if="player.currentMiningCooldown > 0"
@@ -34,9 +34,11 @@
           <!-- CRIT DESIGN -->
 
           <button
-            :disabled="!oreUnlocks[ore.id]"
+            :disabled="
+              !oreUnlocks.find((oreUnlock) => oreUnlock.id === ore.id).unlocked
+            "
             class="btn btn-secondary"
-            @click="selectOreId(index)"
+            @click="selectOreId(ore.id)"
           >
             {{ ore.label }}
           </button>
@@ -53,7 +55,9 @@
         <crit-bar
           :speed="17.539999"
           :cooldown="player.currentMiningCooldown"
-          :hitText="`Mine ${ores[selectedOreId].label}`"
+          :hitText="`Mine ${
+            ores.find((ore) => ore.id === selectedOreId).label
+          }`"
           :markerId="`mining-0`"
           @critHit="critBarMine"
         />
@@ -91,8 +95,8 @@ export default {
   components: { CritBar },
 
   methods: {
-    mine(ore) {
-      this.$store.dispatch("mineOre", ore);
+    mine(oreId) {
+      this.$store.dispatch("mineOre", oreId);
     },
 
     selectOreId(oreId) {
@@ -101,7 +105,7 @@ export default {
 
     critBarMine(hitAccuracy) {
       this.$store.dispatch("critBarMineOre", {
-        index: this.selectedOreId,
+        oreId: this.selectedOreId,
         hitAccuracy,
       });
     },

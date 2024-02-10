@@ -24,7 +24,7 @@
           <!-- <button
             :disabled="player.currentForagingCooldown > 0"
             class="btn btn-secondary"
-            @click="forage(index)"
+            @click="forage(plant.id)"
           >
             Forage {{ plant.label }}
             <span v-if="player.currentForagingCooldown > 0"
@@ -35,7 +35,10 @@
           <!-- CRIT DESIGN -->
 
           <button
-            :disabled="!plantUnlocks[plant.id]"
+            :disabled="
+              !plantUnlocks.find((plantUnlock) => plantUnlock.id === plant.id)
+                .unlocked
+            "
             class="btn btn-success"
             @click="selectPlant(plant.id)"
           >
@@ -53,7 +56,9 @@
         <crit-bar
           :speed="17.539999"
           :cooldown="player.currentForagingCooldown"
-          :hitText="`Forage ${plants[selectedPlantId].label}`"
+          :hitText="`Forage ${
+            plants.find((plant) => plant.id === selectedPlantId).label
+          }`"
           :markerId="`foraging-0`"
           @critHit="critBarForage"
         />
@@ -91,8 +96,8 @@ export default {
   components: { CritBar },
 
   methods: {
-    forage(plant) {
-      this.$store.dispatch("foragePlant", plant);
+    forage(plantId) {
+      this.$store.dispatch("foragePlant", plantId);
     },
 
     selectPlant(plantId) {
@@ -101,7 +106,7 @@ export default {
 
     critBarForage(hitAccuracy) {
       this.$store.dispatch("critBarForagePlant", {
-        index: this.selectedPlantId,
+        plantId: this.selectedPlantId,
         hitAccuracy,
       });
     },

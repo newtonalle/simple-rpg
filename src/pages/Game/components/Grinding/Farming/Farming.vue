@@ -20,17 +20,25 @@
       v-for="(crop, index) in crops"
       :key="`stockCropIndex-${index}-cropId-${crop.id}`"
     >
-      <div v-if="cropUnlocks[crop.id]">
+      <div
+        v-if="
+          cropUnlocks.find((cropUnlock) => cropUnlock.id === crop.id).unlocked
+        "
+      >
         <p>
           {{ crop.label }} {{ crop.seedLabel }} x{{
-            materialAmounts[crop.seedId]
+            materialAmounts.find(
+              (materialAmount) => materialAmount.id === crop.seedId
+            ).amount
           }}
         </p>
         <button
           class="btn btn-success"
           @click="plantCrop(crop.id)"
           :disabled="
-            materialAmounts[crop.seedId] <= 0 ||
+            materialAmounts.find(
+              (materialAmount) => materialAmount.id === crop.seedId
+            ).amount <= 0 ||
             farmingStatus.cropPlots.length >= farmingStatus.maxCropPlotSize
           "
         >
@@ -55,8 +63,10 @@
       >
         <p>
           <span v-if="crop.growthTimer > 0">Growing</span>
-          {{ crops[crop.id].label }}
-          {{ crops[crop.id].growingIcon }}
+          {{ crops.find((findCrop) => findCrop.id === crop.id).amount.label }}
+          {{
+            crops.find((findCrop) => findCrop.id === crop.id).amount.growingIcon
+          }}
           <span v-if="crop.growthTimer > 0"> ({{ crop.growthTimer }}s)</span>
         </p>
         <button

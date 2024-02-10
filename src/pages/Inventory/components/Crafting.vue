@@ -4,8 +4,8 @@
     <br />
     <div
       v-if="
-        recipesUnlocked.findIndex((recipeUnlocked) => {
-          return recipeUnlocked;
+        recipeUnlocks.findIndex((recipeUnlock) => {
+          return recipeUnlock.unlocked;
         }) === -1
       "
     >
@@ -21,22 +21,35 @@
         v-for="(recipe, index) in recipes"
         :key="`recipeResultId-${recipe.result.id}-index-${index}`"
       >
-        <div v-if="recipesUnlocked[recipe.id]">
+        <div
+          v-if="
+            recipeUnlocks.find((recipeUnlock) => recipeUnlock.id === recipe.id)
+              .unlocked
+          "
+        >
           <div
             v-if="
               (recipe.result.type === 'equipment' &&
-                equipments[recipe.result.id].label
-                  .toLowerCase()
+                equipments
+                  .find((equipment) => equipment.id === recipe.result.id)
+                  .label.toLowerCase()
                   .replace(/\s/g, '')
                   .includes(searchText.toLowerCase().replace(/\s/g, ''))) ||
               (recipe.result.type === 'material' &&
-                materials[recipe.result.id].label
-                  .toLowerCase()
+                materials
+                  .find((material) => material.id === recipe.result.id)
+                  .label.toLowerCase()
+                  .replace(/\s/g, '')
+                  .includes(searchText.toLowerCase().replace(/\s/g, ''))) ||
+              (recipe.result.type === 'arrow' &&
+                arrows
+                  .find((arrow) => arrow.id === recipe.result.id)
+                  .label.toLowerCase()
                   .replace(/\s/g, '')
                   .includes(searchText.toLowerCase().replace(/\s/g, '')))
             "
           >
-            <recipe-item :recipe="recipe" :index="index" />
+            <recipe-item :recipe="recipe" />
           </div>
         </div>
       </div>
@@ -63,7 +76,7 @@ export default {
       return this.$store.getters.getRecipes;
     },
 
-    recipesUnlocked() {
+    recipeUnlocks() {
       return this.$store.getters.getRecipeUnlocks;
     },
 
@@ -73,6 +86,10 @@ export default {
 
     materials() {
       return this.$store.getters.getMaterials;
+    },
+
+    arrows() {
+      return this.$store.getters.getArrows;
     },
   },
 };

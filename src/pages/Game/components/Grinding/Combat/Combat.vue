@@ -50,8 +50,9 @@
           <span
             v-if="
               playerEquipments.weapon &&
-              weaponTypes[playerEquipments.weapon.typeId].damageType ===
-                'ranged' &&
+              weaponTypes.find(
+                (weaponType) => weaponType.id === playerEquipments.weapon.typeId
+              ).damageType === 'ranged' &&
               player.quiverInventory.equippedAmount <= 0
             "
           >
@@ -85,7 +86,11 @@
         <button
           :class="`btn btn-${enemyButtonColor(enemy.type)}`"
           @click="fight(enemy.id)"
-          :disabled="currentEnemy.label || !enemyUnlocks[enemy.id]"
+          :disabled="
+            currentEnemy.label ||
+            !enemyUnlocks.find((enemyUnlock) => enemyUnlock.id === enemy.id)
+              .unlocked
+          "
           style="width: 100%"
         >
           Fight {{ enemy.label }}
@@ -120,7 +125,7 @@ export default {
   methods: {
     fight(id) {
       this.$store.dispatch("newEnemy", id);
-      if (this.enemies[id].type === "boss") {
+      if (this.enemies.find((enemy) => enemy.id === id).type === "boss") {
         this.$router.push({ name: "bossFight" });
       }
     },

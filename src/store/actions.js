@@ -27,6 +27,17 @@ const CRIT_BONUSES = {
     // Anything above will result in a normal attack
 }
 
+function isSetItem(slot) {
+    const setItems = {
+        helmet: true,
+        chestplate: true,
+        leggings: true,
+        boots: true,
+    };
+
+    return setItems[slot]
+}
+
 export const resetState = (context) => {
     context.commit('setState', defaultState())
     context.commit('versionUpdate')
@@ -42,17 +53,19 @@ export const changeLocation = (context, locationId) => context.commit('changeLoc
 
 export const newEnemy = (context, id) => context.commit('newEnemy', id)
 
-export const mineOre = (context, index) => {
+export const mineOre = (context, oreId) => {
     if (context.state.gameState.player.currentMiningCooldown <= 0) {
 
-        let miningCooldown = ORE_VEINS[index].baseMiningCooldown - context.getters.getEquippedPlayer.miningSpeed
+        const minedOreVein = ORE_VEINS.find((oreVein) => oreVein.id === oreId)
+
+        let miningCooldown = minedOreVein.baseMiningCooldown - context.getters.getEquippedPlayer.miningSpeed
 
         if (miningCooldown < 0) {
             miningCooldown = 0
         }
 
-        if (miningCooldown < ORE_VEINS[index].minMiningCooldown) {
-            miningCooldown = ORE_VEINS[index].minMiningCooldown
+        if (miningCooldown < minedOreVein.minMiningCooldown) {
+            miningCooldown = minedOreVein.minMiningCooldown
         }
 
         context.state.gameState.player.currentMiningCooldown = miningCooldown
@@ -63,25 +76,27 @@ export const mineOre = (context, index) => {
             amountBonus += 1
         }
 
-        const amount = ORE_VEINS[index].drop.amount + amountBonus
+        const amount = minedOreVein.drop.amount + amountBonus
 
-        let experienceAmount = ORE_VEINS[index].experience * amount
+        let experienceAmount = minedOreVein.experience * amount
 
-        context.commit('mineOre', { amount, experienceAmount, oreId: index })
+        context.commit('mineOre', { amount, experienceAmount, oreId })
     }
 }
 
-export const critBarMineOre = (context, { index, hitAccuracy }) => {
+export const critBarMineOre = (context, { oreId, hitAccuracy }) => {
     if (context.state.gameState.player.currentMiningCooldown <= 0) {
 
-        let miningCooldown = ORE_VEINS[index].baseMiningCooldown - context.getters.getEquippedPlayer.miningSpeed
+        const minedOreVein = ORE_VEINS.find((oreVein) => oreVein.id === oreId)
+
+        let miningCooldown = minedOreVein.baseMiningCooldown - context.getters.getEquippedPlayer.miningSpeed
 
         if (miningCooldown < 0) {
             miningCooldown = 0
         }
 
-        if (miningCooldown < ORE_VEINS[index].minMiningCooldown) {
-            miningCooldown = ORE_VEINS[index].minMiningCooldown
+        if (miningCooldown < minedOreVein.minMiningCooldown) {
+            miningCooldown = minedOreVein.minMiningCooldown
         }
 
         context.state.gameState.player.currentMiningCooldown = miningCooldown
@@ -93,7 +108,7 @@ export const critBarMineOre = (context, { index, hitAccuracy }) => {
             amountBonus += 1
         }
 
-        let amount = ORE_VEINS[index].drop.amount + amountBonus
+        let amount = minedOreVein.drop.amount + amountBonus
 
         if (hitAccuracy === CRIT_ACCURACY.extreme) {
             amount *= CRIT_BONUSES.extreme
@@ -105,22 +120,25 @@ export const critBarMineOre = (context, { index, hitAccuracy }) => {
 
         amount = Math.round(amount)
 
-        let experienceAmount = ORE_VEINS[index].experience * amount
+        let experienceAmount = minedOreVein.experience * amount
 
-        context.commit('mineOre', { amount, experienceAmount, oreId: index })
+        context.commit('mineOre', { amount, experienceAmount, oreId })
     }
 }
 
-export const foragePlant = (context, index) => {
+export const foragePlant = (context, plantId) => {
     if (context.state.gameState.player.currentForagingCooldown <= 0) {
-        let foragingCooldown = PLANTS[index].baseForagingCooldown - context.getters.getEquippedPlayer.foragingSpeed
+
+        const foragedPlant = PLANTS.find((plant) => plant.id === plantId)
+
+        let foragingCooldown = foragedPlant.baseForagingCooldown - context.getters.getEquippedPlayer.foragingSpeed
 
         if (foragingCooldown < 0) {
             foragingCooldown = 0
         }
 
-        if (foragingCooldown < PLANTS[index].minForagingCooldown) {
-            foragingCooldown = PLANTS[index].minForagingCooldown
+        if (foragingCooldown < foragedPlant.minForagingCooldown) {
+            foragingCooldown = foragedPlant.minForagingCooldown
         }
 
         context.state.gameState.player.currentForagingCooldown = foragingCooldown
@@ -131,25 +149,27 @@ export const foragePlant = (context, index) => {
             amountBonus += 1
         }
 
-        const amount = PLANTS[index].drop.amount + amountBonus
+        const amount = foragedPlant.drop.amount + amountBonus
 
-        let experienceAmount = PLANTS[index].experience * amount
+        let experienceAmount = foragedPlant.experience * amount
 
-        context.commit('foragePlant', { amount, experienceAmount, plantId: index })
+        context.commit('foragePlant', { amount, experienceAmount, plantId })
     }
 }
 
-export const critBarForagePlant = (context, { index, hitAccuracy }) => {
+export const critBarForagePlant = (context, { plantId, hitAccuracy }) => {
     if (context.state.gameState.player.currentForagingCooldown <= 0) {
 
-        let foragingCooldown = PLANTS[index].baseForagingCooldown - context.getters.getEquippedPlayer.foragingSpeed
+        const foragedPlant = PLANTS.find((plant) => plant.id === plantId)
+
+        let foragingCooldown = foragedPlant.baseForagingCooldown - context.getters.getEquippedPlayer.foragingSpeed
 
         if (foragingCooldown < 0) {
             foragingCooldown = 0
         }
 
-        if (foragingCooldown < PLANTS[index].minForagingCooldown) {
-            foragingCooldown = PLANTS[index].minForagingCooldown
+        if (foragingCooldown < foragedPlant.minForagingCooldown) {
+            foragingCooldown = foragedPlant.minForagingCooldown
         }
 
         context.state.gameState.player.currentForagingCooldown = foragingCooldown
@@ -160,7 +180,7 @@ export const critBarForagePlant = (context, { index, hitAccuracy }) => {
             amountBonus += 1
         }
 
-        let amount = PLANTS[index].drop.amount + amountBonus
+        let amount = foragedPlant.drop.amount + amountBonus
 
         if (hitAccuracy === CRIT_ACCURACY.extreme) {
             amount *= CRIT_BONUSES.extreme
@@ -173,9 +193,9 @@ export const critBarForagePlant = (context, { index, hitAccuracy }) => {
 
         amount = Math.round(amount)
 
-        let experienceAmount = PLANTS[index].experience * amount
+        let experienceAmount = foragedPlant.experience * amount
 
-        context.commit('foragePlant', { amount, experienceAmount, plantId: index })
+        context.commit('foragePlant', { amount, experienceAmount, plantId })
     }
 }
 
@@ -242,8 +262,6 @@ export const attack = (context, { user, target }) => {
 
         const baseDamage = playerStats.strength
 
-
-
         // The target recieves damaged based in its own defense and enemy strength
 
         // Current Enemy & Player are the options for user/target
@@ -255,7 +273,8 @@ export const attack = (context, { user, target }) => {
                     return;
                 }
                 context.state.gameState.player.quiverInventory.equippedAmount--
-                inflictedDamage += ARROWS[context.state.gameState.player.quiverInventory.arrowId].strength
+                let usedArrow = ARROWS.find((arrow) => arrow.id === context.state.gameState.player.quiverInventory.arrowId)
+                inflictedDamage += usedArrow.strength
             }
 
             // Reset the attack cooldown to its base value
@@ -384,6 +403,15 @@ export const critBarAttack = (context, hitAccuracy) => {
         let inflictedDamage = 0
         const playerWeapon = context.getters.getPlayerEquipment.weapon
 
+        if (playerWeapon && WEAPON_TYPES[playerWeapon.typeId].damageType === "ranged") {
+            if (context.state.gameState.player.quiverInventory.equippedAmount <= 0) {
+                return;
+            }
+            context.state.gameState.player.quiverInventory.equippedAmount--
+            let usedArrow = ARROWS.find((arrow) => arrow.id === context.state.gameState.player.quiverInventory.arrowId)
+            inflictedDamage += usedArrow.strength
+        }
+
         // The enemy recieves damaged based in its own defense and player strength
 
         // Reset the attack cooldown to its base value
@@ -459,16 +487,31 @@ export const critBarAttack = (context, hitAccuracy) => {
 
 export const useEffect = (context, { id, index }) => {
 
-    const itemUsed = EQUIPMENTS[id]
+    const itemUsed = EQUIPMENTS.find((equipment) => equipment.id === id)
     const equippedPlayer = context.getters.getEquippedPlayer
+    let itemUseTimer = 0
 
-    if (context.state.gameState.player.stats.mana >= itemUsed.manaCost && (context.state.gameState.player.setups[context.state.gameState.player.equippedSetup][index].useTimer <= 0 && context.state.gameState.player.setups[context.state.gameState.player.equippedSetup][index].useTimer != -999)) {
+    if (isSetItem(itemUsed.slot)) {
+        itemUseTimer = context.state.gameState.player.setups[context.state.gameState.player.equippedSetup][index].useTimer
+    } else {
+        itemUseTimer = context.state.gameState.player.equippedItems[index].useTimer
+    }
+
+    if (context.state.gameState.player.stats.mana >= itemUsed.manaCost && itemUseTimer <= 0 && itemUseTimer != -999) {
         context.state.gameState.player.stats.mana -= itemUsed.manaCost
 
         if (context.state.gameState.currentEnemy.type === 'boss' && itemUsed.useEffect.bossFightRechargeCooldown) {
-            context.state.gameState.player.setups[context.state.gameState.player.equippedSetup][index].useTimer = itemUsed.useEffect.bossFightRechargeCooldown
+            if (isSetItem(itemUsed.slot)) {
+                context.state.gameState.player.setups[context.state.gameState.player.equippedSetup][index].useTimer = itemUsed.useEffect.bossFightRechargeCooldown
+            } else {
+                context.state.gameState.player.equippedItems[index].useTimer = itemUsed.useEffect.bossFightRechargeCooldown
+            }
         } else if (itemUsed.useEffect.oncePerCommonBattle) {
-            context.state.gameState.player.setups[context.state.gameState.player.equippedSetup][index].useTimer = -999
+            if (isSetItem(itemUsed.slot)) {
+                context.state.gameState.player.setups[context.state.gameState.player.equippedSetup][index].useTimer = -999
+            } else {
+                context.state.gameState.player.equippedItems[index].useTimer = -999
+            }
         }
 
         context.state.gameState.combatLog.unshift(`${context.state.gameState.player.label} used ${itemUsed.label}!`)
@@ -560,11 +603,11 @@ export const chooseEquippedSetup = (context, setupIndex) => {
     context.commit('resetPlayerStats', { maxHealth: equippedPlayer.maxHealth, maxMana: equippedPlayer.maxMana })
 }
 
-export const craftItem = (context, recipeIndex) => context.commit('craftItem', { recipeIndex, numberOfEquipment: context.getters.getNumberOfEquipment })
+export const craftItem = (context, recipeId) => context.commit('craftItem', { recipeId, numberOfEquipment: context.getters.getNumberOfEquipment })
 
-export const buyItem = (context, itemIndex) => context.commit('buyItem', { itemIndex, numberOfEquipment: context.getters.getNumberOfEquipment })
+export const buyItem = (context, itemId) => context.commit('buyItem', { itemId, numberOfEquipment: context.getters.getNumberOfEquipment })
 
-export const forgeCraft = (context, craftingIndex) => context.commit('forgeCraft', { craftingIndex, numberOfEquipment: context.getters.getNumberOfEquipment })
+export const forgeCraft = (context, craftingId) => context.commit('forgeCraft', { craftingId, numberOfEquipment: context.getters.getNumberOfEquipment })
 
 export const collectForge = (context, index) => context.commit('collectForge', index)
 
@@ -615,7 +658,7 @@ export const updateGame = ({ state, getters, commit }) => {
                     milestoneRequirementMet = false
                 }
             } else {
-                if (state.gameState.milestoneAmounts[enemy.requiredMilestoneType.categoryType][enemy.requiredMilestoneType.subcategoryType] < enemy.requiredMilestoneAmount) {
+                if (state.gameState.milestoneAmounts[enemy.requiredMilestoneType.categoryType].find((milestoneAmount) => milestoneAmount.id === enemy.requiredMilestoneType.subcategoryType).amount < enemy.requiredMilestoneAmount) {
                     milestoneRequirementMet = false
                 }
             }
@@ -630,9 +673,9 @@ export const updateGame = ({ state, getters, commit }) => {
         }
 
         if (milestoneRequirementMet && skillRequirementMet) {
-            state.gameState.enemyUnlocks[enemy.id] = true
+            state.gameState.enemyUnlocks.find((enemyUnlock) => enemyUnlock.id === enemy.id).unlocked = true
         } else {
-            state.gameState.enemyUnlocks[enemy.id] = false
+            state.gameState.enemyUnlocks.find((enemyUnlock) => enemyUnlock.id === enemy.id).unlocked = false
         }
     });
 
@@ -651,7 +694,7 @@ export const updateGame = ({ state, getters, commit }) => {
                     milestoneRequirementMet = false
                 }
             } else {
-                if (state.gameState.milestoneAmounts[ore.requiredMilestoneType.categoryType][ore.requiredMilestoneType.subcategoryType] < ore.requiredMilestoneAmount) {
+                if (state.gameState.milestoneAmounts[ore.requiredMilestoneType.categoryType].find((milestoneAmount) => milestoneAmount.id === ore.requiredMilestoneType.subcategoryType).amount < ore.requiredMilestoneAmount) {
                     milestoneRequirementMet = false
                 }
             }
@@ -666,9 +709,9 @@ export const updateGame = ({ state, getters, commit }) => {
         }
 
         if (milestoneRequirementMet && skillRequirementMet) {
-            state.gameState.oreUnlocks[ore.id] = true
+            state.gameState.oreUnlocks.find((oreUnlock) => oreUnlock.id === ore.id).unlocked = true
         } else {
-            state.gameState.oreUnlocks[ore.id] = false
+            state.gameState.oreUnlocks.find((oreUnlock) => oreUnlock.id === ore.id).unlocked = false
         }
     });
 
@@ -687,7 +730,7 @@ export const updateGame = ({ state, getters, commit }) => {
                     milestoneRequirementMet = false
                 }
             } else {
-                if (state.gameState.milestoneAmounts[plant.requiredMilestoneType.categoryType][plant.requiredMilestoneType.subcategoryType] < plant.requiredMilestoneAmount) {
+                if (state.gameState.milestoneAmounts[plant.requiredMilestoneType.categoryType].find((milestoneAmount) => milestoneAmount.id === plant.requiredMilestoneType.subcategoryType).amount < plant.requiredMilestoneAmount) {
                     milestoneRequirementMet = false
                 }
             }
@@ -702,9 +745,9 @@ export const updateGame = ({ state, getters, commit }) => {
         }
 
         if (milestoneRequirementMet && skillRequirementMet) {
-            state.gameState.plantUnlocks[plant.id] = true
+            state.gameState.plantUnlocks.find((plantUnlock) => plantUnlock.id === plant.id).unlocked = true
         } else {
-            state.gameState.plantUnlocks[plant.id] = false
+            state.gameState.plantUnlocks.find((plantUnlock) => plantUnlock.id === plant.id).unlocked = false
         }
     });
 
@@ -723,7 +766,7 @@ export const updateGame = ({ state, getters, commit }) => {
                     milestoneRequirementMet = false
                 }
             } else {
-                if (state.gameState.milestoneAmounts[crop.requiredMilestoneType.categoryType][crop.requiredMilestoneType.subcategoryType] < crop.requiredMilestoneAmount) {
+                if (state.gameState.milestoneAmounts[crop.requiredMilestoneType.categoryType].find((milestoneAmount) => milestoneAmount.id === crop.requiredMilestoneType.subcategoryType).amount < crop.requiredMilestoneAmount) {
                     milestoneRequirementMet = false
                 }
             }
@@ -738,13 +781,11 @@ export const updateGame = ({ state, getters, commit }) => {
         }
 
         if (milestoneRequirementMet && skillRequirementMet) {
-            state.gameState.cropUnlocks[crop.id] = true
+            state.gameState.cropUnlocks.find((cropUnlock) => cropUnlock.id === crop.id).unlocked = true
         } else {
-            state.gameState.cropUnlocks[crop.id] = false
+            state.gameState.cropUnlocks.find((cropUnlock) => cropUnlock.id === crop.id).unlocked = false
         }
     });
-
-
 
     // Recipes
 
@@ -762,7 +803,7 @@ export const updateGame = ({ state, getters, commit }) => {
                     milestoneRequirementMet = false
                 }
             } else {
-                if (state.gameState.milestoneAmounts[recipe.requiredMilestoneType.categoryType][recipe.requiredMilestoneType.subcategoryType] < recipe.requiredMilestoneAmount) {
+                if (state.gameState.milestoneAmounts[recipe.requiredMilestoneType.categoryType].find((milestoneAmount) => milestoneAmount.id === recipe.requiredMilestoneType.subcategoryType).amount < recipe.requiredMilestoneAmount) {
                     milestoneRequirementMet = false
                 }
             }
@@ -779,15 +820,15 @@ export const updateGame = ({ state, getters, commit }) => {
         // Collection Requirements
 
         if (recipe.requiredCollection) {
-            if (state.gameState.collectionAmounts[recipe.requiredCollection.collectionId] < recipe.requiredCollection.amount) {
+            if (state.gameState.collectionAmounts.find((collectionAmount) => collectionAmount.id === recipe.requiredCollection.collectionId).amount < recipe.requiredCollection.amount) {
                 collectionRequirementMet = false
             }
         }
 
         if (milestoneRequirementMet && skillRequirementMet && collectionRequirementMet) {
-            state.gameState.recipeUnlocks[recipe.id] = true
+            state.gameState.recipeUnlocks.find((recipeUnlock) => recipeUnlock.id === recipe.id).unlocked = true
         } else {
-            state.gameState.recipeUnlocks[recipe.id] = false
+            state.gameState.recipeUnlocks.find((recipeUnlock) => recipeUnlock.id === recipe.id).unlocked = false
         }
     });
 
@@ -807,7 +848,7 @@ export const updateGame = ({ state, getters, commit }) => {
                     milestoneRequirementMet = false
                 }
             } else {
-                if (state.gameState.milestoneAmounts[item.requiredMilestoneType.categoryType][item.requiredMilestoneType.subcategoryType] < item.requiredMilestoneAmount) {
+                if (state.gameState.milestoneAmounts[item.requiredMilestoneType.categoryType].find((milestoneAmount) => milestoneAmount.id === item.requiredMilestoneType.subcategoryType).amount < item.requiredMilestoneAmount) {
                     milestoneRequirementMet = false
                 }
             }
@@ -824,15 +865,15 @@ export const updateGame = ({ state, getters, commit }) => {
         // Collection Requirements
 
         if (item.requiredCollection) {
-            if (state.gameState.collectionAmounts[item.requiredCollection.collectionId] < item.requiredCollection.amount) {
+            if (state.gameState.collectionAmounts.find((collectionAmount) => collectionAmount.id === item.requiredCollection.collectionId).amount < item.requiredCollection.amount) {
                 collectionRequirementMet = false
             }
         }
 
         if (milestoneRequirementMet && skillRequirementMet && collectionRequirementMet) {
-            state.gameState.shopUnlocks[item.id] = true
+            state.gameState.shopUnlocks.find((shopUnlock) => shopUnlock.id === item.id).unlocked = true
         } else {
-            state.gameState.shopUnlocks[item.id] = false
+            state.gameState.shopUnlocks.find((shopUnlock) => shopUnlock.id === item.id).unlocked = false
         }
 
     });
@@ -899,5 +940,3 @@ export const debugGiveMaterialById = (context, { materialId, materialsAmount }) 
 export const debugChangePlayerStatus = (context, { status, amount }) => {
     context.commit('debugChangePlayerStatus', { status, amount })
 }
-
-

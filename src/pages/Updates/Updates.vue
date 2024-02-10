@@ -5,6 +5,10 @@
     <br />
     <hr />
 
+    <update4 />
+
+    <hr />
+
     <update3 />
 
     <hr />
@@ -21,6 +25,7 @@
 import Update1 from "./components/Update1_1.vue";
 import Update2 from "./components/Update1_2.vue";
 import Update3 from "./components/Update1_2_1.vue";
+import Update4 from "./components/Update1_2_2.vue";
 export default {
   data: () => ({
     popout: [false, false, false],
@@ -28,7 +33,7 @@ export default {
     speedSetIntervalId: 1,
   }),
 
-  components: { Update1, Update2, Update3 },
+  components: { Update1, Update2, Update3, Update4 },
 
   methods: {
     popoutUpdate(index) {

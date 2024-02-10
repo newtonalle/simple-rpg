@@ -21,13 +21,19 @@
           >
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
-                materialAmounts[material.id]
+                materialAmounts.find(
+                  (materialAmount) => materialAmount.id === material.id
+                ).amount
               }}
             </h5>
             <button
               class="btn btn-success"
               @click="sellItem(material.id)"
-              :disabled="materialAmounts[material.id] <= 0"
+              :disabled="
+                materialAmounts.find(
+                  (materialAmount) => materialAmount.id === material.id
+                ).amount <= 0
+              "
             >
               Sell ({{ material.price }}x 🪙)
             </button>
@@ -53,13 +59,19 @@
           >
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
-                materialAmounts[material.id]
+                materialAmounts.find(
+                  (materialAmount) => materialAmount.id === material.id
+                ).amount
               }}
             </h5>
             <button
               class="btn btn-success"
               @click="sellItem(material.id)"
-              :disabled="materialAmounts[material.id] <= 0"
+              :disabled="
+                materialAmounts.find(
+                  (materialAmount) => materialAmount.id === material.id
+                ).amount <= 0
+              "
             >
               Sell ({{ material.price }}x 🪙)
             </button>
@@ -85,13 +97,19 @@
           >
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
-                materialAmounts[material.id]
+                materialAmounts.find(
+                  (materialAmount) => materialAmount.id === material.id
+                ).amount
               }}
             </h5>
             <button
               class="btn btn-success"
               @click="sellItem(material.id)"
-              :disabled="materialAmounts[material.id] <= 0"
+              :disabled="
+                materialAmounts.find(
+                  (materialAmount) => materialAmount.id === material.id
+                ).amount <= 0
+              "
             >
               Sell ({{ material.price }}x 🪙)
             </button>
@@ -118,7 +136,9 @@
           >
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
-                materialAmounts[material.id]
+                materialAmounts.find(
+                  (materialAmount) => materialAmount.id === material.id
+                ).amount
               }}
             </h5>
             <br />
@@ -139,13 +159,18 @@
           <div v-if="material.type === 'farmingDrop' && !material.currentlyUnavailable">
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
-                materialAmounts[material.id]
+                  materialAmounts.find(
+                    (materialAmount) => materialAmount.id === material.id
+                  ).amount
               }}
             </h5>
             <button
               class="btn btn-success"
               @click="sellItem(material.id)"
-              :disabled="materialAmounts[material.id] <= 0"
+              :disabled="
+                  materialAmounts.find(
+                    (materialAmount) => materialAmount.id === material.id
+                  ).amount <= 0"
             >
               Sell ({{ material.price }}x 🪙)
             </button>
@@ -155,7 +180,9 @@
           <div v-else-if="material.type === 'farmingSeed'">
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
-                materialAmounts[material.id]
+                  materialAmounts.find(
+                    (materialAmount) => materialAmount.id === material.id
+                  ).amount
               }}
             </h5>
             <br />
@@ -185,13 +212,21 @@
           <div v-if="material.type === 'fishingDrop' && !material.currentlyUnavailable">
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
-                materialAmounts[material.id]
+                
+                  materialAmounts.find(
+                    (materialAmount) => materialAmount.id === material.id
+                  )
+                .amount
               }}
             </h5>
             <button
               class="btn btn-success"
               @click="sellItem(material.id)"
-              :disabled="materialAmounts[material.id] <= 0"
+              :disabled="
+                  materialAmounts.find(
+                    (materialAmount) => materialAmount.id === material.id
+                  )
+                .amount <= 0"
             >
               Sell ({{ material.price }}x 🪙)
             </button>
@@ -213,14 +248,22 @@
           <div v-if="material.type === 'fishingTreasure' && !material.currentlyUnavailable">
             <h5>
               {{ material.label }}{{ material.symbol }} x{{
-                materialAmounts[material.id]
+                
+                  materialAmounts.find(
+                    (materialAmount) => materialAmount.id === material.id
+                  )
+                .amount
               }}
             </h5>
             <button
               class="btn btn-success"
               style="width: 200px"
               @click="openTreasure(material.id)"
-              :disabled="materialAmounts[material.id] <= 0"
+              :disabled="
+                  materialAmounts.find(
+                    (materialAmount) => materialAmount.id === material.id
+                  )
+                .amount <= 0"
             >
               Open (+{{ material.prize }}x 🪙)
             </button>
@@ -249,7 +292,11 @@
       <div v-if="material.type === 'specialFishingDrop' && !material.currentlyUnavailable">
         <h5>
           {{ material.label }}{{ material.symbol }} x{{
-            materialAmounts[material.id]
+            
+                  materialAmounts.find(
+                    (materialAmount) => materialAmount.id === material.id
+                  )
+                .amount
           }}
         </h5>
         <br />

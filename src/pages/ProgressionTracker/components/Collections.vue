@@ -8,9 +8,18 @@
     >
       <div>
         <p>
-          {{ collectionAmounts[collection.id]
-          }}{{ materials[collection.itemId].symbol }}
-          {{ materials[collection.itemId].label }}
+          {{
+            collectionAmounts.find(
+              (collectionAmount) => collectionAmount.id === collection.id
+            ).amount
+          }}{{
+            materials.find((material) => material.id === collection.itemId)
+              .symbol
+          }}
+          {{
+            materials.find((material) => material.id === collection.itemId)
+              .label
+          }}
         </p>
       </div>
     </div>

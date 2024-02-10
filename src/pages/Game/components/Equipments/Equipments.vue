@@ -167,7 +167,9 @@ export default {
         boots: true,
       };
 
-      return setItems[this.equipments[itemId].slot];
+      return setItems[
+        this.equipments.find((equipment) => equipment.id === itemId).slot
+      ];
     },
   },
 

@@ -7,9 +7,19 @@
       v-for="(milestone, index) in milestones.enemies"
       :key="`milestoneEnemies-${index}`"
     >
-      <div v-if="enemyUnlocks[milestone.id]">
-        {{ milestoneAmounts.enemies[milestone.id] }}🗡️
-        {{ enemies[milestone.id].label }}
+      <div
+        v-if="
+          enemyUnlocks.find(
+            (enemyUnlock) => enemyUnlock.id === milestone.enemyId
+          ).unlocked
+        "
+      >
+        {{
+          milestoneAmounts.enemies.find(
+            (milestoneAmount) => milestoneAmount.id === milestone.id
+          ).amount
+        }}🗡️
+        {{ enemies.find((enemy) => enemy.id === milestone.enemyId).label }}
       </div>
     </div>
     <br />
@@ -18,9 +28,18 @@
       v-for="(milestone, index) in milestones.mining"
       :key="`milestoneMining-${index}`"
     >
-      <div v-if="oreUnlocks[milestone.id]">
-        {{ milestoneAmounts.mining[milestone.id] }}⛏
-        {{ ores[milestone.id].label }}
+      <div
+        v-if="
+          oreUnlocks.find((oreUnlock) => oreUnlock.id === milestone.oreId)
+            .unlocked
+        "
+      >
+        {{
+          milestoneAmounts.mining.find(
+            (milestoneAmount) => milestoneAmount.id === milestone.id
+          ).amount
+        }}⛏
+        {{ ores.find((ore) => ore.id === milestone.oreId).label }}
       </div>
     </div>
     <br />
@@ -29,9 +48,19 @@
       v-for="(milestone, index) in milestones.foraging"
       :key="`milestoneForaging-${index}`"
     >
-      <div v-if="plantUnlocks[milestone.id]">
-        {{ milestoneAmounts.foraging[milestone.id] }}🪓
-        {{ plants[milestone.id].label }}
+      <div
+        v-if="
+          plantUnlocks.find(
+            (plantUnlock) => plantUnlock.id === milestone.plantId
+          ).unlocked
+        "
+      >
+        {{
+          milestoneAmounts.foraging.find(
+            (milestoneAmount) => milestoneAmount.id === milestone.id
+          ).amount
+        }}🪓
+        {{ plants.find((plant) => plant.id === milestone.plantId).label }}
       </div>
     </div>
     <br />
@@ -41,21 +70,23 @@
       v-for="(milestone, index) in milestones.farming"
       :key="`milestoneFarming-${index}`"
     >
-      <div v-if="cropUnlocks[milestone.id]">
-        {{ milestoneAmounts.farming[milestone.id] }}🌱
-        {{ crops[milestone.id].label }}
+    <div
+        v-if="
+          cropUnlocks.find(
+            (cropUnlock) => cropUnlock.id === milestone.cropId
+          ).unlocked
+        "
+      >
+        {{
+          milestoneAmounts.farming.find(
+            (milestoneAmount) => milestoneAmount.id === milestone.id
+          ).amount
+        }}🌱
+        {{ crops.find((crop) => crop.id === milestone.cropId).label }}
       </div>
     </div>
     <br />
     -->
-    <!--
-    <h4>Fishing Milestones</h4>
-    <div
-      v-for="(milestone, index) in milestones.fishing"
-      :key="`milestoneFishing-${index}`"
-    >
-      {{ milestoneAmounts.fishing[milestone.id] }}🎣 {{ milestone.label }}
-    </div>-->
   </div>
 </template>
 

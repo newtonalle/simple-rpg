@@ -17,8 +17,11 @@ export const getEnemies = () => ENEMIES
 export const getLocationEnemies = (state) => {
     let locationEnemies = []
 
-    LOCATIONS[state.gameState.player.currentLocationId].availableEnemies.forEach(enemyId => {
-        locationEnemies.push(ENEMIES[enemyId])
+    const currentLocation = LOCATIONS.find((location) => location.id === state.gameState.player.currentLocationId)
+
+    currentLocation.availableEnemies.forEach(enemyId => {
+        let locationEnemy = ENEMIES.find((enemy) => enemy.id === enemyId)
+        locationEnemies.push(locationEnemy)
     });
 
     return locationEnemies
@@ -31,8 +34,11 @@ export const getOres = () => ORE_VEINS
 export const getLocationOres = (state) => {
     let locationOres = []
 
-    LOCATIONS[state.gameState.player.currentLocationId].availableOres.forEach(oreId => {
-        locationOres.push(ORE_VEINS[oreId])
+    const currentLocation = LOCATIONS.find((location) => location.id === state.gameState.player.currentLocationId)
+
+    currentLocation.availableOres.forEach(oreId => {
+        let locationOre = ORE_VEINS.find((ore) => ore.id === oreId)
+        locationOres.push(locationOre)
     });
 
     return locationOres
@@ -45,8 +51,11 @@ export const getPlants = () => PLANTS
 export const getLocationPlants = (state) => {
     let locationPlants = []
 
-    LOCATIONS[state.gameState.player.currentLocationId].availablePlants.forEach(plantId => {
-        locationPlants.push(PLANTS[plantId])
+    const currentLocation = LOCATIONS.find((location) => location.id === state.gameState.player.currentLocationId)
+
+    currentLocation.availablePlants.forEach(plantId => {
+        let locationPlant = PLANTS.find((plant) => plant.id === plantId)
+        locationPlants.push(locationPlant)
     });
 
     return locationPlants
@@ -116,12 +125,15 @@ export const getNumberOfEquipment = (state) => {
 
     let equipmentAmounts = []
 
-    for (let index = 0; index < EQUIPMENTS.length; index++) {
-        equipmentAmounts.push(0)
-    }
+    EQUIPMENTS.forEach((equipment) => {
+        equipmentAmounts.push({
+            id: equipment.id,
+            amount: 0,
+        })
+    })
 
     state.gameState.player.inventory.forEach(equipment => {
-        equipmentAmounts[equipment.id]++
+        equipmentAmounts.find((equipmentAmount) => equipmentAmount.id === equipment.id).amount++
     });
 
     return equipmentAmounts
@@ -130,19 +142,19 @@ export const getNumberOfEquipment = (state) => {
 export const getTotalMilestoneStats = (state) => {
     let milestones = {
         enemies: Object.values(state.gameState.milestoneAmounts.enemies).reduce(
-            (enemiesKilled, enemyType) => enemiesKilled + enemyType, 0),
+            (enemiesKilled, enemyType) => enemiesKilled.amount + enemyType, 0),
 
         mining: Object.values(state.gameState.milestoneAmounts.mining).reduce(
-            (oresMined, oreType) => oresMined + oreType, 0),
+            (oresMined, oreType) => oresMined.amount + oreType, 0),
 
         foraging: Object.values(state.gameState.milestoneAmounts.foraging).reduce(
-            (plantsForaged, plantType) => plantsForaged + plantType, 0),
+            (plantsForaged, plantType) => plantsForaged.amount + plantType, 0),
 
         farming: Object.values(state.gameState.milestoneAmounts.farming).reduce(
-            (cropsHarvested, cropType) => cropsHarvested + cropType, 0),
+            (cropsHarvested, cropType) => cropsHarvested.amount + cropType, 0),
 
         fishing: Object.values(state.gameState.milestoneAmounts.fishing).reduce(
-            (fishFished, fishType) => fishFished + fishType, 0),
+            (fishFished, fishType) => fishFished.amount + fishType, 0),
 
     }
 
@@ -158,15 +170,17 @@ export const getEquippedPlayer = (state) => {
     let equippedPlayer = {
         maxHealth: state.gameState.player.stats.maxHealth + state.gameState.player.setups[equippedSetup].reduce(
             (healthBonus, item) => {
-                if (EQUIPMENTS[item.id].healthBonus) {
-                    return healthBonus + EQUIPMENTS[item.id].healthBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.healthBonus) {
+                    return healthBonus + currentEquipment.healthBonus
                 } else {
                     return healthBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (healthBonus, item) => {
-                    if (EQUIPMENTS[item.id].healthBonus) {
-                        return healthBonus + EQUIPMENTS[item.id].healthBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.healthBonus) {
+                        return healthBonus + currentEquipment.healthBonus
                     } else {
                         return healthBonus
                     }
@@ -174,15 +188,17 @@ export const getEquippedPlayer = (state) => {
 
         maxMana: state.gameState.player.stats.maxMana + state.gameState.player.setups[equippedSetup].reduce(
             (manaBonus, item) => {
-                if (EQUIPMENTS[item.id].manaBonus) {
-                    return manaBonus + EQUIPMENTS[item.id].manaBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.manaBonus) {
+                    return manaBonus + currentEquipment.manaBonus
                 } else {
                     return manaBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (manaBonus, item) => {
-                    if (EQUIPMENTS[item.id].manaBonus) {
-                        return manaBonus + EQUIPMENTS[item.id].manaBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.manaBonus) {
+                        return manaBonus + currentEquipment.manaBonus
                     } else {
                         return manaBonus
                     }
@@ -190,15 +206,17 @@ export const getEquippedPlayer = (state) => {
 
         defense: state.gameState.player.stats.defense + (SKILLS.mining.bonusPerLevel.defenseBonus * getPlayerSkillLevel(state).mining) + state.gameState.player.setups[equippedSetup].reduce(
             (defenseBonus, item) => {
-                if (EQUIPMENTS[item.id].defenseBonus) {
-                    return defenseBonus + EQUIPMENTS[item.id].defenseBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.defenseBonus) {
+                    return defenseBonus + currentEquipment.defenseBonus
                 } else {
                     return defenseBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (defenseBonus, item) => {
-                    if (EQUIPMENTS[item.id].defenseBonus) {
-                        return defenseBonus + EQUIPMENTS[item.id].defenseBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.defenseBonus) {
+                        return defenseBonus + currentEquipment.defenseBonus
                     } else {
                         return defenseBonus
                     }
@@ -206,15 +224,17 @@ export const getEquippedPlayer = (state) => {
 
         strength: state.gameState.player.stats.strength + (SKILLS.combat.bonusPerLevel.strengthBonus * getPlayerSkillLevel(state).combat) + state.gameState.player.setups[equippedSetup].reduce(
             (strengthBonus, item) => {
-                if (EQUIPMENTS[item.id].strengthBonus) {
-                    return strengthBonus + EQUIPMENTS[item.id].strengthBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.strengthBonus) {
+                    return strengthBonus + currentEquipment.strengthBonus
                 } else {
                     return strengthBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (strengthBonus, item) => {
-                    if (EQUIPMENTS[item.id].strengthBonus) {
-                        return strengthBonus + EQUIPMENTS[item.id].strengthBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.strengthBonus) {
+                        return strengthBonus + currentEquipment.strengthBonus
                     } else {
                         return strengthBonus
                     }
@@ -222,15 +242,17 @@ export const getEquippedPlayer = (state) => {
 
         activeRegeneration: state.gameState.player.stats.activeRegeneration + state.gameState.player.setups[equippedSetup].reduce(
             (activeRegenerationBonus, item) => {
-                if (EQUIPMENTS[item.id].activeRegenerationBonus) {
-                    return activeRegenerationBonus + EQUIPMENTS[item.id].activeRegenerationBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.activeRegenerationBonus) {
+                    return activeRegenerationBonus + currentEquipment.activeRegenerationBonus
                 } else {
                     return activeRegenerationBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (activeRegenerationBonus, item) => {
-                    if (EQUIPMENTS[item.id].activeRegenerationBonus) {
-                        return activeRegenerationBonus + EQUIPMENTS[item.id].activeRegenerationBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.activeRegenerationBonus) {
+                        return activeRegenerationBonus + currentEquipment.activeRegenerationBonus
                     } else {
                         return activeRegenerationBonus
                     }
@@ -238,15 +260,17 @@ export const getEquippedPlayer = (state) => {
 
         passiveRegeneration: state.gameState.player.stats.passiveRegeneration + state.gameState.player.setups[equippedSetup].reduce(
             (passiveRegenerationBonus, item) => {
-                if (EQUIPMENTS[item.id].passiveRegenerationBonus) {
-                    return passiveRegenerationBonus + EQUIPMENTS[item.id].passiveRegenerationBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.passiveRegenerationBonus) {
+                    return passiveRegenerationBonus + currentEquipment.passiveRegenerationBonus
                 } else {
                     return passiveRegenerationBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (passiveRegenerationBonus, item) => {
-                    if (EQUIPMENTS[item.id].passiveRegenerationBonus) {
-                        return passiveRegenerationBonus + EQUIPMENTS[item.id].passiveRegenerationBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.passiveRegenerationBonus) {
+                        return passiveRegenerationBonus + currentEquipment.passiveRegenerationBonus
                     } else {
                         return passiveRegenerationBonus
                     }
@@ -254,15 +278,17 @@ export const getEquippedPlayer = (state) => {
 
         attackSpeed: state.gameState.player.stats.attackSpeed + state.gameState.player.setups[equippedSetup].reduce(
             (attackSpeedBonus, item) => {
-                if (EQUIPMENTS[item.id].attackSpeedBonus) {
-                    return attackSpeedBonus + EQUIPMENTS[item.id].attackSpeedBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.attackSpeedBonus) {
+                    return attackSpeedBonus + currentEquipment.attackSpeedBonus
                 } else {
                     return attackSpeedBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (attackSpeedBonus, item) => {
-                    if (EQUIPMENTS[item.id].attackSpeedBonus) {
-                        return attackSpeedBonus + EQUIPMENTS[item.id].attackSpeedBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.attackSpeedBonus) {
+                        return attackSpeedBonus + currentEquipment.attackSpeedBonus
                     } else {
                         return attackSpeedBonus
                     }
@@ -270,15 +296,17 @@ export const getEquippedPlayer = (state) => {
 
         magicDamage: state.gameState.player.stats.magicDamage + state.gameState.player.setups[equippedSetup].reduce(
             (magicDamageBonus, item) => {
-                if (EQUIPMENTS[item.id].magicDamageBonus) {
-                    return magicDamageBonus + EQUIPMENTS[item.id].magicDamageBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.magicDamageBonus) {
+                    return magicDamageBonus + currentEquipment.magicDamageBonus
                 } else {
                     return magicDamageBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (magicDamageBonus, item) => {
-                    if (EQUIPMENTS[item.id].magicDamageBonus) {
-                        return magicDamageBonus + EQUIPMENTS[item.id].magicDamageBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.magicDamageBonus) {
+                        return magicDamageBonus + currentEquipment.magicDamageBonus
                     } else {
                         return magicDamageBonus
                     }
@@ -286,15 +314,17 @@ export const getEquippedPlayer = (state) => {
 
         aimingAccuracy: state.gameState.player.stats.aimingAccuracy + state.gameState.player.setups[equippedSetup].reduce(
             (aimingAccuracyBonus, item) => {
-                if (EQUIPMENTS[item.id].aimingAccuracyBonus) {
-                    return aimingAccuracyBonus + EQUIPMENTS[item.id].aimingAccuracyBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.aimingAccuracyBonus) {
+                    return aimingAccuracyBonus + currentEquipment.aimingAccuracyBonus
                 } else {
                     return aimingAccuracyBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (aimingAccuracyBonus, item) => {
-                    if (EQUIPMENTS[item.id].aimingAccuracyBonus) {
-                        return aimingAccuracyBonus + EQUIPMENTS[item.id].aimingAccuracyBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.aimingAccuracyBonus) {
+                        return aimingAccuracyBonus + currentEquipment.aimingAccuracyBonus
                     } else {
                         return aimingAccuracyBonus
                     }
@@ -302,15 +332,17 @@ export const getEquippedPlayer = (state) => {
 
         miningLuck: state.gameState.player.stats.miningLuck + (SKILLS.mining.bonusPerLevel.miningLuckBonus * getPlayerSkillLevel(state).mining) + state.gameState.player.setups[equippedSetup].reduce(
             (miningLuckBonus, item) => {
-                if (EQUIPMENTS[item.id].miningLuckBonus) {
-                    return miningLuckBonus + EQUIPMENTS[item.id].miningLuckBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.miningLuckBonus) {
+                    return miningLuckBonus + currentEquipment.miningLuckBonus
                 } else {
                     return miningLuckBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (miningLuckBonus, item) => {
-                    if (EQUIPMENTS[item.id].miningLuckBonus) {
-                        return miningLuckBonus + EQUIPMENTS[item.id].miningLuckBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.miningLuckBonus) {
+                        return miningLuckBonus + currentEquipment.miningLuckBonus
                     } else {
                         return miningLuckBonus
                     }
@@ -318,15 +350,17 @@ export const getEquippedPlayer = (state) => {
 
         miningSpeed: state.gameState.player.stats.miningSpeed + (SKILLS.mining.bonusPerLevel.miningSpeedBonus * getPlayerSkillLevel(state).mining) + state.gameState.player.setups[equippedSetup].reduce(
             (miningSpeedBonus, item) => {
-                if (EQUIPMENTS[item.id].miningSpeedBonus) {
-                    return miningSpeedBonus + EQUIPMENTS[item.id].miningSpeedBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.miningSpeedBonus) {
+                    return miningSpeedBonus + currentEquipment.miningSpeedBonus
                 } else {
                     return miningSpeedBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (miningSpeedBonus, item) => {
-                    if (EQUIPMENTS[item.id].miningSpeedBonus) {
-                        return miningSpeedBonus + EQUIPMENTS[item.id].miningSpeedBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.miningSpeedBonus) {
+                        return miningSpeedBonus + currentEquipment.miningSpeedBonus
                     } else {
                         return miningSpeedBonus
                     }
@@ -334,15 +368,17 @@ export const getEquippedPlayer = (state) => {
 
         foragingLuck: state.gameState.player.stats.foragingLuck + state.gameState.player.setups[equippedSetup].reduce(
             (foragingLuckBonus, item) => {
-                if (EQUIPMENTS[item.id].foragingLuckBonus) {
-                    return foragingLuckBonus + EQUIPMENTS[item.id].foragingLuckBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.foragingLuckBonus) {
+                    return foragingLuckBonus + currentEquipment.foragingLuckBonus
                 } else {
                     return foragingLuckBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (foragingLuckBonus, item) => {
-                    if (EQUIPMENTS[item.id].foragingLuckBonus) {
-                        return foragingLuckBonus + EQUIPMENTS[item.id].foragingLuckBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.foragingLuckBonus) {
+                        return foragingLuckBonus + currentEquipment.foragingLuckBonus
                     } else {
                         return foragingLuckBonus
                     }
@@ -350,15 +386,17 @@ export const getEquippedPlayer = (state) => {
 
         foragingSpeed: state.gameState.player.stats.foragingSpeed + state.gameState.player.setups[equippedSetup].reduce(
             (foragingSpeedBonus, item) => {
-                if (EQUIPMENTS[item.id].foragingSpeedBonus) {
-                    return foragingSpeedBonus + EQUIPMENTS[item.id].foragingSpeedBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.foragingSpeedBonus) {
+                    return foragingSpeedBonus + currentEquipment.foragingSpeedBonus
                 } else {
                     return foragingSpeedBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (foragingSpeedBonus, item) => {
-                    if (EQUIPMENTS[item.id].foragingSpeedBonus) {
-                        return foragingSpeedBonus + EQUIPMENTS[item.id].foragingSpeedBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.foragingSpeedBonus) {
+                        return foragingSpeedBonus + currentEquipment.foragingSpeedBonus
                     } else {
                         return foragingSpeedBonus
                     }
@@ -366,15 +404,17 @@ export const getEquippedPlayer = (state) => {
 
         farmingLuck: state.gameState.player.stats.farmingLuck + state.gameState.player.setups[equippedSetup].reduce(
             (farmingLuckBonus, item) => {
-                if (EQUIPMENTS[item.id].farmingLuckBonus) {
-                    return farmingLuckBonus + EQUIPMENTS[item.id].farmingLuckBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.farmingLuckBonus) {
+                    return farmingLuckBonus + currentEquipment.farmingLuckBonus
                 } else {
                     return farmingLuckBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (farmingLuckBonus, item) => {
-                    if (EQUIPMENTS[item.id].farmingLuckBonus) {
-                        return farmingLuckBonus + EQUIPMENTS[item.id].farmingLuckBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.farmingLuckBonus) {
+                        return farmingLuckBonus + currentEquipment.farmingLuckBonus
                     } else {
                         return farmingLuckBonus
                     }
@@ -382,15 +422,17 @@ export const getEquippedPlayer = (state) => {
 
         fishingLuck: state.gameState.player.stats.fishingLuck + state.gameState.player.setups[equippedSetup].reduce(
             (fishingLuckBonus, item) => {
-                if (EQUIPMENTS[item.id].fishingLuckBonus) {
-                    return fishingLuckBonus + EQUIPMENTS[item.id].fishingLuckBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.fishingLuckBonus) {
+                    return fishingLuckBonus + currentEquipment.fishingLuckBonus
                 } else {
                     return fishingLuckBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (fishingLuckBonus, item) => {
-                    if (EQUIPMENTS[item.id].fishingLuckBonus) {
-                        return fishingLuckBonus + EQUIPMENTS[item.id].fishingLuckBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.fishingLuckBonus) {
+                        return fishingLuckBonus + currentEquipment.fishingLuckBonus
                     } else {
                         return fishingLuckBonus
                     }
@@ -398,15 +440,17 @@ export const getEquippedPlayer = (state) => {
 
         critChance: state.gameState.player.stats.critChance + (SKILLS.combat.bonusPerLevel.critChanceBonus * getPlayerSkillLevel(state).combat) + state.gameState.player.setups[equippedSetup].reduce(
             (critChanceBonus, item) => {
-                if (EQUIPMENTS[item.id].critChanceBonus) {
-                    return critChanceBonus + EQUIPMENTS[item.id].critChanceBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.critChanceBonus) {
+                    return critChanceBonus + currentEquipment.critChanceBonus
                 } else {
                     return critChanceBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (critChanceBonus, item) => {
-                    if (EQUIPMENTS[item.id].critChanceBonus) {
-                        return critChanceBonus + EQUIPMENTS[item.id].critChanceBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.critChanceBonus) {
+                        return critChanceBonus + currentEquipment.critChanceBonus
                     } else {
                         return critChanceBonus
                     }
@@ -414,15 +458,17 @@ export const getEquippedPlayer = (state) => {
 
         critDamageMultiplier: state.gameState.player.stats.critDamageMultiplier + (SKILLS.combat.bonusPerLevel.critDamageMultiplierBonus * getPlayerSkillLevel(state).combat) + state.gameState.player.setups[equippedSetup].reduce(
             (critDamageMultiplierBonus, item) => {
-                if (EQUIPMENTS[item.id].critDamageMultiplierBonus) {
-                    return critDamageMultiplierBonus + EQUIPMENTS[item.id].critDamageMultiplierBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.critDamageMultiplierBonus) {
+                    return critDamageMultiplierBonus + currentEquipment.critDamageMultiplierBonus
                 } else {
                     return critDamageMultiplierBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (critDamageMultiplierBonus, item) => {
-                    if (EQUIPMENTS[item.id].critDamageMultiplierBonus) {
-                        return critDamageMultiplierBonus + EQUIPMENTS[item.id].critDamageMultiplierBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.critDamageMultiplierBonus) {
+                        return critDamageMultiplierBonus + currentEquipment.critDamageMultiplierBonus
                     } else {
                         return critDamageMultiplierBonus
                     }
@@ -430,15 +476,17 @@ export const getEquippedPlayer = (state) => {
 
         moveSpeed: state.gameState.player.stats.moveSpeed + state.gameState.player.setups[equippedSetup].reduce(
             (moveSpeedBonus, item) => {
-                if (EQUIPMENTS[item.id].moveSpeedBonus) {
-                    return moveSpeedBonus + EQUIPMENTS[item.id].moveSpeedBonus
+                let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                if (currentEquipment.moveSpeedBonus) {
+                    return moveSpeedBonus + currentEquipment.moveSpeedBonus
                 } else {
                     return moveSpeedBonus
                 }
             }, 0) + state.gameState.player.equippedItems.reduce(
                 (moveSpeedBonus, item) => {
-                    if (EQUIPMENTS[item.id].moveSpeedBonus) {
-                        return moveSpeedBonus + EQUIPMENTS[item.id].moveSpeedBonus
+                    let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+                    if (currentEquipment.moveSpeedBonus) {
+                        return moveSpeedBonus + currentEquipment.moveSpeedBonus
                     } else {
                         return moveSpeedBonus
                     }
@@ -466,26 +514,26 @@ export const getEquippedPlayer = (state) => {
     // Setup Bonuses
 
     state.gameState.player.setups[equippedSetup].forEach(equipmentBonus => {
-        let equipment = EQUIPMENTS[equipmentBonus.id]
+        let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === equipmentBonus.id)
 
         // Milestone Bonuses
 
-        if (equipment.specialEffect && equipment.specialEffect === "bonusPerMilestone") {
-            let bonusLevels = Math.floor(state.gameState.milestoneAmounts[equipment.specialEffectBonus.milestoneType][equipment.specialEffectBonus.milestoneSubtype] / equipment.specialEffectBonus.amount)
+        if (currentEquipment.specialEffect && currentEquipment.specialEffect === "bonusPerMilestone") {
+            let bonusLevels = Math.floor(state.gameState.milestoneAmounts[currentEquipment.specialEffectBonus.milestoneType][currentEquipment.specialEffectBonus.milestoneSubtype] / currentEquipment.specialEffectBonus.amount)
 
-            if (bonusLevels > equipment.specialEffectBonus.bonusCap) {
-                bonusLevels = equipment.specialEffectBonus.bonusCap
+            if (bonusLevels > currentEquipment.specialEffectBonus.bonusCap) {
+                bonusLevels = currentEquipment.specialEffectBonus.bonusCap
             }
 
-            Object.entries(equipment.specialEffectBonus.bonusPerLevel).forEach(stat => {
+            Object.entries(currentEquipment.specialEffectBonus.bonusPerLevel).forEach(stat => {
                 equippedPlayer[stat[0]] += (stat[1] * bonusLevels)
             })
         }
 
         // Boss-fight Only Bonuses
 
-        if (equipment.duringBossFightBonus && state.gameState.currentEnemy.type === 'boss') {
-            Object.entries(equipment.duringBossFightBonus).forEach(stat => {
+        if (currentEquipment.duringBossFightBonus && state.gameState.currentEnemy.type === 'boss') {
+            Object.entries(currentEquipment.duringBossFightBonus).forEach(stat => {
                 equippedPlayer[stat[0]] += stat[1]
             })
         }
@@ -494,26 +542,26 @@ export const getEquippedPlayer = (state) => {
     // Equipment Bonuses
 
     state.gameState.player.equippedItems.forEach(equipmentBonus => {
-        let equipment = EQUIPMENTS[equipmentBonus.id]
+        let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === equipmentBonus.id)
 
         // Milestone Bonuses
 
-        if (equipment.specialEffect && equipment.specialEffect === "bonusPerMilestone") {
-            let bonusLevels = Math.floor(state.gameState.milestoneAmounts[equipment.specialEffectBonus.milestoneType][equipment.specialEffectBonus.milestoneSubtype] / equipment.specialEffectBonus.amount)
+        if (currentEquipment.specialEffect && currentEquipment.specialEffect === "bonusPerMilestone") {
+            let bonusLevels = Math.floor(state.gameState.milestoneAmounts[currentEquipment.specialEffectBonus.milestoneType][currentEquipment.specialEffectBonus.milestoneSubtype] / currentEquipment.specialEffectBonus.amount)
 
-            if (bonusLevels > equipment.specialEffectBonus.bonusCap) {
-                bonusLevels = equipment.specialEffectBonus.bonusCap
+            if (bonusLevels > currentEquipment.specialEffectBonus.bonusCap) {
+                bonusLevels = currentEquipment.specialEffectBonus.bonusCap
             }
 
-            Object.entries(equipment.specialEffectBonus.bonusPerLevel).forEach(stat => {
+            Object.entries(currentEquipment.specialEffectBonus.bonusPerLevel).forEach(stat => {
                 equippedPlayer[stat[0]] += (stat[1] * bonusLevels)
             })
         }
 
         // Boss-fight Only Bonuses
 
-        if (equipment.duringBossFightBonus && state.gameState.currentEnemy.type === 'boss') {
-            Object.entries(equipment.duringBossFightBonus).forEach(stat => {
+        if (currentEquipment.duringBossFightBonus && state.gameState.currentEnemy.type === 'boss') {
+            Object.entries(currentEquipment.duringBossFightBonus).forEach(stat => {
                 equippedPlayer[stat[0]] += stat[1]
             })
         }
@@ -528,11 +576,13 @@ export const getPlayerEquipment = (state) => {
     const equippedSetup = state.gameState.player.equippedSetup
 
     state.gameState.player.setups[equippedSetup].forEach(item => {
-        playerEquipments[EQUIPMENTS[item.id].slot] = EQUIPMENTS[item.id]
+        let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+        playerEquipments[currentEquipment.slot] = currentEquipment
     });
 
     state.gameState.player.equippedItems.forEach(item => {
-        playerEquipments[EQUIPMENTS[item.id].slot] = EQUIPMENTS[item.id]
+        let currentEquipment = EQUIPMENTS.find((equipment) => equipment.id === item.id)
+        playerEquipments[currentEquipment.slot] = currentEquipment
     });
 
 
